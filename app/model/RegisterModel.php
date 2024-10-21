@@ -107,8 +107,8 @@ class RegisterModel
     }
 
     public function userRegistration($username, $nombreCompleto, $fechaDeNacimiento, $sexo, $password, $confirmPassword, $ubicacion, $email, $rol, $foto, $fechaDeRegistro, $verify_token) {
-        $sql = "INSERT INTO usuarios (usuario, nombre_completo, fecha_nacimiento, sexo, contraseña, ubicacion, email, foto, fecha_registro, verify_token)
-            VALUES ('$username', '$nombreCompleto', '$fechaDeNacimiento', '$sexo', '$password', '$ubicacion', '$email', '$foto', '$fechaDeRegistro', '$verify_token')";
+        $sql = "INSERT INTO usuarios (nombre_completo, fecha_nacimiento,usuario, email,contraseña,ubicacion, rol, foto, sexo, fecha_registro, verify_token)
+            VALUES ('$nombreCompleto', '$fechaDeNacimiento','$username', '$email', '$password', '$ubicacion', '$rol', '$foto', '$sexo','$fechaDeRegistro','$verify_token')";
 
         $this->sendemail_verify($nombreCompleto,$email, $verify_token);
 

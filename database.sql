@@ -6,6 +6,7 @@ CREATE TABLE usuarios (
                           email VARCHAR(100) NOT NULL UNIQUE,
                           contraseña VARCHAR(255) NOT NULL,
                           ubicacion VARCHAR(50) NOT NULL,
+                          rol VARCHAR(50) NOT NULL,
                           foto VARCHAR(255),
                           sexo ENUM('masculino', 'femenino', 'otro') NOT NULL,
                           fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

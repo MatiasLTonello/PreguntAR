@@ -28,7 +28,7 @@ class RegisterController
         $hashPassword = md5($password);
         $fechaDeRegistro = $this->registerModel->getFechaDeRegistro()[0]["fechaDeRegistro"];
         $ubicacion = $_POST['ubicacion'];
-        $foto = $_POST['foto'];
+        $foto = $_FILES["foto"]["name"];
         $sexo = $_POST['sexo'];
 
         $rol = 'jugador';
@@ -54,8 +54,8 @@ class RegisterController
                 $confirmPassword,
                 $ubicacion,
                 $email,
-                $foto,
                 $rol,
+                $foto,
                 $fechaDeRegistro,
                 $verify_token);
             if ($method) {
