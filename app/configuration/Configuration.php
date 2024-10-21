@@ -9,10 +9,12 @@ include_once("controller/HomeController.php");
 include_once("controller/LoginController.php");
 include_once("controller/LogoutController.php");
 include_once("controller/RegisterController.php");
+include_once("controller/ProfileController.php");
 
 include_once("model/LoginModel.php");
 include_once("model/HomeModel.php");
 include_once("model/RegisterModel.php");
+include_once("model/ProfileModel.php");
 
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
@@ -32,6 +34,11 @@ class Configuration
     public function getRegisterController()
     {
         return new RegisterController($this-> getRegisterModel(), $this -> getPresenter());
+    }
+
+    public function getProfileController()
+    {
+        return new ProfileController($this-> getProfileModel(), $this -> getPresenter());
     }
 
     public function getLogoutController()
@@ -56,6 +63,10 @@ class Configuration
         return new LoginModel($this->getDatabase());
     }
 
+    private function getProfileModel()
+    {
+        return new ProfileModel($this->getDatabase());
+    }
 
     private function getPresenter()
     {
@@ -78,7 +89,7 @@ class Configuration
     {
         return new Router(
             $this,
-            "getLoginController",
+            "getHomeController",
             "list");
     }
 }

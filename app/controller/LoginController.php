@@ -26,7 +26,7 @@ class LoginController
         $password = $_POST['contrasenia'];
         $hashPassword = md5($password);
         $usuario = $this->model->getUser($username, $hashPassword);
-        $idUsuario = $usuario[0]['idUsuario'] ?? "";
+        $idUsuario = $usuario[0]['id'] ?? "";
         $usuarioVerificado = $usuario[0]['esta_verificado'] ?? "";
 
 
