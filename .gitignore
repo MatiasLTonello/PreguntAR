@@ -1,0 +1,5 @@
+# Ignorar la carpeta de configuración de IDEs como IntelliJ o WebStorm
+.idea/
+
+# Ignorar el archivo .DS_Store generado por macOS
+.DS_Store
