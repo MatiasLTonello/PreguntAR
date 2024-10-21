@@ -38,8 +38,8 @@ class LoginController
             }
             header('location: /home');
         } else {
-            $error['errorDatos'] = "El username o contraseña son incorrectos";
-            $this->presenter->show('login', $error);
+            $data['error'] = "El username o contraseña son incorrectos";
+            $this->presenter->show('login', $data);
         }
     }
     public function list()

@@ -81,9 +81,12 @@ class RegisterController
         if ($contraseniasInvalidas) {
             $this->presenter->show('register', $contraseniasInvalidas);
             return;
+        if ($contraseñasInvalidas) {
+            $this->presenter->show('register', $contraseñasInvalidas);
+            exit;
         }
 
-        if (!empty($duplicado)) {
+        if ($duplicado) {
             $data["duplicado"] = $duplicado;
             $this->presenter->render('register', $data);
         } else {
@@ -104,6 +107,27 @@ class RegisterController
                 $data['statusEmail'] = 'Registro Exitoso! Verifique su mail';
                 $this->presenter->show('register', $data);
             }
+            $this->presenter->show('register', $data);
+            exit;
+        }
+
+        $method = $this->registerModel->userRegistration(
+            $username,
+            $nombreCompleto,
+            $fechaDeNacimiento,
+            $sexo,
+            $hashPassword,
+            $confirmPassword,
+            $ubicacion,
+            $email,
+            $foto,
+            $rol,
+            $fechaDeRegistro,
+            $verify_token);
+
+        if ($method) {
+            $data['statusEmail'] = 'Registro Exitoso! Verifique su mail';
+            $this->presenter->show('register', $data);
         }
     }
 }
