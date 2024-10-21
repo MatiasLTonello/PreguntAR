@@ -110,7 +110,7 @@ class RegisterModel
         $sql = "INSERT INTO usuarios (usuario, nombre_completo, fecha_nacimiento, sexo, contraseña, ubicacion, email, foto, fecha_registro, verify_token)
             VALUES ('$username', '$nombreCompleto', '$fechaDeNacimiento', '$sexo', '$password', '$ubicacion', '$email', '$foto', '$fechaDeRegistro', '$verify_token')";
 
-        $this->sendemail_verify($nombreCompleto,$email, $verify_token);
+        //$this->sendemail_verify($nombreCompleto,$email, $verify_token);
 
         return $this->database->execute($sql);
     }
@@ -133,17 +133,19 @@ class RegisterModel
         $todosLosUsername = $this->consultarTodosLosNombresDeUsuarios();
 
         foreach ($todosLosMails as $mails) {
-            if (isset($mails["mail"]) && $mails["mail"] == $mail) {
-                $duplicado = "mail en uso ";
+            if (isset($mails["email"]) && $mails["email"] == $mail) {
+                $duplicado = "email en uso ";
                 break;
             }
         }
+
         foreach ($todosLosUsername as $user) {
-            if (isset($user["username"]) && $user["username"] == $username) {
+            if (isset($user["usuario"]) && $user["usuario"] == $username) {
                 $duplicado = $duplicado."usuario en uso!";
                 break;
             }
         }
+
         return $duplicado;
     }
 
