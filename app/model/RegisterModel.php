@@ -22,13 +22,13 @@ class RegisterModel
         // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'matiaslucianotonello11@gmail.com';       //SMTP username
-        $mail->Password   = 'wkmj ympg nggf aube';                     //SMTP password
+        $mail->Username   = 'preguntar029@gmail.com';       //SMTP username
+        $mail->Password   = 'hhcq pgdd pslu ohbc';                     //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
         $mail->Port       = 465;
 
         //Recipients
-        $mail->setFrom('matiaslucianotonello11@gmail.com', "PreguntAR");
+        $mail->setFrom('preguntar029@gmail.com', "PreguntAR");
         $mail->addAddress($email);
 
         //Content
@@ -37,7 +37,7 @@ class RegisterModel
 
         // CSS styles for the email template
         $email_template = "
-        <html>
+        <html lang='es'>
         <head>
             <style>
                 body {
@@ -99,12 +99,15 @@ class RegisterModel
 
     public function validarContrasenas($password, $confirmPassword)
     {
+
         if ($password !== $confirmPassword) {
             $data["error"] = "Las contraseñas no coinciden";
         }
 
         return $data ?? "";
     }
+
+
 
     public function userRegistration($username, $nombreCompleto, $fechaDeNacimiento, $sexo, $password, $confirmPassword, $ubicacion, $email, $rol, $foto, $fechaDeRegistro, $verify_token) {
         $sql = "INSERT INTO usuarios (nombre_completo, fecha_nacimiento,usuario, email,contraseña,ubicacion, rol, foto, sexo, fecha_registro, verify_token)
