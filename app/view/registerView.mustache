@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registrate</title>
+    <link rel="stylesheet" href="../public/css/register.css">
+</head>
+<body>
+
+
+<div class="login-page">
+    <div class="login-side">
+        <form action="/register/userRegistration" method="post" enctype="multipart/form-data" class="login-box">
+            <h4 style="color: green">
+                {{
+                statusEmail
+                }}
+            </h4>
+            <div class="line-form">
+                <label for="nombre-completo">Nombre Completo</label>
+                <input type="text" id="nombre-completo" name="nombre-completo" required>
+            </div>
+            <div class="line-form">
+                <label for="fecha-nacimiento">Fecha de Nacimiento</label>
+                <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" required>
+            </div>
+            <div class="line-form">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="line-form">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="line-form">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="line-form">
+                <label for="confirm-password">Repetir Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            <div class="line-form">
+                <label for="ubicacion">Ubicación</label>
+                <select id="ubicacion" name="ubicacion" required>
+                    <option value="buenos aires">Buenos Aires</option>
+                    <option value="catamarca">Catamarca</option>
+                    <option value="chubut">Chubut</option>
+                    <option value="córdoba">Córdoba</option>
+                    <option value="corrientes">Corrientes</option>
+                    <option value="entre rios">Entre Ríos</option>
+                    <option value="formosa">Formosa</option>
+                    <option value="jujuy">Jujuy</option>
+                    <option value="la pampa">La Pampa</option>
+                    <option value="la rioja">La Rioja</option>
+                    <option value="mendoza">Mendoza</option>
+                    <option value="misiones">Misiones</option>
+                    <option value="neuquen">Neuquén</option>
+                    <option value="rio negro">Río Negro</option>
+                    <option value="salta">Salta</option>
+                    <option value="san juan">San Juan</option>
+                    <option value="san luis">San Luis</option>
+                    <option value="santa cruz">Santa Cruz</option>
+                    <option value="santa fe">Santa Fe</option>
+                    <option value="santiago del estero">Santiago del Estero</option>
+                    <option value="tierra del fuego">Tierra del fuego</option>
+                    <option value="tucuman">Tucumán</option>
+                </select>
+            </div>
+            <div class="line-form">
+                <label for="foto">Foto</label>
+                <input type="text" id="foto" name="foto" accept="image/*">
+            </div>
+            <div class="line-form">
+                <label for="sexo">Sexo</label>
+                <select id="sexo" name="sexo" required>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-gral">Registrarse</button>
+            <p class="txtReg">¿Ya tenés una cuenta? <a class="txtReg2" href="/login/login">Inicia sesión</a></p>
+            <h4>
+                {{
+                error
+                }}
+            </h4>
+            {{#duplicado}}
+            <p>{{duplicado}}</p>
+            {{/duplicado}}
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>

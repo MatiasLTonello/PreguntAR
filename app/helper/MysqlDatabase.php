@@ -16,8 +16,16 @@ class MysqlDatabase
         return  mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    public function execute($sql){
+        mysqli_query($this->conn, $sql);
+        return $this->conn->affected_rows;
+    }
+
     public function __destruct()
     {
         mysqli_close($this->conn);
+    }
+    public function insert($sql) {
+        return mysqli_query($this->connection, $sql);
     }
 }

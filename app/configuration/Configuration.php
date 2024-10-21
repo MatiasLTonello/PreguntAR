@@ -5,13 +5,15 @@ include_once("helper/IncludeFilePresenter.php");
 include_once("helper/Router.php");
 include_once("helper/MustachePresenter.php");
 
-include_once("model/PresentacionesModel.php");
-include_once("model/CancionesModel.php");
+include_once("controller/HomeController.php");
+include_once("controller/LoginController.php");
+include_once("controller/LogoutController.php");
+include_once("controller/RegisterController.php");
 
-include_once("controller/PresentancionesController.php");
-include_once("controller/CancionesController.php");
-include_once("controller/LaBandaController.php");
-include_once("controller/PruebaController.php");
+include_once("model/LoginModel.php");
+include_once("model/HomeModel.php");
+include_once("model/RegisterModel.php");
+
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
@@ -21,35 +23,39 @@ class Configuration
     {
     }
 
-    public function getPresentacionesController()
+
+    public function getHomeController()
     {
-        return new PresentancionesController($this->getPresentacionesModel(), $this->getPresenter());
+        return new HomeController($this -> getPresenter(), $this-> getHomeModel());
     }
 
-    public function getCancionesController()
+    public function getRegisterController()
     {
-        return new CancionesController($this->getCancionesModel(), $this->getPresenter());
+        return new RegisterController($this-> getRegisterModel(), $this -> getPresenter());
     }
 
-    public function getLaBandaController()
+    public function getLogoutController()
     {
-        return new LaBandaController($this->getPresenter());
+        return new LogoutController();
+    }
+    public function getLoginController()
+    {
+        return new LoginController($this-> getPresenter(), $this-> getLoginModel());
+    }
+    private function getRegisterModel()
+    {
+        return new RegisterModel($this->getDatabase());
+    }
+    private function getHomeModel()
+    {
+        return new HomeModel($this->getDatabase());
     }
 
-    public function getPruebaController()
+    private function getLoginModel()
     {
-        return new PruebaController($this->getPresenter());
+        return new LoginModel($this->getDatabase());
     }
 
-    private function getPresentacionesModel()
-    {
-        return new PresentacionesModel($this->getDatabase());
-    }
-
-    private function getCancionesModel()
-    {
-        return new CancionesModel($this->getDatabase());
-    }
 
     private function getPresenter()
     {
@@ -70,6 +76,9 @@ class Configuration
 
     public function getRouter()
     {
-        return new Router($this, "getLaBandaController", "list");
+        return new Router(
+            $this,
+            "getLoginController",
+            "list");
     }
 }
