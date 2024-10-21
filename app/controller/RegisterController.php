@@ -28,22 +28,64 @@ class RegisterController
         $hashPassword = md5($password);
         $fechaDeRegistro = $this->registerModel->getFechaDeRegistro()[0]["fechaDeRegistro"];
         $ubicacion = $_POST['ubicacion'];
-        $foto = $_FILES["foto"]["name"];
+        $foto = null;
+        if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] == 0 && $_FILES["foto"]["size"] > 0 )
+        {
+            $foto = $_FILES["foto"]["name"];
+            move_uploaded_file($_FILES["foto"]["tmp_name"], './public/img/' .$foto);
+        }
+
+
         $sexo = $_POST['sexo'];
 
         $rol = 'jugador';
         $verify_token = md5(rand());
         $duplicado = $this->registerModel->estaDuplicado($email, $username);
-        $contraseñasInvalidas = $this->registerModel->validarContrasenas($password, $confirmPassword);
+        $contraseniasInvalidas = $this->registerModel->validarContrasenas($password, $confirmPassword);
 
-        if ($contraseñasInvalidas) {
-            $this->presenter->show('register', $contraseñasInvalidas);
+        $errores = [];
+
+        if (empty($nombreCompleto)) {
+            $errores['nombre-completo'] = 'El nombre completo es obligatorio.';
+        }
+        if (empty($fechaDeNacimiento)) {
+            $errores['fecha-nacimiento'] = 'La fecha de nacimiento es obligatoria.';
+        }
+        if (empty($username)) {
+            $errores['username'] = 'El usuario es obligatorio.';
+        }
+        if (empty($email)) {
+            $errores['email'] = 'El email es obligatorio.';
+        }
+        if (empty($password)) {
+            $errores['password'] = 'La contraseña es obligatoria.';
+        }
+        if (empty($confirmPassword)) {
+            $errores['confirm-password'] = 'Debes repetir la contraseña.';
+        }
+
+        if($foto == null){
+            $foto = 'default-profile.png';
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errores['email'] = 'El formato de email no es válido.';
+        }
+
+        // Si hay errores, devolverlos a la vista
+        if (!empty($errores)) {
+            $this->presenter->show('register', ['errores' => $errores]);
+            return;
+        }
+
+        if ($contraseniasInvalidas) {
+            $this->presenter->show('register', $contraseniasInvalidas);
+            return;
         }
 
         if (!empty($duplicado)) {
             $data["duplicado"] = $duplicado;
             $this->presenter->render('register', $data);
-
         } else {
             $method = $this->registerModel->userRegistration(
                 $username,
