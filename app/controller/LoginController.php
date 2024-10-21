@@ -12,7 +12,6 @@ class LoginController
     }
     public function login()
     {
-        $this->presenter->show('login');
         if (isset($_GET['token'])) {
             $token = $_GET['token'];
             $this->model->setUserVerified($token);

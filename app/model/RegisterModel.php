@@ -86,7 +86,7 @@ class RegisterModel
             <div class='container'>
                 <h2>Hola $nombreCompleto! Te has registrado en PreguntAR</h2>
                 <p>Verifica tu correo electr&oacute;nico con el siguiente enlace:</p>
-                <a href='http://localhost/login?token=$verify_token'>Verificar correo electr&oacute;nico</a>
+                <a href='http://localhost/login/login?token=$verify_token'>Verificar correo electr&oacute;nico</a>
             </div>
         </body>
         </html>
@@ -113,7 +113,7 @@ class RegisterModel
         $sql = "INSERT INTO usuarios (nombre_completo, fecha_nacimiento,usuario, email,contraseña,ubicacion, rol, foto, sexo, fecha_registro, verify_token)
             VALUES ('$nombreCompleto', '$fechaDeNacimiento','$username', '$email', '$password', '$ubicacion', '$rol', '$foto', '$sexo','$fechaDeRegistro','$verify_token')";
 
-        //$this->sendemail_verify($nombreCompleto,$email, $verify_token);
+        $this->sendemail_verify($nombreCompleto,$email, $verify_token);
 
         return $this->database->execute($sql);
     }
