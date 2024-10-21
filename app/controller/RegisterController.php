@@ -88,7 +88,7 @@ class RegisterController
 
         if ($duplicado) {
             $data["duplicado"] = $duplicado;
-            $this->presenter->render('register', $data);
+            $this->presenter->show('register', $data);
         } else {
             $method = $this->registerModel->userRegistration(
                 $username,
