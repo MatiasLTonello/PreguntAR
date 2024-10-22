@@ -34,10 +34,7 @@ class RegisterController
             $foto = $_FILES["foto"]["name"];
             move_uploaded_file($_FILES["foto"]["tmp_name"], './public/img/' .$foto);
         }
-
-
         $sexo = $_POST['sexo'];
-
         $rol = 'jugador';
         $verify_token = md5(rand());
         $duplicado = $this->registerModel->estaDuplicado($email, $username);
@@ -93,13 +90,13 @@ class RegisterController
                 $fechaDeNacimiento,
                 $sexo,
                 $hashPassword,
-                $confirmPassword,
                 $ubicacion,
                 $email,
                 $rol,
                 $foto,
                 $fechaDeRegistro,
-                $verify_token);
+                $verify_token
+            );
             if ($method) {
                 $data['statusEmail'] = 'Registro Exitoso! Verifique su mail';
                 $this->presenter->show('register', $data);

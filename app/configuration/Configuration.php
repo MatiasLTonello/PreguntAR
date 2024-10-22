@@ -4,6 +4,7 @@ include_once("helper/MysqlObjectDatabase.php");
 include_once("helper/IncludeFilePresenter.php");
 include_once("helper/Router.php");
 include_once("helper/MustachePresenter.php");
+include_once ("helper/EmailHelper.php");
 
 include_once("controller/HomeController.php");
 include_once("controller/LoginController.php");
@@ -51,7 +52,7 @@ class Configuration
     }
     private function getRegisterModel()
     {
-        return new RegisterModel($this->getDatabase());
+        return new RegisterModel($this->getDatabase(), $this->getEmailHelper());
     }
     private function getHomeModel()
     {
@@ -91,5 +92,9 @@ class Configuration
             $this,
             "getHomeController",
             "list");
+    }
+
+    public function getEmailHelper(){
+        return new EmailHelper();
     }
 }
