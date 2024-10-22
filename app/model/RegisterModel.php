@@ -49,17 +49,19 @@ class RegisterModel
         $todosLosUsername = $this->consultarTodosLosNombresDeUsuarios();
 
         foreach ($todosLosMails as $mails) {
-            if (isset($mails["mail"]) && $mails["mail"] == $mail) {
-                $duplicado = "mail en uso ";
+            if (isset($mails["email"]) && $mails["email"] == $mail) {
+                $duplicado = "email en uso ";
                 break;
             }
         }
+
         foreach ($todosLosUsername as $user) {
-            if (isset($user["username"]) && $user["username"] == $username) {
+            if (isset($user["usuario"]) && $user["usuario"] == $username) {
                 $duplicado = $duplicado."usuario en uso!";
                 break;
             }
         }
+
         return $duplicado;
     }
 

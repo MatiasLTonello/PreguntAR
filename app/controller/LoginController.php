@@ -12,7 +12,6 @@ class LoginController
     }
     public function login()
     {
-        $this->presenter->show('login');
         if (isset($_GET['token'])) {
             $token = $_GET['token'];
             $this->model->setUserVerified($token);
@@ -38,8 +37,8 @@ class LoginController
             }
             header('location: /home');
         } else {
-            $error['errorDatos'] = "El username o contraseña son incorrectos";
-            $this->presenter->show('login', $error);
+            $data['error'] = "El username o contraseña son incorrectos";
+            $this->presenter->show('login', $data);
         }
     }
     public function list()

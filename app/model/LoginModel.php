@@ -16,7 +16,7 @@ class LoginModel
     }
 
     public function setUserVerified($token) {
-        $query =  "UPDATE usuarios SET esta_verificado = 'true' WHERE verify_token = '$token'";
+        $query =  "UPDATE usuarios SET esta_verificado = 1 WHERE verify_token = '$token'";
         return $this->database->execute($query);
     }
 

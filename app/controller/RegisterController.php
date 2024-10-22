@@ -72,12 +72,7 @@ class RegisterController
         // Si hay errores, devolverlos a la vista
         if (!empty($errores)) {
             $this->presenter->show('register', ['errores' => $errores]);
-            return;
-        }
-
-        if ($contraseniasInvalidas) {
-            $this->presenter->show('register', $contraseniasInvalidas);
-            return;
+            exit;
         }
 
         if (!empty($duplicado)) {
@@ -100,6 +95,7 @@ class RegisterController
             if ($method) {
                 $data['statusEmail'] = 'Registro Exitoso! Verifique su mail';
                 $this->presenter->show('register', $data);
+                exit;
             }
         }
     }
