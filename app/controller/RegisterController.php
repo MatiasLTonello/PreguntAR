@@ -34,10 +34,7 @@ class RegisterController
             $foto = $_FILES["foto"]["name"];
             move_uploaded_file($_FILES["foto"]["tmp_name"], './public/img/' .$foto);
         }
-
-
         $sexo = $_POST['sexo'];
-
         $rol = 'jugador';
         $verify_token = md5(rand());
         $duplicado = $this->registerModel->estaDuplicado($email, $username);
@@ -78,30 +75,28 @@ class RegisterController
             exit;
         }
 
-        if ($duplicado) {
+        if (!empty($duplicado)) {
             $data["duplicado"] = $duplicado;
-            $this->presenter->show('register', $data);
-            exit;
-        }
-
-        $method = $this->registerModel->userRegistration(
-            $username,
-            $nombreCompleto,
-            $fechaDeNacimiento,
-            $sexo,
-            $hashPassword,
-            $confirmPassword,
-            $ubicacion,
-            $email,
-            $foto,
-            $rol,
-            $fechaDeRegistro,
-            $verify_token);
-
-        if ($method) {
-            $data['statusEmail'] = 'Registro Exitoso! Verifique su mail';
-            $this->presenter->show('register', $data);
-            exit;
+            $this->presenter->render('register', $data);
+        } else {
+            $method = $this->registerModel->userRegistration(
+                $username,
+                $nombreCompleto,
+                $fechaDeNacimiento,
+                $sexo,
+                $hashPassword,
+                $ubicacion,
+                $email,
+                $rol,
+                $foto,
+                $fechaDeRegistro,
+                $verify_token
+            );
+            if ($method) {
+                $data['statusEmail'] = 'Registro Exitoso! Verifique su mail';
+                $this->presenter->show('register', $data);
+                exit;
+            }
         }
     }
 }
