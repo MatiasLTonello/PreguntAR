@@ -40,9 +40,12 @@ class PartidaModel
         return $this->database->query($query);
     }
 
-    public function getOpcionCorrecta($idOpcion)
+    public function getOpcionCorrecta($opciones)
     {
-        $query = "SELECT * FROM opciones WHERE id = '$idOpcion' AND es_correcta = 1";
-        return $this->database->query($query);
+        foreach ($opciones as $opcion) {
+            if ($opcion['es_correcta']) {
+                return $opcion;
+            }
+        }
     }
 }
