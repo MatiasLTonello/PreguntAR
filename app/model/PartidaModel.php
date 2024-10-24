@@ -16,15 +16,27 @@ class PartidaModel
         return $this->database->query($query);
     }
 
+    public function setHistorialPreguntas($idUsuario, $idPregunta, $contestoCorrectamente)
+    {
+        $query = "INSERT INTO historial_usuarios_preguntas (id_usuario, id_pregunta, contesto_correctamente) VALUES ('$idUsuario', '$idPregunta', '$contestoCorrectamente')";
+        return $this->database->execute($query);
+    }
+
+    public function getHistorialPreguntas($idUsuario)
+    {
+        $query = "SELECT hp.id, p.pregunta, hp.contesto_correctamente FROM historial_usuarios_preguntas hp JOIN preguntas p ON hp.id_pregunta = p.id WHERE hp.id_usuario = '$idUsuario'";
+        return $this->database->query($query);
+    }
+
     public function getPreguntas()
     {
         $query = "SELECT * FROM preguntas";
         return $this->database->query($query);
     }
 
-    public function getPreguntaRandom()
+    public function getPreguntaRandomSinRepetir($idUsuario)
     {
-        $query = "SELECT * FROM preguntas ORDER BY RAND() LIMIT 1";
+        $query = "SELECT * FROM preguntas WHERE id NOT IN (SELECT id_pregunta FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario') ORDER BY RAND() LIMIT 1";
         return $this->database->query($query);
     }
 

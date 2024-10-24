@@ -29,7 +29,9 @@ class PartidaController
 
             if ($_POST['respuesta'] == $opcionCorrecta['id']) {
                 $data['respuesta'] = "¡Correcto!";
+                $this->model->setHistorialPreguntas($_SESSION['actualUser'], $_GET['pregunta'], 1);
             } else {
+                $this->model->setHistorialPreguntas($_SESSION['actualUser'], $_GET['pregunta'], 0);
                 header('Location: /partida/respuestaIncorrecta?pregunta=' . $_GET['pregunta']);
             }
         } else {
@@ -37,7 +39,12 @@ class PartidaController
             $data['esCorrecto'] = false;
         }
 
-        $pregunta = $this->model->getPreguntaRandom();
+        $pregunta = $this->model->getPreguntaRandomSinRepetir($_SESSION['actualUser']);
+        if (empty($pregunta)) {
+            header('Location: /partida/fin');
+            exit();
+        }
+
         $categoria = $this->model->getCategoria($pregunta[0]['id_categoria']);
         $opciones = $this->model->getOpciones($pregunta[0]['id']);
 
@@ -72,5 +79,20 @@ class PartidaController
         $data['opcionCorrecta'] = $opcionCorrecta['opcion'];
 
         $this->presenter->show('respuestaIncorrecta', $data);
+    }
+
+    public function fin()
+    {
+        // Verifica si 'user' y 'actualUser' están definidas en la sesión
+        if (!isset($_SESSION['user']) || !isset($_SESSION['actualUser'])) {
+            header('Location: /login');
+            exit();
+        }
+
+        $data['user'] = $_SESSION['user'];
+        $data['usuarioActual'] = $this->model->getUserById($_SESSION['actualUser']);
+
+        $data['historial'] = $this->model->getHistorialPreguntas($_SESSION['actualUser']);
+        $this->presenter->show('fin', $data);
     }
 }

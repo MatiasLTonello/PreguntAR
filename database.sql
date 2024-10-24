@@ -4,14 +4,12 @@ CREATE DATABASE preguntar;
 
 USE preguntar;
 
-CREATE TABLE
-    roles (
+CREATE TABLE roles (
         id INT AUTO_INCREMENT PRIMARY KEY,
         descripcion VARCHAR(50) NOT NULL
     );
 
-CREATE TABLE
-    usuarios (
+CREATE TABLE usuarios (
         id INT AUTO_INCREMENT PRIMARY KEY,
         nombre_completo VARCHAR(100) NOT NULL,
         fecha_nacimiento DATE NOT NULL,
@@ -28,8 +26,7 @@ CREATE TABLE
         FOREIGN KEY (id_rol) REFERENCES roles (id)
     );
 
-CREATE TABLE
-    partidas (
+CREATE TABLE partidas (
         id INT AUTO_INCREMENT PRIMARY KEY,
         puntaje INT,
         fecha DATE,
@@ -37,23 +34,20 @@ CREATE TABLE
         FOREIGN KEY (id_usuario) REFERENCES usuarios (id)
     );
 
-CREATE TABLE
-    categorias (
+CREATE TABLE categorias (
         id INT AUTO_INCREMENT PRIMARY KEY,
         nombre VARCHAR(50) NOT NULL,
         color VARCHAR(50) NOT NULL
     );
 
-CREATE TABLE
-    preguntas (
+CREATE TABLE preguntas (
         id INT AUTO_INCREMENT PRIMARY KEY,
         pregunta VARCHAR(255) NOT NULL,
         id_categoria INT,
         FOREIGN KEY (id_categoria) REFERENCES categorias (id)
     );
 
-CREATE TABLE
-    opciones (
+CREATE TABLE opciones (
         id INT AUTO_INCREMENT PRIMARY KEY,
         opcion VARCHAR(255) NOT NULL,
         es_correcta BOOLEAN,
@@ -61,27 +55,21 @@ CREATE TABLE
         FOREIGN KEY (id_pregunta) REFERENCES preguntas (id)
     );
 
-CREATE TABLE
-    historial_partidas_preguntas (
+CREATE TABLE historial_usuarios_preguntas (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        id_partida INT,
         id_usuario INT,
         id_pregunta INT,
         contesto_correctamente BOOLEAN,
-        FOREIGN KEY (id_partida) REFERENCES partidas (id),
         FOREIGN KEY (id_usuario) REFERENCES usuarios (id),
         FOREIGN KEY (id_pregunta) REFERENCES preguntas (id)
     );
 
-INSERT INTO
-    roles (descripcion)
-VALUES
+INSERT INTO roles (descripcion) VALUES
     ('admin'),
     ('editor'),
     ('jugador');
 
-INSERT INTO
-    usuarios (
+INSERT INTO usuarios (
         nombre_completo,
         fecha_nacimiento,
         usuario,
@@ -94,22 +82,9 @@ INSERT INTO
         fecha_registro,
         verify_token,
         esta_verificado
-    )
-VALUES
-    (
-        'Juan Perez',
-        '2000-1-01',
-        'test',
-        'test@test.com',
-        'test',
-        'Argentina',
-        1,
-        'test.png',
-        'masculino',
-        current_timestamp(),
-        '',
-         '0'
-            );
+    ) VALUES 
+    ('Juan Perez', '2000-1-01', 'test', 'test@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0'), -- contraseña: test
+    ('Leo Arias', '2000-1-01', 'leo', 'correo@correo.com', '202cb962ac59075b964b07152d234b70' , 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '1'); -- contraseña: 123
 
 INSERT INTO categorias (nombre, color) VALUES
     ('Historia', '#ffce54'),
