@@ -26,17 +26,26 @@ class PartidaController
         if (isset($_POST['respuesta'])) {
             $opciones = $this->model->getOpciones($_GET['pregunta']);
             $opcionCorrecta = $this->model->getOpcionCorrecta($opciones);
+            $partida = $this->model->getPartidaEnCurso($_SESSION['actualUser']);
 
             if ($_POST['respuesta'] == $opcionCorrecta['id']) {
                 $data['respuesta'] = "¡Correcto!";
                 $this->model->setHistorialPreguntas($_SESSION['actualUser'], $_GET['pregunta'], 1);
+                $this->model->setPuntaje($partida[0]['id'], $partida[0]['puntaje'] + 1);
             } else {
                 $this->model->setHistorialPreguntas($_SESSION['actualUser'], $_GET['pregunta'], 0);
-                header('Location: /partida/respuestaIncorrecta?pregunta=' . $_GET['pregunta']);
+                $this->model->setPartidaTerminada($partida[0]['id']);
+                header('Location: /partida/respuestaIncorrecta?pregunta=' . $_GET['pregunta'] . '&puntaje=' . $partida[0]['puntaje']);
+                exit();
             }
+        }
+
+        if ($this->model->getPartidaEnCurso($_SESSION['actualUser'])) {
+            $partida = $this->model->getPartidaEnCurso($_SESSION['actualUser']);
+            $data['puntaje'] = $partida[0]['puntaje'];
         } else {
-            $data['respuesta'] = "";
-            $data['esCorrecto'] = false;
+            $this->model->setPartida($_SESSION['actualUser'], 0, date('Y-m-d'), 0);
+            $data['puntaje'] = 0;
         }
 
         $pregunta = $this->model->getPreguntaRandomSinRepetir($_SESSION['actualUser']);
@@ -72,11 +81,11 @@ class PartidaController
         $data['user'] = $_SESSION['user'];
         $data['usuarioActual'] = $this->model->getUserById($_SESSION['actualUser']);
 
-
         $opciones = $this->model->getOpciones($_GET['pregunta']);
         $opcionCorrecta = $this->model->getOpcionCorrecta($opciones);
 
         $data['opcionCorrecta'] = $opcionCorrecta['opcion'];
+        $data['puntaje'] = $_GET['puntaje'];
 
         $this->presenter->show('respuestaIncorrecta', $data);
     }

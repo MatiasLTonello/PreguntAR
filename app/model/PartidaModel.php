@@ -16,6 +16,30 @@ class PartidaModel
         return $this->database->query($query);
     }
 
+    public function setPartida($idUsuario, $puntaje, $fecha, $terminada)
+    {
+        $query = "INSERT INTO partidas (id_usuario, puntaje, fecha, terminada) VALUES ('$idUsuario', '$puntaje', '$fecha', '$terminada')";
+        return $this->database->execute($query);
+    }
+
+    public function getPartidaEnCurso($idUsuario)
+    {
+        $query = "SELECT * FROM partidas WHERE id_usuario = '$idUsuario' AND terminada = 0";
+        return $this->database->query($query);
+    }
+
+    public function setPuntaje($idPartida, $puntaje)
+    {
+        $query = "UPDATE partidas SET puntaje = '$puntaje' WHERE id = '$idPartida'";
+        return $this->database->execute($query);
+    }
+
+    public function setPartidaTerminada($idPartida)
+    {
+        $query = "UPDATE partidas SET terminada = 1 WHERE id = '$idPartida'";
+        return $this->database->execute($query);
+    }
+
     public function setHistorialPreguntas($idUsuario, $idPregunta, $contestoCorrectamente)
     {
         $query = "INSERT INTO historial_usuarios_preguntas (id_usuario, id_pregunta, contesto_correctamente) VALUES ('$idUsuario', '$idPregunta', '$contestoCorrectamente')";

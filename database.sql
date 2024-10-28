@@ -31,6 +31,7 @@ CREATE TABLE partidas (
         puntaje INT,
         fecha DATE,
         id_usuario INT,
+        terminada BOOLEAN,
         FOREIGN KEY (id_usuario) REFERENCES usuarios (id)
     );
 
