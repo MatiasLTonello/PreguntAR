@@ -10,33 +10,62 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card shadow-lg">
                 <div class="card-header bg-primary text-white text-center">
                     <h3>Perfil de {{usuario}}</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
+                        <!-- Foto de perfil y código QR -->
                         <div class="col-md-4 text-center">
-                            <img src="/path/to/images/{{foto}}" alt="Foto de Perfil" class="img-fluid rounded-circle mb-3" style="max-width: 150px;"
-                                 onerror="this.onerror=null;this.src='/path/to/images/default.jpg';">                        </div>
+                            <img src="/path/to/images/{{foto}}" alt="Foto de Perfil" class="img-fluid rounded-circle mb-3 shadow-sm" style="max-width: 150px;"
+                                 onerror="this.onerror=null;this.src='../public/img/default-profile.png';">
+                            <div>
+                                <img src="../public/qr.php?id={{id}}" alt="QR Code" class="img-fluid rounded shadow-sm mt-2" style="max-width: 100px;">
+                            </div>
+                        </div>
+
+                        <!-- Información del usuario y mapa -->
                         <div class="col-md-8">
-                            <h4>Nombre Completo:</h4>
-                            <p>{{nombre_completo}}</p>
+                            <div class="mapContainer mb-4 p-2 rounded shadow-sm" style="border: 1px solid #e0e0e0;">
+                                <iframe
+                                        width="100%"
+                                        height="300"
+                                        style="border:0; border-radius: 8px;"
+                                        loading="lazy"
+                                        allowfullscreen
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxP6xiQEPFAMcksSmK-ZmzUdGZbo5rukI&q={{ubicacion}}">
+                                </iframe>
+                            </div>
 
-                            <h4>Fecha de Nacimiento:</h4>
-                            <p>{{fecha_nacimiento}}</p>
-
-                            <h4>Email:</h4>
-                            <p>{{email}}</p>
-
-                            <h4>Ubicación:</h4>
-                            <p>{{ubicacion}}</p>
-
-                            <h4>Sexo:</h4>
-                            <p>{{sexo}}</p>
-
-                            <h4>Fecha de Registro:</h4>
-                            <p>{{fecha_registro}}</p>
+                            <!-- Información detallada del perfil -->
+                            <div class="user-info">
+                                <div class="row mb-2">
+                                    <div class="col-4 font-weight-bold">Nombre Completo:</div>
+                                    <div class="col-8">{{nombre_completo}}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4 font-weight-bold">Fecha de Nacimiento:</div>
+                                    <div class="col-8">{{fecha_nacimiento}}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4 font-weight-bold">Email:</div>
+                                    <div class="col-8">{{email}}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4 font-weight-bold">Ubicación:</div>
+                                    <div class="col-8">{{ubicacion}}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4 font-weight-bold">Sexo:</div>
+                                    <div class="col-8">{{sexo}}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-4 font-weight-bold">Fecha de Registro:</div>
+                                    <div class="col-8">{{fecha_registro}}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
