@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntados - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    .Historia {
+        background-color: #ffce54;
+    }
+
+    .Geografia {
+        background-color: #4a90e2;
+    }
+
+    .Ciencia {
+        background-color: #55ba69;
+    }
+
+    .Deportes {
+        background-color: #f58d42;
+    }
+
+    .ArteyLiteratura {
+        background-color: #eb3939;
+    }
+
+    .Entretenimiento {
+        background-color: #ec5cca;
+    }
+</style>
+
+<body>
+    <div class="container-lg my-4">
+
+        <!-- Temporizador -->
+        <div class="d-flex justify-content-center">
+            <div class="d-flex gap-3">
+                <p class="fs-2">Tiempo restante:</p>
+                <p class="fs-2" id="timer">10</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <!-- Tarjeta de pregunta -->
+                <div class="card shadow">
+                    <div class="card-header {{categoriaColor}}">
+                        <h4 class="text-center m-2">Categoría: {{categoria}}</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <p class="fs-3">
+                            {{pregunta}}
+                        </p>
+
+                        <form id="form" method="POST" action="/partida?pregunta={{preguntaId}}">
+                            <div class="row">
+                                <!-- Opción 1 y 2 en la fila superior -->
+                                <div class="col-md-6 mb-3">
+                                    <input class="btn btn-primary rounded-3 w-100 fs-2" value="{{opciones.0.opcion}}"
+                                        data-id="{{opciones.0.id}}" type="submit">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <input class="btn btn-primary rounded-3 w-100 fs-2" value="{{opciones.1.opcion}}"
+                                        data-id="{{opciones.1.id}}" type="submit">
+                                </div>
+
+                                <!-- Opción 3 y 4 en la fila inferior -->
+                                <div class="col-md-6 mb-3">
+                                    <input class="btn btn-primary rounded-3 w-100 fs-2" value="{{opciones.2.opcion}}"
+                                        data-id="{{opciones.2.id}}" type="submit">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <input class="btn btn-primary rounded-3 w-100 fs-2" value="{{opciones.3.opcion}}"
+                                        data-id="{{opciones.3.id}}" type="submit">
+                                </div>
+                            </div>
+
+                            <!-- Campo oculto para enviar la opción seleccionada -->
+                            <input type="hidden" name="respuesta" id="respuestaInput" value="">
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Mensaje de respuesta -->
+                <p class="mt-5 fs-2 fw-bold text-center text-success">
+                    {{respuesta}}
+                </p>
+
+                <!-- Resultados de la partida -->
+                <div class="mt-5">
+                    <h4>Partida actual</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item">Puntaje: <strong>{{puntaje}} puntos</strong></li>
+                        <!-- <li class="list-group-item">Preguntas correctas: <strong>3</strong></li>
+                        <li class="list-group-item">Preguntas incorrectas: <strong>1</strong></li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const opciones = document.querySelectorAll('.btn');
+        const respuestaInput = document.getElementById('respuestaInput');
+        const form = document.getElementById('form');
+
+        opciones.forEach(opcion => {
+            opcion.addEventListener('click', (e) => {
+                e.preventDefault();
+                respuestaInput.value = opcion.dataset.id;
+                form.submit();
+            });
+        });
+
+        let tiempoInicial = 9;
+        const timer = document.getElementById('timer');
+
+        const interval = setInterval(() => {
+            if (tiempoInicial === 0) {
+                clearInterval(interval);
+                form.submit();
+            }
+
+            timer.textContent = tiempoInicial;
+            tiempoInicial--;
+        }, 1000);
+
+        form.addEventListener('submit', () => {
+            clearInterval(interval);
+        });
+    </script>
+</body>
+
+</html>
