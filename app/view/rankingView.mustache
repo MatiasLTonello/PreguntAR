@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="../public/css/ranking.css">
+<body>
+<br>
+<h1 style="text-align: center">RANKING</h1>
+<main class="ranking-main">
+    <br>
+    <div class="ranking-filtro">
+        <label for="filtro" class="flechas">&#129045;&#129047;</label>
+        <select class="ranking-select" id="filtro" name="filtro" onchange="filtrar()">
+            <option selected disabled>Filtrar por...</option>
+            <option value="descPuntos">Puntos: Mayor a Menor</option>
+            <option value="ascPuntos">Puntos: Menor a Mayor</option>
+            <option value="descPartidas">Partidas: Mayor a Menor</option>
+            <option value="ascPartidas">Partidas: Menor a Mayor</option>
+        </select>
+
+    </div>
+    <br>
+    <table class="ranking-table" id="ranking-table">
+        <thead>
+        <tr>
+            <th>Posición</th>
+            <th>Nombre</th>
+            <th>Puntaje</th>
+            <th>Partidas Jugadas</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {{#users}}
+            <tr>
+                <td>{{posicion}}</td>
+                <td><a href="/profile&idUsuario={{id}}">{{nombre_completo}}</a></td>
+                <td>{{puntaje_total}}</td>
+                <td>{{partidas_jugadas}}</td>
+            </tr>
+        {{/users}}
+        </tbody>
+    </table>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../public/js/ajaxRanking.js"></script>
+</body>
+</html>

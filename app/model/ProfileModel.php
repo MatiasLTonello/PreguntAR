@@ -8,7 +8,12 @@ class ProfileModel
         $this->database = $database;
     }
     public function getUserById($id) {
-        $query = "SELECT * FROM usuarios WHERE id = '$id'";
+        $query = "
+        SELECT usuarios.*, roles.descripcion AS rol
+        FROM usuarios
+        JOIN roles ON usuarios.id_rol = roles.id
+        WHERE usuarios.id = '$id'
+    ";
         return $this->database->query($query);
     }
 }
