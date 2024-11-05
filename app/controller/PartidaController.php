@@ -14,12 +14,6 @@ class PartidaController
 
     public function list()
     {
-        // Verifica si 'user' y 'actualUser' están definidas en la sesión
-        if (!isset($_SESSION['user']) || !isset($_SESSION['actualUser'])) {
-            header('Location: /login');
-            exit();
-        }
-
         $data['user'] = $_SESSION['user'];
         $data['usuarioActual'] = $this->model->getUserById($_SESSION['actualUser']);
 
