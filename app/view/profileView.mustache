@@ -18,6 +18,16 @@
                             <div>
                                 <img src="../public/qr.php?id={{id}}" alt="QR Code" class="img-fluid rounded shadow-sm mt-2" style="max-width: 100px;">
                             </div>
+
+                            <div class="mt-4">
+                                {{#stats}}
+                                    <p>Total Partidas: {{total_partidas}}</p>
+                                    <p>Puntaje Máximo: {{puntaje_maximo}}</p>
+                                {{/stats}}
+                                {{^stats}}
+                                    <p>Juega para ver tu puntaje máximo y partidas totales.</p>
+                                {{/stats}}
+                            </div>
                         </div>
 
                         <!-- Información del usuario y mapa -->

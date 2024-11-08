@@ -13,7 +13,7 @@ class LoginController
 
     public function login()
     {
-        if (!isset($_GET['token'])) return;
+        if (!isset($_GET['token'])) exit();
 
         $this->model->setUserVerified($_GET['token']);
     }
@@ -34,7 +34,9 @@ class LoginController
 
             $data['error'] = "El username o contraseña son incorrectos";
 
-            return $this->presenter->show('login', $data);
+            $this->presenter->show('login', $data);
+
+            exit();
         }
 
         $_SESSION['actualUser'] = $idUsuario;
