@@ -26,6 +26,7 @@ class PartidaController
                 $data['respuesta'] = "¡Correcto!";
                 $this->model->setHistorialPreguntas($_SESSION['actualUser'], $_GET['pregunta'], 1);
                 $this->model->setPuntaje($partida[0]['id'], $partida[0]['puntaje'] + 1);
+                $this->model->updatePreguntaCorrecta($_GET['pregunta']);
             } else {
                 $this->model->setHistorialPreguntas($_SESSION['actualUser'], $_GET['pregunta'], 0);
                 $this->model->setPartidaTerminada($partida[0]['id']);
@@ -75,6 +76,8 @@ class PartidaController
 
         $data['user'] = $_SESSION['user'];
         $data['usuarioActual'] = $this->model->getUserById($_SESSION['actualUser']);
+        
+        $this->model->updateUserNivel($_SESSION['actualUser']);
 
         $opciones = $this->model->getOpciones($_GET['pregunta']);
         $opcionCorrecta = $this->model->getOpcionCorrecta($opciones);

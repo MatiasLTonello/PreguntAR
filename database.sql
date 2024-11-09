@@ -23,6 +23,7 @@ CREATE TABLE usuarios (
                           fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                           verify_token VARCHAR(255) NOT NULL,
                           esta_verificado BOOLEAN DEFAULT FALSE,
+                          nivel INT DEFAULT 1,
                           FOREIGN KEY (id_rol) REFERENCES roles (id)
 );
 
@@ -84,13 +85,14 @@ INSERT INTO usuarios (
     sexo,
     fecha_registro,
     verify_token,
-    esta_verificado
+    esta_verificado,
+    nivel
 ) VALUES
-      ('Juan Perez', '2000-1-01', 'test', 'test@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0'), -- contraseña: test
-      ('Sofia Morales', '1999-6-22', 'sofia', 'sofia@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0'), -- contraseña: test
-      ('Diego Rios', '2001-9-05', 'diego', 'diego@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0'), -- contraseña: test
-      ('Lucia Fernández', '2002-4-12', 'lucia', 'lucia@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0'), -- contraseña: test
-      ('Leo Arias', '2000-1-01', 'leo', 'correo@correo.com', '202cb962ac59075b964b07152d234b70' , 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '1'); -- contraseña: 123
+      ('Juan Perez', '2000-1-01', 'test', 'test@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test
+      ('Sofia Morales', '1999-6-22', 'sofia', 'sofia@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test
+      ('Diego Rios', '2001-9-05', 'diego', 'diego@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test
+      ('Lucia Fernández', '2002-4-12', 'lucia', 'lucia@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test
+      ('Leo Arias', '2000-1-01', 'leo', 'correo@correo.com', '202cb962ac59075b964b07152d234b70' , 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '1', '1'); -- contraseña: 123
 
 INSERT INTO categorias (nombre, color) VALUES
                                            ('Historia', '#ffce54'),
