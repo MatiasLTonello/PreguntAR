@@ -15,7 +15,8 @@ class LoginModel
         return $this->database->query($query);
     }
 
-    public function setUserVerified($token) {
+    public function setUserVerified($token)
+    {
         $query =  "UPDATE usuarios SET esta_verificado = 1 WHERE verify_token = '$token'";
         return $this->database->execute($query);
     }
@@ -24,12 +25,11 @@ class LoginModel
     {
         $sql = "SELECT 1 
                 FROM usuarios
-                WHERE usuario = '" . $user. "' 
+                WHERE usuario = '" . $user . "' 
                 AND contraseña = '" . $pass . "'";
 
         $usuario = $this->database->query($sql);
 
         return sizeof($usuario) == 1;
     }
-
 }

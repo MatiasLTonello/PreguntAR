@@ -26,6 +26,7 @@ class PartidaController
                 $data['respuesta'] = "¡Correcto!";
                 $this->model->setHistorialPreguntas($_SESSION['actualUser'], $_GET['pregunta'], 1);
                 $this->model->setPuntaje($partida[0]['id'], $partida[0]['puntaje'] + 1);
+                $this->model->updatePreguntaCorrecta($_GET['pregunta']);
             } else {
                 $this->model->setHistorialPreguntas($_SESSION['actualUser'], $_GET['pregunta'], 0);
                 $this->model->setPartidaTerminada($partida[0]['id']);
@@ -43,19 +44,20 @@ class PartidaController
         }
 
         $pregunta = $this->model->getPreguntaRandomSinRepetir($_SESSION['actualUser']);
+
         if (empty($pregunta)) {
             header('Location: /partida/fin');
             exit();
         }
 
-        $categoria = $this->model->getCategoria($pregunta[0]['id_categoria']);
-        $opciones = $this->model->getOpciones($pregunta[0]['id']);
+        $categoria = $this->model->getCategoria($pregunta['id_categoria']);
+        $opciones = $this->model->getOpciones($pregunta['id']);
 
         // Mezclar las opciones
         shuffle($opciones);
 
-        $data['pregunta'] = $pregunta[0]['pregunta'];
-        $data['preguntaId'] = $pregunta[0]['id'];
+        $data['pregunta'] = $pregunta['pregunta'];
+        $data['preguntaId'] = $pregunta['id'];
         $data['categoria'] = $categoria[0]['nombre'];
         $data['opciones'] = $opciones;
 
@@ -74,6 +76,8 @@ class PartidaController
 
         $data['user'] = $_SESSION['user'];
         $data['usuarioActual'] = $this->model->getUserById($_SESSION['actualUser']);
+        
+        $this->model->updateUserNivel($_SESSION['actualUser']);
 
         $opciones = $this->model->getOpciones($_GET['pregunta']);
         $opcionCorrecta = $this->model->getOpcionCorrecta($opciones);

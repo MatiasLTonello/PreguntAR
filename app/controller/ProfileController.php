@@ -11,36 +11,27 @@ class ProfileController
         $this->model = $model;
         $this->presenter = $presenter;
     }
+    
     public function list()
     {
-        /*if (isset($_SESSION['user'])) {
-            $data['user'] = $_SESSION['user'];
+
+        if (empty($_GET['idUsuario'])) {
+
+            $userId = $_SESSION['actualUser'];
+
+            $miUser = $this->model->getUserById($userId)[0];
+            $stats = $this->model->getUserStats($userId);
+
+            $data['miUser'] = $miUser;
+            $data['stats'] = $stats;
+
+        } else {
+
+            $data["otroPerfil"] = $this->model->getUserById($_GET['idUsuario']);
         }
 
-        $data['actualUser'] = $this->model->getUserById($_SESSION['actualUser'])[0];
+        $this->presenter->show('profile', $data);
 
-        $this->presenter->show('profile', $data['actualUser']);*/
-        {
-            if (empty($_GET['idUsuario'])) {
-                $idUser = $_SESSION['user'];
-                $esEditor = false;
-                $esAdmin = false;
-                $data['miUser'] = $this->model->getUserById($_SESSION['actualUser'])[0];
-                if($data['miUser']['rol'] === 'editor') {
-                    $esEditor = true;
-                }
-                if($data['miUser']['rol'] === 'admin') {
-                    $esAdmin = true;
-                }
-            } else {
-                $data["otroPerfil"] = $this->model->getUserById($_GET['idUsuario']);
-            }
-            $this->presenter->show('profile', $data);
-            exit();
-
-        }
+        exit();
     }
 }
-
-
-

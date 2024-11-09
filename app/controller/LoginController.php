@@ -10,12 +10,12 @@ class LoginController
         $this->presenter = $presenter;
         $this->model = $model;
     }
+
     public function login()
     {
-        if (isset($_GET['token'])) {
-            $token = $_GET['token'];
-            $this->model->setUserVerified($token);
-        }
+        if (!isset($_GET['token'])) exit();
+
+        $this->model->setUserVerified($_GET['token']);
     }
 
     public function ingresarlogin()
@@ -23,27 +23,34 @@ class LoginController
 
         $username = $_POST['usuario'];
         $password = $_POST['contrasenia'];
+
         $hashPassword = md5($password);
+
         $usuario = $this->model->getUser($username, $hashPassword);
+
         $idUsuario = $usuario[0]['id'] ?? "";
-        $usuarioVerificado = $usuario[0]['esta_verificado'] ?? "";
 
+        if (empty($usuario)) {
 
-        if (!empty($usuario)) {
-            $_SESSION['actualUser'] = $idUsuario;
-            $_SESSION['user'] = $username;
-            if($usuario[0]['rol'] == 'editor'){
-                $_SESSION['esEditor'] = true;
-            }
-            header('location: /home');
-        } else {
             $data['error'] = "El username o contraseña son incorrectos";
+
             $this->presenter->show('login', $data);
+
+            exit();
         }
+
+        $_SESSION['actualUser'] = $idUsuario;
+
+        $_SESSION['user'] = $username;
+        
+        if ($usuario[0]['rol'] == 'editor') $_SESSION['esEditor'] = true;
+
+        header('location: /home');
+
     }
+
     public function list()
     {
         $this->presenter->show("login");
     }
-
 }
