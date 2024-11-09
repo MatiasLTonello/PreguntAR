@@ -42,10 +42,12 @@ CREATE TABLE categorias (
 );
 
 CREATE TABLE preguntas (
-                           id INT AUTO_INCREMENT PRIMARY KEY,
-                           pregunta VARCHAR(255) NOT NULL,
-                           id_categoria INT,
-                           FOREIGN KEY (id_categoria) REFERENCES categorias (id)
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            pregunta VARCHAR(255) NOT NULL,
+                            id_categoria INT,
+                            apariciones INT DEFAULT 0,
+                            correctas INT DEFAULT 0,
+                            FOREIGN KEY (id_categoria) REFERENCES categorias (id)
 );
 
 CREATE TABLE opciones (

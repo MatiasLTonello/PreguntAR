@@ -30,7 +30,7 @@
         <div class="d-flex justify-content-center">
             <div class="d-flex gap-3">
                 <p class="fs-2">Tiempo restante:</p>
-                <p class="fs-2" id="timer">10</p>
+                <p class="fs-2" id="timer">20</p>
             </div>
         </div>
         <div class="row">
@@ -93,11 +93,17 @@
                 </div>
             </div>
         </div>
+        <audio id="timer-sound" src="../public/audio/clock.wav"></audio>
     </div>
     <script>
         const opciones = document.querySelectorAll('.btn');
         const respuestaInput = document.getElementById('respuestaInput');
         const form = document.getElementById('form');
+
+        const audio = document.getElementById('timer-sound');
+        audio.play().catch(error => {
+            console.log('Autoplay bloqueado:', error);
+        });
 
         opciones.forEach(opcion => {
             opcion.addEventListener('click', (e) => {
@@ -107,15 +113,17 @@
             });
         });
 
-        let tiempoInicial = 9;
+        let tiempoInicial = 20;
         const timer = document.getElementById('timer');
 
         const interval = setInterval(() => {
             if (tiempoInicial === 0) {
+                audio.pause();
                 clearInterval(interval);
                 form.submit();
             }
 
+            audio.play();
             timer.textContent = tiempoInicial;
             tiempoInicial--;
         }, 1000);

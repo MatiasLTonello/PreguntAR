@@ -60,8 +60,18 @@ class PartidaModel
 
     public function getPreguntaRandomSinRepetir($idUsuario)
     {
+        
         $query = "SELECT * FROM preguntas WHERE id NOT IN (SELECT id_pregunta FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario') ORDER BY RAND() LIMIT 1";
-        return $this->database->query($query);
+        
+        $pregunta = $this->database->query($query)[0];
+
+        $idPregunta = $pregunta['id'];
+        
+        $updateQuery = "UPDATE preguntas SET apariciones = apariciones + 1 WHERE id = '$idPregunta'";
+        
+        $this->database->execute($updateQuery);
+
+        return $pregunta;
     }
 
     public function getCategoria($idCategoria)

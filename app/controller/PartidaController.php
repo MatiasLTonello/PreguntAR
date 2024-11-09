@@ -43,19 +43,20 @@ class PartidaController
         }
 
         $pregunta = $this->model->getPreguntaRandomSinRepetir($_SESSION['actualUser']);
+
         if (empty($pregunta)) {
             header('Location: /partida/fin');
             exit();
         }
 
-        $categoria = $this->model->getCategoria($pregunta[0]['id_categoria']);
-        $opciones = $this->model->getOpciones($pregunta[0]['id']);
+        $categoria = $this->model->getCategoria($pregunta['id_categoria']);
+        $opciones = $this->model->getOpciones($pregunta['id']);
 
         // Mezclar las opciones
         shuffle($opciones);
 
-        $data['pregunta'] = $pregunta[0]['pregunta'];
-        $data['preguntaId'] = $pregunta[0]['id'];
+        $data['pregunta'] = $pregunta['pregunta'];
+        $data['preguntaId'] = $pregunta['id'];
         $data['categoria'] = $categoria[0]['nombre'];
         $data['opciones'] = $opciones;
 
