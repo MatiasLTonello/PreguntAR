@@ -29,8 +29,7 @@
         <!-- Temporizador -->
         <div class="d-flex justify-content-center">
             <div class="d-flex gap-3">
-                <p class="fs-2">Tiempo restante:</p>
-                <p class="fs-2" id="timer">20</p>
+                <p class="fs-2">Tiempo restante: <span id="timer"></span></p>
             </div>
         </div>
         <div class="row">
@@ -99,6 +98,7 @@
         const opciones = document.querySelectorAll('.btn');
         const respuestaInput = document.getElementById('respuestaInput');
         const form = document.getElementById('form');
+        const timerElement = document.getElementById("timer")
 
         const audio = document.getElementById('timer-sound');
         audio.play().catch(error => {
@@ -109,27 +109,32 @@
             opcion.addEventListener('click', (e) => {
                 e.preventDefault();
                 respuestaInput.value = opcion.dataset.id;
-                form.submit();
+                form.submit()
             });
         });
 
-        let tiempoInicial = 20;
-        const timer = document.getElementById('timer');
 
-        const interval = setInterval(() => {
-            if (tiempoInicial === 0) {
+        form.addEventListener('submit', () => form.reset())
+
+        const timeStampInicio = {{timestampInicioPregunta}}
+        timerElement.textContent = calcularSegundosRestantes(timeStampInicio)
+        const intervalId = setInterval(() => {
+            const segundosRestantes = calcularSegundosRestantes(timeStampInicio)
+            if(segundosRestantes>0){
+                audio.play()
+                timerElement.textContent = segundosRestantes
+            }else {
                 audio.pause();
-                clearInterval(interval);
+                clearInterval(intervalId)
                 form.submit();
             }
+        },1000)
 
-            audio.play();
-            timer.textContent = tiempoInicial;
-            tiempoInicial--;
-        }, 1000);
-
-        form.addEventListener('submit', () => {
-            clearInterval(interval);
-        });
+        function calcularSegundosRestantes(timestampInicio){
+            const segundosEspera = 10
+            const timeStampActual = Math.floor(Date.now() / 1000);
+            const segundosTranscurridos = timeStampActual-timestampInicio
+            return segundosEspera - segundosTranscurridos
+        }
     </script>
 </main>

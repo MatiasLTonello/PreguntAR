@@ -119,6 +119,12 @@ class PartidaModel
         $this->database->execute($updateQuery);
     }
 
+    public function limpiarHistorialPreguntasUsuario($idUsuario)
+    {
+        $query = "DELETE FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario'";
+        $this->database->execute($query);
+    }
+
     public function getCategoria($idCategoria)
     {
         $query = "SELECT * FROM categorias WHERE id = '$idCategoria'";
