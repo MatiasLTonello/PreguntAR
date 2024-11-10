@@ -23,6 +23,14 @@ class PartidaController
             $opcionCorrecta = $this->model->getOpcionCorrecta($opciones);
             $partida = $this->model->getPartidaEnCurso($_SESSION['actualUser']);
 
+            if(empty($_POST['respuesta'])){
+                $this->model->setHistorialPreguntas($_SESSION['actualUser'], $_GET['pregunta'], 0);
+                $this->model->setPartidaTerminada($partida[0]['id']);
+                unset($_SESSION['datosPreguntaActual']);
+                header('Location: /partida/finPartidaPorTiempoAgotado?puntaje=' . $partida[0]['puntaje']);
+                exit();
+            }
+
             if ($_POST['respuesta'] == $opcionCorrecta['id']) {
                 $this->model->setHistorialPreguntas($_SESSION['actualUser'], $_GET['pregunta'], 1);
                 $this->model->setPuntaje($partida[0]['id'], $partida[0]['puntaje'] + 1);
@@ -39,6 +47,16 @@ class PartidaController
             }
         }else{
             if(isset($_SESSION['datosPreguntaActual'])){
+                $partida = $this->model->getPartidaEnCurso($_SESSION['actualUser']);
+                $pregunta = $_SESSION['datosPreguntaActual']['preguntaActual'];
+                $timestampInicioPregunta = $_SESSION['datosPreguntaActual']['timestampInicioPregunta'];
+                if(time()-$timestampInicioPregunta>10){
+                    $this->model->setHistorialPreguntas($_SESSION['actualUser'], $pregunta['id'], 0);
+                    $this->model->setPartidaTerminada($partida[0]['id']);
+                    unset($_SESSION['datosPreguntaActual']);
+                    header('Location: /partida/finPartidaPorTiempoAgotado?puntaje=' . $partida[0]['puntaje']);
+                    exit();
+                }
                 $pregunta = $_SESSION['datosPreguntaActual']['preguntaActual'];
 
                 $categoria = $this->model->getCategoria($pregunta['id_categoria']);
@@ -73,13 +91,14 @@ class PartidaController
 
         $pregunta = $this->model->getPreguntaRandomSinRepetir($_SESSION['actualUser']);
 
-        if (empty($pregunta)) {
+        if ($pregunta == null) {
             $this->model->limpiarHistorialPreguntasUsuario($_SESSION['actualUser']);
             $pregunta = $this->model->getPreguntaRandomSinRepetir($_SESSION['actualUser']);
         }
+        $this->model->setAparicionesPregunta($pregunta['id']);
         $timestampInicioPregunta = time();
         $datosPreguntaActual = [
-          "preguntaActual" => $pregunta[0],
+          "preguntaActual" => $pregunta,
             "timestampInicioPregunta" => $timestampInicioPregunta
         ];
         $_SESSION['datosPreguntaActual'] = $datosPreguntaActual;
@@ -116,6 +135,20 @@ class PartidaController
 
         $this->presenter->show('respuestaIncorrecta', $data);
     }
+
+    public function finPartidaPorTiempoAgotado()
+    {
+        $data['user'] = $_SESSION['user'];
+        $data['usuarioActual'] = $this->model->getUserById($_SESSION['actualUser']);
+
+        $this->model->updateUserNivel($_SESSION['actualUser']);
+
+
+        $data['puntaje'] = $_GET['puntaje'];
+
+        $this->presenter->show('finDePartida', $data);
+    }
+
 
     public function respuestaCorrecta(){
         $this->presenter->show('respuestaCorrecta');
