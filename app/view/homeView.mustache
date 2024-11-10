@@ -1,25 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preguntados - Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-</head>
-<style>
-    body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-    .main-content {
-        flex: 1;
-    }
-</style>
-<body>
+<script defer>
+    document.title = `Home`;
+</script>
 
-<div class="container text-center mt-5 py-5 main-content">
+<main class="container text-center mt-5 py-5 main-content flex-fill">
     <h1 class="display-4 fw-bold mb-4 text-primary">Bienvenido al Juego Preguntados, {{user}}!</h1>
     <p class="lead mt-3 text-muted">Prepárate para poner a prueba tus conocimientos en las siguientes categorías:</p>
 
@@ -37,9 +20,4 @@
             <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
         </a>
     </div>
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</main>

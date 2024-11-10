@@ -16,6 +16,43 @@ class PartidaModel
         return $this->database->query($query);
     }
 
+    public function getTotalPreguntas($idUsuario)
+    {
+        $query = "SELECT COUNT(*) AS total_preguntas FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario'";
+        $result = $this->database->query($query);
+        return $result[0]['total_preguntas'];
+    }
+
+    public function getPreguntasCorrectas($idUsuario)
+    {
+        $query = "SELECT COUNT(*) AS preguntas_correctas FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario' AND contesto_correctamente = 1";
+        $result = $this->database->query($query);
+        return $result[0]['preguntas_correctas'];
+    }
+
+    public function updateUserNivel($id)
+    {
+
+        $totalPreguntas = $this->getTotalPreguntas($id);
+        $preguntasCorrectas = $this->getPreguntasCorrectas($id);
+
+        $ratio = $totalPreguntas > 0 ? ($preguntasCorrectas / $totalPreguntas) : 0;
+
+        // Determinar el nivel basado en el ratio
+        if ($ratio >= 0.8) {
+            $nivel = 3; // Difícil
+        } elseif ($ratio >= 0.5) {
+            $nivel = 2; // Medio
+        } else{
+            $nivel = 1; // Fácil
+        }
+
+        // Actualizar el nivel del usuario
+        $query = "UPDATE usuarios SET nivel = '$nivel' WHERE id = '$id'";
+
+        $this->database->execute($query, [$nivel, $id]);
+    }
+
     public function setPartida($idUsuario, $puntaje, $fecha, $terminada)
     {
         $query = "INSERT INTO partidas (id_usuario, puntaje, fecha, terminada) VALUES ('$idUsuario', '$puntaje', '$fecha', '$terminada')";
@@ -60,8 +97,26 @@ class PartidaModel
 
     public function getPreguntaRandomSinRepetir($idUsuario)
     {
+
         $query = "SELECT * FROM preguntas WHERE id NOT IN (SELECT id_pregunta FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario') ORDER BY RAND() LIMIT 1";
-        return $this->database->query($query);
+
+        $pregunta = $this->database->query($query)[0];
+
+        $idPregunta = $pregunta['id'];
+
+        $updateQuery = "UPDATE preguntas SET apariciones = apariciones + 1 WHERE id = '$idPregunta'";
+
+        $this->database->execute($updateQuery);
+
+        return $pregunta;
+    }
+
+    public function updatePreguntaCorrecta($idPregunta)
+    {
+
+        $updateQuery = "UPDATE preguntas SET correctas = correctas + 1 WHERE id = '$idPregunta'";
+
+        $this->database->execute($updateQuery);
     }
 
     public function limpiarHistorialPreguntasUsuario($idUsuario)

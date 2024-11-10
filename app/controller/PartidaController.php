@@ -26,6 +26,7 @@ class PartidaController
             if ($_POST['respuesta'] == $opcionCorrecta['id']) {
                 $this->model->setHistorialPreguntas($_SESSION['actualUser'], $_GET['pregunta'], 1);
                 $this->model->setPuntaje($partida[0]['id'], $partida[0]['puntaje'] + 1);
+                $this->model->updatePreguntaCorrecta($_GET['pregunta']);
                 unset($_SESSION['datosPreguntaActual']);
                 header('Location: /partida/respuestaCorrecta');
                 exit();
@@ -71,6 +72,7 @@ class PartidaController
         $data['puntaje'] = $partidaEnCurso[0]['puntaje'];
 
         $pregunta = $this->model->getPreguntaRandomSinRepetir($_SESSION['actualUser']);
+
         if (empty($pregunta)) {
             $this->model->limpiarHistorialPreguntasUsuario($_SESSION['actualUser']);
             $pregunta = $this->model->getPreguntaRandomSinRepetir($_SESSION['actualUser']);
@@ -82,14 +84,14 @@ class PartidaController
         ];
         $_SESSION['datosPreguntaActual'] = $datosPreguntaActual;
 
-        $categoria = $this->model->getCategoria($pregunta[0]['id_categoria']);
-        $opciones = $this->model->getOpciones($pregunta[0]['id']);
+        $categoria = $this->model->getCategoria($pregunta['id_categoria']);
+        $opciones = $this->model->getOpciones($pregunta['id']);
 
         // Mezclar las opciones
         shuffle($opciones);
 
-        $data['pregunta'] = $pregunta[0]['pregunta'];
-        $data['preguntaId'] = $pregunta[0]['id'];
+        $data['pregunta'] = $pregunta['pregunta'];
+        $data['preguntaId'] = $pregunta['id'];
         $data['categoria'] = $categoria[0]['nombre'];
         $data['opciones'] = $opciones;
         $data['timestampInicioPregunta'] = $timestampInicioPregunta;
@@ -103,6 +105,8 @@ class PartidaController
     {
         $data['user'] = $_SESSION['user'];
         $data['usuarioActual'] = $this->model->getUserById($_SESSION['actualUser']);
+        
+        $this->model->updateUserNivel($_SESSION['actualUser']);
 
         $opciones = $this->model->getOpciones($_GET['pregunta']);
         $opcionCorrecta = $this->model->getOpcionCorrecta($opciones);

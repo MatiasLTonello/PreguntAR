@@ -1,9 +1,14 @@
+<script defer>
+    document.title = `Ranking`;
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+<script src="../public/js/ajaxRanking.js" defer></script>
+
 <link rel="stylesheet" href="../public/css/ranking.css">
+
 <body>
-<br>
-<h1 style="text-align: center">RANKING</h1>
-<main class="ranking-main">
-    <br>
+<h1 class="mt-4" style="text-align: center">RANKING</h1>
+<main class="ranking-main flex-fill">
     <div class="ranking-filtro">
         <label for="filtro" class="flechas">&#129045;&#129047;</label>
         <select class="ranking-select" id="filtro" name="filtro" onchange="filtrar()">
@@ -38,8 +43,3 @@
         </tbody>
     </table>
 </main>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="../public/js/ajaxRanking.js"></script>
-</body>
-</html>
