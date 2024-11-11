@@ -50,11 +50,11 @@ class Configuration
         return new PartidaController($this->getPresenter(), $this->getPartidaModel());
     }
 
-
     public function getLogoutController()
     {
         return new LogoutController();
     }
+
     public function getLoginController()
     {
         return new LoginController($this->getPresenter(), $this->getLoginModel());
@@ -64,6 +64,12 @@ class Configuration
     {
         return new RankingController($this->getRankingModel(), $this->getPresenter());
     }
+
+    public function getReportController()
+    {
+        return new ReportController($this->getReportModel(), $this->getPresenter());
+    }
+
     private function getRegisterModel()
     {
         return new RegisterModel($this->getDatabase(), $this->getEmailHelper());
@@ -73,6 +79,7 @@ class Configuration
     {
         return new RankingModel($this->getDatabase());
     }
+
     private function getHomeModel()
     {
         return new HomeModel($this->getDatabase());
@@ -91,6 +98,11 @@ class Configuration
     private function getPartidaModel()
     {
         return new PartidaModel($this->getDatabase());
+    }
+
+    private function getReportModel()
+    {
+        return new ReportModel($this->getDatabase());
     }
 
     private function getPresenter()

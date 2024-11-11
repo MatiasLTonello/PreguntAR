@@ -20,6 +20,14 @@ class ReportController
     public function reportarPregunta()
     {
 
+        $idUsuario = $_SESSION['actualUser'];
+        $idPregunta = $_POST['idPregunta'];
+        $motivo = $_POST['motivo'];
+
+        $this->model->guardarReporte($idUsuario ,$idPregunta ,$motivo);
+
+        $this->presenter->show('reportado');
+
     }
 
 }
