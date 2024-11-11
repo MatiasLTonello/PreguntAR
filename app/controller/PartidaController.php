@@ -83,6 +83,7 @@ class PartidaController
         $opcionCorrecta = $this->model->getOpcionCorrecta($opciones);
 
         $data['opcionCorrecta'] = $opcionCorrecta['opcion'];
+        $data['idPregunta'] = $_GET['pregunta'];
         $data['puntaje'] = $_GET['puntaje'];
 
         $this->presenter->show('respuestaIncorrecta', $data);
@@ -102,4 +103,14 @@ class PartidaController
         $data['historial'] = $this->model->getHistorialPreguntas($_SESSION['actualUser']);
         $this->presenter->show('fin', $data);
     }
+
+    public function reportar()
+    {
+        $idPreguntaReportada = $_GET['idPregunta'];
+        $this->model->marcarPreguntaComoReportada($idPreguntaReportada);
+        $_SESSION['mensaje'] = 'Pregunta reportada correctamente';
+        header('Location: /');
+        exit;
+    }
+
 }

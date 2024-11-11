@@ -1,0 +1,122 @@
+.Quimica,
+.Historia,
+.General,
+.Arte,
+.Geografia {
+    width: 500px;
+    height: fit-content;
+    background: lightsalmon;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.partida-body {
+    background: #F2DCEA;
+}
+
+.partida-pregunta p {
+    font-size: larger;
+}
+
+.partida-button {
+    width: 300px;
+    height: 50px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.partida-siguiente-button {
+    background: #a7e9a7;
+    width: 200px;
+    height: 50px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.partida-siguiente-button:hover {
+    background: #88e788;
+    transform: scale(1.01);
+    cursor: pointer;
+}
+
+.partida-button:hover {
+    background: #F9796D;
+}
+
+.pregunta-form {
+    width: 100%;
+    height: 100px;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.pregunta-respuestas {
+    list-style-type: none;
+    padding: 0;
+}
+
+.opcion-respuesta {
+    text-decoration: none;
+    margin: 70px;
+    width: 400px;
+    background-color: #dedede;
+    border: 1px solid gray;
+    padding: 20px 22px 20px 22px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.opcion-respuesta input[type="radio"] {
+    margin-right: 10px;
+}
+
+.respuesta-texto {
+    font-weight: bold;
+}
+
+.Geografia {
+    background-color: #ceceff;
+    border: 1px solid #7474ff
+}
+
+.Historia {
+    background-color: #ffe4ac;
+    border: 1px solid #ffb931;
+}
+
+.General {
+    background-color: #f0f0f0;
+    border: 1px solid #676767
+}
+
+.Quimica {
+    background-color: #d3ffd3;
+    border: 1px solid #70ff70;
+}
+
+.Arte {
+    background-color: #ffd0d9;
+    border: 1px solid #ff597d;
+}
+
+.opcion-respuesta:hover {
+    background-color: #b9b9b9;
+}
+
+
+.report{
+    background: red;
+    padding:0.8rem;
+    text-decoration: none;
+    border-radius: 10px;
+    color:white;
+}

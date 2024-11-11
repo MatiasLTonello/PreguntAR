@@ -48,6 +48,8 @@ CREATE TABLE preguntas (
                             id_categoria INT,
                             apariciones INT DEFAULT 0,
                             correctas INT DEFAULT 0,
+                            estado ENUM ('aprobada', 'desaprobada', 'reportada', 'eliminada', 'sugerida') NOT NULL,
+                            esta_eliminada BOOLEAN DEFAULT FALSE,
                             FOREIGN KEY (id_categoria) REFERENCES categorias (id)
 );
 
@@ -88,7 +90,7 @@ INSERT INTO usuarios (
     esta_verificado,
     nivel
 ) VALUES
-      ('Juan Perez', '2000-1-01', 'test', 'test@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test
+      ('Juan Perez', '2000-1-01', 'test', 'test@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 2, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test
       ('Sofia Morales', '1999-6-22', 'sofia', 'sofia@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test
       ('Diego Rios', '2001-9-05', 'diego', 'diego@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test
       ('Lucia Fernández', '2002-4-12', 'lucia', 'lucia@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test

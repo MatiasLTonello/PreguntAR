@@ -1,0 +1,45 @@
+<!-- The Band Section -->
+<link rel="stylesheet" href="../public/css/partida.css">
+
+<div class="container py-4">
+    <div class="text-center mb-4">
+        <h3 class="display-6">Pregunta</h3>
+    </div>
+    <form action="/editor/editar" method="post" class="bg-light p-4 rounded shadow-sm">
+        {{#pregunta}}
+            <div class="mb-3">
+                <label for="pregunta" class="form-label fw-bold">Pregunta</label>
+                <input id="pregunta" type="text" class="form-control" name="pregunta" value="{{pregunta}}">
+                <input type="hidden" value="{{id}}" name="idPregunta">
+            </div>
+            <div class="mb-3">
+                <p class="form-text">Categoría actual: <span class="fw-bold">{{categoria}}</span></p>
+            </div>
+            <div class="mb-3">
+                <label for="categoria" class="form-label">Seleccione categoría</label>
+                <select name="categoria" id="categoria" class="form-select">
+                    {{#categorias}}
+                        <option value="{{id}}" {{#is_selected}}selected{{/is_selected}}>{{nombre}}</option>
+                    {{/categorias}}
+                </select>
+            </div>
+        {{/pregunta}}
+        <ul class="list-unstyled">
+            {{#respuestas}}
+                <li class="mb-3">
+                    <input type="hidden" name="idRespuesta[]" value="{{id}}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="respuesta[]" value="{{opcion}}">
+                        <select name="escorrecto[]" id="escorrecto" class="form-select">
+                            <option value="0">falsa</option>
+                            <option value="1" {{#es_correcta}}selected{{/es_correcta}}>correcta</option>
+                        </select>
+                    </div>
+                </li>
+            {{/respuestas}}
+        </ul>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Aceptar</button>
+        </div>
+    </form>
+</div>

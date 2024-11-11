@@ -14,4 +14,19 @@ class HomeModel
         return $this->database->query($query);
     }
 
+    public function getRolById($id_rol)
+    {
+        switch ($id_rol) {
+            case 1:
+                return 'admin';
+            case 2:
+                return 'editor';
+            case 3:
+                return 'normal';
+            default:
+                return 'desconocido';
+        }
+    }
+
+
 }
