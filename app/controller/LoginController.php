@@ -43,7 +43,7 @@ class LoginController
 
         $_SESSION['user'] = $username;
         
-        if ($usuario[0]['rol'] == 'editor') $_SESSION['esEditor'] = true;
+        $_SESSION['id_rol'] = $usuario[0]['id_rol'];
 
         header('location: /home');
 
