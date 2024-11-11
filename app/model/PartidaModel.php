@@ -97,18 +97,18 @@ class PartidaModel
 
     public function getPreguntaRandomSinRepetir($idUsuario)
     {
-
         $query = "SELECT * FROM preguntas WHERE id NOT IN (SELECT id_pregunta FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario') ORDER BY RAND() LIMIT 1";
+        $pregunta = $this->database->query($query);
+        if(empty($pregunta)){
+            return null;
+        }
+        return $pregunta[0];
+    }
 
-        $pregunta = $this->database->query($query)[0];
-
-        $idPregunta = $pregunta['id'];
-
+    public function setAparicionesPregunta($idPregunta)
+    {
         $updateQuery = "UPDATE preguntas SET apariciones = apariciones + 1 WHERE id = '$idPregunta'";
-
         $this->database->execute($updateQuery);
-
-        return $pregunta;
     }
 
     public function updatePreguntaCorrecta($idPregunta)
@@ -117,6 +117,12 @@ class PartidaModel
         $updateQuery = "UPDATE preguntas SET correctas = correctas + 1 WHERE id = '$idPregunta'";
 
         $this->database->execute($updateQuery);
+    }
+
+    public function limpiarHistorialPreguntasUsuario($idUsuario)
+    {
+        $query = "DELETE FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario'";
+        $this->database->execute($query);
     }
 
     public function getCategoria($idCategoria)

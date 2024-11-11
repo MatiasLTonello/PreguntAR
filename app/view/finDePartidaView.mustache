@@ -1,0 +1,22 @@
+<script defer>
+    document.title = `Partida perdida`;
+</script>
+<main class="container text-center my-5 flex-fill">
+    <!-- Mensaje de respuesta incorrecta -->
+    <div class="alert alert-danger" role="alert">
+        <h1 class="display-4">¡Has perdido la partida!</h1>
+        <h2 class="display-4">Tiempo Agotado</h2>
+    </div>
+
+    <!-- Mostrar puntaje final -->
+    <div class="alert alert-info mt-3" role="alert">
+        <h2 class="display-6">Puntaje Final: <strong>{{puntaje}}</strong></h2>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <a href="/" class="btn btn-secondary btn-lg">Volver al Menú Principal</a>
+        <a href="/reportar" class="btn btn-warning btn-lg">Reportar Pregunta</a>
+        <a href="/partida" class="btn btn-primary btn-lg">Iniciar Nueva Partida</a>
+    </div>
+</main>
