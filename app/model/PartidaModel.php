@@ -91,33 +91,24 @@ class PartidaModel
 
     public function getPreguntas()
     {
-        $query = "SELECT * FROM preguntas WHERE estado != 'reportada'  AND esta_eliminada = 0";
+        $query = "SELECT * FROM preguntas";
         return $this->database->query($query);
     }
 
     public function getPreguntaRandomSinRepetir($idUsuario)
     {
-        $query = "
-        SELECT * 
-        FROM preguntas 
-        WHERE id NOT IN (
-            SELECT id_pregunta 
-            FROM historial_usuarios_preguntas 
-            WHERE id_usuario = '$idUsuario'
-        ) 
-        AND estado != 'reportada' 
-        AND esta_eliminada = 0 
-        ORDER BY RAND() 
-        LIMIT 1";
+        $query = "SELECT * FROM preguntas WHERE id NOT IN (SELECT id_pregunta FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario') ORDER BY RAND() LIMIT 1";
+        $pregunta = $this->database->query($query);
+        if(empty($pregunta)){
+            return null;
+        }
+        return $pregunta[0];
+    }
 
-        $pregunta = $this->database->query($query)[0];
-
-        $idPregunta = $pregunta['id'];
-
+    public function setAparicionesPregunta($idPregunta)
+    {
         $updateQuery = "UPDATE preguntas SET apariciones = apariciones + 1 WHERE id = '$idPregunta'";
         $this->database->execute($updateQuery);
-
-        return $pregunta;
     }
 
     public function updatePreguntaCorrecta($idPregunta)
@@ -126,6 +117,12 @@ class PartidaModel
         $updateQuery = "UPDATE preguntas SET correctas = correctas + 1 WHERE id = '$idPregunta'";
 
         $this->database->execute($updateQuery);
+    }
+
+    public function limpiarHistorialPreguntasUsuario($idUsuario)
+    {
+        $query = "DELETE FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario'";
+        $this->database->execute($query);
     }
 
     public function getCategoria($idCategoria)
@@ -147,17 +144,5 @@ class PartidaModel
                 return $opcion;
             }
         }
-    }
-
-    public function marcarPreguntaComoReportada($idPreguntaReportada)
-    {
-        $update = "UPDATE preguntas SET estado = 'reportada' WHERE id = '$idPreguntaReportada'";
-        return $this->database->execute($update);
-    }
-
-    public function getPreguntaByIdDePregunta($id)
-    {
-        $query = "SELECT * FROM preguntas WHERE id = '$id' AND estado != 'reportada'  AND esta_eliminada = 0";
-        return $this->database->query($query);
     }
 }
