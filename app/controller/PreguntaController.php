@@ -12,10 +12,14 @@ class PreguntaController
         $this->renderer = $renderer;
     }
 
-    public function crear()
+    public function list()
     {
-        $data = [];
-        $this->renderer->show('crearpregunta', $data);
+        $categorias = $this->preguntaModel->getCategorias();
+
+        $data = [
+            "categorias" => $categorias
+        ];
+        $this->renderer->show('crearPregunta', $data);
     }
 
     public function insertar()
@@ -26,7 +30,7 @@ class PreguntaController
 
         if (!empty($pregunta) && $noExisteOtraPreguntaIgual) {
             $preguntaInsertar = $this->preguntaModel->crearPregunta($pregunta, $categoria);
-            $idLastPregunta = $this->preguntaModel->getLastPreguntaInsertada()[0]["idPregunta"];
+            $idLastPregunta = $this->preguntaModel->getLastPreguntaInsertada()[0]["id"];
             header("Location: /pregunta/crearRespuesta&idPregunta=" . $idLastPregunta);
         } else {
             header("Location: /pregunta/crear");
@@ -38,7 +42,7 @@ class PreguntaController
     {
         $idPregunta = $_GET['idPregunta'];
         $data["idPregunta"] = $idPregunta;
-        $this->renderer->render('crearRespuestas', $data);
+        $this->renderer->show('crearRespuesta', $data);
     }
 
     public function insertarRespuestas()
@@ -81,7 +85,7 @@ class PreguntaController
         } else {
             $mensaje = "no puede haber una respuesta vacia";
             $data = array('mensaje' => $mensaje);
-            $this->renderer->render('crearRespuestas', $data);
+            $this->renderer->show('crearRespuesta', $data);
         }
 
     }

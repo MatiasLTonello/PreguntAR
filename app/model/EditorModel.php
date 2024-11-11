@@ -73,6 +73,14 @@ class EditorModel
         return $preguntas;
     }
 
+    public function getPreguntasPorSugeridas()
+    {
+        $query = "SELECT * FROM preguntas where estado='sugerida'";
+        $preguntas = $this->database->query($query);
+
+        return $preguntas;
+    }
+
     public function getPreguntasPorDesaprobados()
     {
         $query = "SELECT * FROM preguntas where estado='desaprobada'";

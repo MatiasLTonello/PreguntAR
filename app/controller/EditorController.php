@@ -72,15 +72,12 @@ class EditorController
         $idPregunta = $_GET["idPregunta"];
         $pregunta = $this->editorModel->getPreguntaById($idPregunta);
         $respuestas = $this->editorModel->getRespuestasByIdDePregunta($idPregunta);
-
-        // Obtener categorías directamente desde la base de datos
-        $categorias = $this->editorModel->getCategorias(); // Método que obtenga todas las categorías con sus id y nombres
+        $categorias = $this->editorModel->getCategorias();
 
         // Marcar la categoría actual como seleccionada
         foreach ($categorias as &$categoria) {
             $categoria['is_selected'] = $categoria['id'] == $pregunta[0]['categoria_id'];
         }
-
 
         $data = [
             "pregunta" => $pregunta,
@@ -104,6 +101,9 @@ class EditorController
                 break;
             case 'desaprobada':
                 $preguntas = $this->editorModel->getPreguntasPorDesaprobados();
+                break;
+            case 'sugerida':
+                $preguntas = $this->editorModel->getPreguntasPorSugeridas();
                 break;
             default:
                 $preguntas = $this->editorModel->getPreguntasByIdASC();

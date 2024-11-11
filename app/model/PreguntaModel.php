@@ -11,9 +11,11 @@ class PreguntaModel
 
     public function crearPregunta($pregunta, $categoria)
     {
-        $sql = "INSERT INTO preguntas(pregunta, categoria, creadaPorUsuario) VALUES('$pregunta','$categoria', true)";
-        return $this->database->insert($sql);
+        $sql = "INSERT INTO preguntas(pregunta, id_categoria, apariciones, correctas, estado, esta_eliminada) VALUES('$pregunta', '$categoria', 0, 0, 'sugerida', 0)";
+        return $this->database->execute($sql);
     }
+
+
 
     public function validarQueNoHayaDosPreguntasIguales($pregunta)
     {
@@ -23,26 +25,33 @@ class PreguntaModel
 
     public function getIdPregunta($pregunta)
     {
-        $sql = "SELECT idPregunta FROM preguntas WHERE pregunta = '$pregunta'";
+        $sql = "SELECT id FROM preguntas WHERE pregunta = '$pregunta'";
         return $this->database->query($sql);
     }
 
     public function insertarRespuesta($respuesta, $idPregunta)
     {
-        $sql = "INSERT INTO respuestas(respuesta, isCorrecta, idPregunta) VALUES('$respuesta', 0 , '$idPregunta')";
-        return $this->database->insert($sql);
+        $sql = "INSERT INTO opciones(opcion, es_correcta, id_pregunta) VALUES('$respuesta', 0 , '$idPregunta')";
+        return $this->database->execute($sql);
     }
 
     public function getLastPreguntaInsertada()
     {
-        $query = "SELECT * FROM preguntas WHERE idPregunta = (SELECT MAX(idPregunta) FROM preguntas);";
+        $query = "SELECT * FROM preguntas WHERE id = (SELECT MAX(id) FROM preguntas);";
         return $this->database->query($query);
     }
 
     public function setearTrue($respuesta, $idPregunta)
     {
-        $sql = "UPDATE respuestas SET isCorrecta = 1 WHERE respuesta = '$respuesta' AND idPregunta = $idPregunta";
-        return $this->database->insert($sql);
+        $sql = "UPDATE opciones SET es_correcta = 1 WHERE opcion = '$respuesta' AND id_pregunta = $idPregunta";
+        return $this->database->execute($sql);
+    }
+
+    public function getCategorias()
+    {
+        $query = "SELECT * FROM categorias";
+        return $this->database->query($query);
+
     }
 
     public function getPreguntaById($id)
