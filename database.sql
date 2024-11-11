@@ -10,68 +10,68 @@ CREATE TABLE roles (
 );
 
 CREATE TABLE usuarios (
-                          id INT AUTO_INCREMENT PRIMARY KEY,
-                          nombre_completo VARCHAR(100) NOT NULL,
-                          fecha_nacimiento DATE NOT NULL,
-                          usuario VARCHAR(50) NOT NULL UNIQUE,
-                          email VARCHAR(100) NOT NULL UNIQUE,
-                          contraseña VARCHAR(255) NOT NULL,
-                          ubicacion VARCHAR(50) NOT NULL,
-                          id_rol INT,
-                          foto VARCHAR(255),
-                          sexo ENUM ('masculino', 'femenino', 'otro') NOT NULL,
-                          fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                          verify_token VARCHAR(255) NOT NULL,
-                          esta_verificado BOOLEAN DEFAULT FALSE,
-                          nivel INT DEFAULT 1,
-                          FOREIGN KEY (id_rol) REFERENCES roles (id)
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        nombre_completo VARCHAR(100) NOT NULL,
+                        fecha_nacimiento DATE NOT NULL,
+                        usuario VARCHAR(50) NOT NULL UNIQUE,
+                        email VARCHAR(100) NOT NULL UNIQUE,
+                        contraseña VARCHAR(255) NOT NULL,
+                        ubicacion VARCHAR(50) NOT NULL,
+                        id_rol INT,
+                        foto VARCHAR(255),
+                        sexo ENUM ('masculino', 'femenino', 'otro') NOT NULL,
+                        fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        verify_token VARCHAR(255) NOT NULL,
+                        esta_verificado BOOLEAN DEFAULT FALSE,
+                        nivel INT DEFAULT 1,
+                        FOREIGN KEY (id_rol) REFERENCES roles (id)
 );
 
 CREATE TABLE partidas (
-                          id INT AUTO_INCREMENT PRIMARY KEY,
-                          puntaje INT,
-                          fecha DATE,
-                          id_usuario INT,
-                          terminada BOOLEAN,
-                          FOREIGN KEY (id_usuario) REFERENCES usuarios (id)
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        puntaje INT,
+                        fecha DATE,
+                        id_usuario INT,
+                        terminada BOOLEAN,
+                        FOREIGN KEY (id_usuario) REFERENCES usuarios (id)
 );
 
 CREATE TABLE categorias (
-                            id INT AUTO_INCREMENT PRIMARY KEY,
-                            nombre VARCHAR(50) NOT NULL,
-                            color VARCHAR(50) NOT NULL
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        nombre VARCHAR(50) NOT NULL,
+                        color VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE preguntas (
-                            id INT AUTO_INCREMENT PRIMARY KEY,
-                            pregunta VARCHAR(255) NOT NULL,
-                            id_categoria INT,
-                            apariciones INT DEFAULT 0,
-                            correctas INT DEFAULT 0,
-                            FOREIGN KEY (id_categoria) REFERENCES categorias (id)
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        pregunta VARCHAR(255) NOT NULL,
+                        id_categoria INT,
+                        apariciones INT DEFAULT 0,
+                        correctas INT DEFAULT 0,
+                        FOREIGN KEY (id_categoria) REFERENCES categorias (id)
 );
 
 CREATE TABLE opciones (
-                          id INT AUTO_INCREMENT PRIMARY KEY,
-                          opcion VARCHAR(255) NOT NULL,
-                          es_correcta BOOLEAN,
-                          id_pregunta INT,
-                          FOREIGN KEY (id_pregunta) REFERENCES preguntas (id)
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        opcion VARCHAR(255) NOT NULL,
+                        es_correcta BOOLEAN,
+                        id_pregunta INT,
+                        FOREIGN KEY (id_pregunta) REFERENCES preguntas (id)
 );
 
 CREATE TABLE historial_usuarios_preguntas (
-                                              id INT AUTO_INCREMENT PRIMARY KEY,
-                                              id_usuario INT,
-                                              id_pregunta INT,
-                                              contesto_correctamente BOOLEAN,
-                                              FOREIGN KEY (id_usuario) REFERENCES usuarios (id),
-                                              FOREIGN KEY (id_pregunta) REFERENCES preguntas (id)
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        id_usuario INT,
+                        id_pregunta INT,
+                        contesto_correctamente BOOLEAN,
+                        FOREIGN KEY (id_usuario) REFERENCES usuarios (id),
+                        FOREIGN KEY (id_pregunta) REFERENCES preguntas (id)
 );
 
 INSERT INTO roles (descripcion) VALUES
-                                    ('admin'),
-                                    ('editor'),
-                                    ('jugador');
+                        ('admin'),
+                        ('editor'),
+                        ('jugador');
 
 INSERT INTO usuarios (
     nombre_completo,
@@ -95,12 +95,12 @@ INSERT INTO usuarios (
       ('Leo Arias', '2000-1-01', 'leo', 'correo@correo.com', '202cb962ac59075b964b07152d234b70' , 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '1', '1'); -- contraseña: 123
 
 INSERT INTO categorias (nombre, color) VALUES
-                                           ('Historia', '#ffce54'),
-                                           ('Geografia', '#4a90e2'),
-                                           ('Ciencia', '#55ba69'),
-                                           ('Deportes', '#f58d42'),
-                                           ('Arte y Literatura', '#eb3939'),
-                                           ('Entretenimiento', '#ec5cca');
+                        ('Historia', '#ffce54'),
+                        ('Geografia', '#4a90e2'),
+                        ('Ciencia', '#55ba69'),
+                        ('Deportes', '#f58d42'),
+                        ('Arte y Literatura', '#eb3939'),
+                        ('Entretenimiento', '#ec5cca');
 
 -- PREGUNTAS SOBRE ARGENTINA
 INSERT INTO preguntas (pregunta, id_categoria) VALUES

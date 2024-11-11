@@ -13,7 +13,7 @@ include_once("controller/RegisterController.php");
 include_once("controller/ProfileController.php");
 include_once("controller/PartidaController.php");
 include_once("controller/RankingController.php");
-
+include_once("controller/ReportController.php");
 
 include_once("model/LoginModel.php");
 include_once("model/HomeModel.php");
@@ -21,7 +21,7 @@ include_once("model/RegisterModel.php");
 include_once("model/ProfileModel.php");
 include_once("model/PartidaModel.php");
 include_once("model/RankingModel.php");
-
+include_once("model/ReportModel.php");
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
