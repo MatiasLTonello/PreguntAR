@@ -1,0 +1,42 @@
+.respuestas-form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffddf6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.input-form {
+    margin-bottom: 20px;
+}
+
+.input-form label {
+    font-weight: bold;
+}
+
+.input-form input,
+select {
+    width: 100%;
+    padding: 10px 0px;
+    background-color: white;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+}
+
+.select-form {
+    height: 40px;
+}
+
+.btn-sub {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #d4b2d4;
+    color: black;
+    border: none;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}

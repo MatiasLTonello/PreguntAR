@@ -14,6 +14,8 @@ include_once("controller/ProfileController.php");
 include_once("controller/PartidaController.php");
 include_once("controller/RankingController.php");
 include_once("controller/ReportController.php");
+include_once("controller/EditorController.php");
+include_once("controller/PreguntaController.php");
 
 include_once("model/LoginModel.php");
 include_once("model/HomeModel.php");
@@ -21,6 +23,8 @@ include_once("model/RegisterModel.php");
 include_once("model/ProfileModel.php");
 include_once("model/PartidaModel.php");
 include_once("model/RankingModel.php");
+include_once("model/EditorModel.php");
+include_once("model/PreguntaModel.php");
 include_once("model/ReportModel.php");
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
@@ -45,6 +49,11 @@ class Configuration
         return new ProfileController($this->getProfileModel(), $this->getPresenter());
     }
 
+    public function getEditorController()
+    {
+        return new EditorController($this->getEditorModel(), $this->getPresenter());
+    }
+
     public function getPartidaController()
     {
         return new PartidaController($this->getPresenter(), $this->getPartidaModel());
@@ -60,6 +69,10 @@ class Configuration
         return new LoginController($this->getPresenter(), $this->getLoginModel());
     }
 
+    public function getPreguntaController()
+    {
+        return new PreguntaController($this->getPreguntaModel(), $this->getPresenter());
+    }
     public function getRankingController()
     {
         return new RankingController($this->getRankingModel(), $this->getPresenter());
@@ -73,6 +86,15 @@ class Configuration
     private function getRegisterModel()
     {
         return new RegisterModel($this->getDatabase(), $this->getEmailHelper());
+    }
+
+    private function getEditorModel()
+    {
+        return new EditorModel($this->getDatabase());
+    }
+    private function getPreguntaModel()
+    {
+        return new PreguntaModel($this->getDatabase());
     }
 
     private function getRankingModel()

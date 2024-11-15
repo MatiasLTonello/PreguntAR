@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="../public/css/ranking.css">
+<body>
+<br>
+<h1 style="text-align: center">Administracion de Preguntas</h1>
+<main class="ranking-main">
+    <br>
+    <div class="ranking-filtro">
+        <label for="filtro" class="flechas">&#129045;&#129047;</label>
+        <select class="ranking-select" id="filtro" name="filtro" onchange="filtrar()">
+            <option selected disabled>Filtrar por...</option>
+            <option value="aprobada">Aprobadas</option>
+            <option value="sugerida">Sugeridas</option>
+            <option value="reportada">Reportadas</option>
+        </select>
+
+    </div>
+    <br>
+    <table class="ranking-table" id="editor-table">
+        <thead>
+        <tr>
+            <th>Pregunta</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#preguntas}}
+            <tr>
+                <td><a href="/editor/preguntaDetalle&idPregunta={{id}}">{{pregunta}}</a></td>
+                <td><p>{{estado}}</p></td>
+                <td>
+                    {{#mostrarAprobar}}
+                        <a href="/editor/aprobar&id_pregunta={{id}}">
+                        <button id="btn-aprobar" name="btn-aprobar" type="submit" class="btn-gral">Aprobar</button>
+                        </a>
+                    {{/mostrarAprobar}}
+                    <a href="/editor/eliminar&id_pregunta={{id}}">
+                    <button id="btn-eliminar" name="btn-eliminar" type="submit" class="btn-gral">Eliminar</button>
+                    </a>
+                </td>
+            </tr>
+        {{/preguntas}}
+        </tbody>
+    </table>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../public/js/ajaxEditor.js"></script>
+</body>
+</html>
