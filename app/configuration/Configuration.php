@@ -51,7 +51,7 @@ class Configuration
 
     public function getEditorController()
     {
-        return new EditorController($this->getEditorModel(), $this->getPresenter());
+        return new EditorController($this->getEditorModel(), $this->getReportModel(), $this->getPresenter());
     }
 
     public function getPartidaController()

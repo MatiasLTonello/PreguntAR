@@ -11,7 +11,6 @@ class ReportController
         $this->presenter = $presenter;
     }
 
-
     public function list()
     {
 

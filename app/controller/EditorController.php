@@ -3,30 +3,36 @@
 class EditorController
 {
     private $editorModel;
+    private $reportesModel;
     private $renderer;
 
-
-    public function __construct($editorModel, $renderer)
+    public function __construct($editorModel, $reportesModel, $renderer)
     {
         $this->editorModel = $editorModel;
+        $this->reportesModel = $reportesModel;
         $this->renderer = $renderer;
     }
 
-
     public function list()
     {
-        $listaDePreguntas = $this->editorModel->listaDePreguntas();
+
+        $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : null;
+
+        $listaDePreguntas = $this->editorModel->getPreguntasPorEstado($filtro);
+
         foreach ($listaDePreguntas as &$pregunta) {
-            $pregunta['mostrarAprobar'] = in_array($pregunta['estado'], ['sugerida', 'desaprobada', 'reportada']);
+            $pregunta['mostrarActivar'] = $pregunta['estado'] != 'activa';
+            $pregunta['mostrarEliminar'] = $pregunta['estado'] != 'eliminada';
         }
+
         $data = array("preguntas" => $listaDePreguntas);
         $this->renderer->show('editor', $data);
     }
 
-    public function aprobar()
+    public function activar()
     {
         $idPregunta = $_GET["id_pregunta"];
-        $this->editorModel->aprobarPregunta($idPregunta);
+        $this->editorModel->activarPregunta($idPregunta);
         header("Location: /editor");
     }
 
@@ -88,32 +94,22 @@ class EditorController
         $this->renderer->show('pregunta', $data);
     }
 
-    public function filtrar()
-    {
-        $filtro = $_GET['filtro'];
+    public function reportes(){
 
-        switch ($filtro) {
-            case 'aprobada':
-                $preguntas = $this->editorModel->getPreguntasPorAprobadas();
-                break;
-            case 'reportada':
-                $preguntas = $this->editorModel->getPreguntasPorReportadas();
-                break;
-            case 'desaprobada':
-                $preguntas = $this->editorModel->getPreguntasPorDesaprobados();
-                break;
-            case 'sugerida':
-                $preguntas = $this->editorModel->getPreguntasPorSugeridas();
-                break;
-            default:
-                $preguntas = $this->editorModel->getPreguntasByIdASC();
-                break;
-        }
-        $response = ['preguntas' => $preguntas];
+        $reportes = $this->reportesModel->getReportes();
 
-        header('Content-Type: application/json');
-        echo json_encode($response);
+        $data = array("reportes" => $reportes);
+
+        $this->renderer->show('reportes', $data);
     }
 
+    public function marcarReporteComoLeido(){
+
+        $idReporte = $_GET["idReporte"];
+
+        $this->reportesModel->marcarComoRevisado($idReporte);
+
+        header("Location: /editor/reportes");
+    }
 
 }

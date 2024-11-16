@@ -48,6 +48,7 @@ CREATE TABLE preguntas (
                         id_categoria INT,
                         apariciones INT DEFAULT 0,
                         correctas INT DEFAULT 0,
+                        estado ENUM('activa', 'eliminada', 'sugerida') DEFAULT 'activa',
                         FOREIGN KEY (id_categoria) REFERENCES categorias (id)
 );
 
@@ -66,6 +67,15 @@ CREATE TABLE historial_usuarios_preguntas (
                         contesto_correctamente BOOLEAN,
                         FOREIGN KEY (id_usuario) REFERENCES usuarios (id),
                         FOREIGN KEY (id_pregunta) REFERENCES preguntas (id)
+);
+
+CREATE TABLE reportes (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        id_pregunta INT NOT NULL,
+                        id_usuario INT NOT NULL,
+                        motivo VARCHAR(255) NOT NULL,
+                        fecha_reporte DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        revisado BOOLEAN DEFAULT FALSE
 );
 
 INSERT INTO roles (descripcion) VALUES

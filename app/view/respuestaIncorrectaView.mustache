@@ -29,7 +29,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
           </div>
           <div class="modal-body">
-            <input type="hidden" id="idPregunta" name="idPregunta" value="14" />
+            <input type="hidden" id="idPregunta" name="idPregunta" value="1" />
             <input class="form-control" type="text" id="motivo" name="motivo" placeholder="Motivo del reporte" />
           </div>
           <div class="modal-footer">
@@ -41,3 +41,14 @@
     </aside>
 
 </main>
+
+<script>
+    // Obtener el parámetro de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const idPregunta = urlParams.get('pregunta');
+
+    // Asignar el valor al input
+    if (idPregunta) {
+        document.getElementById('idPregunta').value = idPregunta;
+    }
+</script>

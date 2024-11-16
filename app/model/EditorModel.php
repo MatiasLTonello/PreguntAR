@@ -10,10 +10,9 @@ class EditorModel
         $this->database = $database;
     }
 
-
     public function listaDePreguntas()
     {
-        $query = "SELECT * FROM preguntas WHERE esta_eliminada = 0";
+        $query = "SELECT * FROM preguntas";
         return $this->database->query($query);
     }
 
@@ -21,32 +20,29 @@ class EditorModel
     {
         $query = "SELECT * FROM categorias";
         return $this->database->query($query);
-
     }
 
-    public function aprobarPregunta($idPregunta)
+    public function activarPregunta($idPregunta)
     {
-        $query = "UPDATE preguntas SET estado='aprobada' WHERE id='$idPregunta'";
+        $query = "UPDATE preguntas SET estado = 'activa' WHERE id = '$idPregunta'";
         return $this->database->execute($query);
     }
 
-
     public function eliminarRespuestasDePregunta($idPregunta)
     {
-
-        $query = "DELETE FROM opciones WHERE id = '$idPregunta'";
+        $query = "DELETE FROM opciones WHERE id_pregunta = '$idPregunta'";
         $this->database->execute($query);
     }
 
     public function eliminarPreguntaById($idPregunta)
     {
-        $query = "UPDATE preguntas SET esta_eliminada = 1, estado= 'eliminada' WHERE id = '$idPregunta'";
+        $query = "UPDATE preguntas SET estado = 'eliminada' WHERE id = '$idPregunta'";
         $this->database->execute($query);
     }
 
     public function editarPregunta($idPregunta, $pregunta, $categoria)
     {
-        $query = "UPDATE preguntas SET pregunta='$pregunta', id_categoria='$categoria' WHERE id='$idPregunta'";
+        $query = "UPDATE preguntas SET pregunta = '$pregunta', id_categoria = '$categoria' WHERE id = '$idPregunta'";
         return $this->database->execute($query);
     }
 
@@ -56,34 +52,10 @@ class EditorModel
         return $this->database->execute($query);
     }
 
-
-    public function getPreguntasPorAprobadas()
+    public function getPreguntasPorEstado($estado)
     {
-        $query = "SELECT * FROM preguntas where estado='aprobada'";
-        $preguntas = $this->database->query($query);
-
-        return $preguntas;
-    }
-
-    public function getPreguntasPorReportadas()
-    {
-        $query = "SELECT * FROM preguntas where estado='reportada'";
-        $preguntas = $this->database->query($query);
-
-        return $preguntas;
-    }
-
-    public function getPreguntasPorSugeridas()
-    {
-        $query = "SELECT * FROM preguntas where estado='sugerida'";
-        $preguntas = $this->database->query($query);
-
-        return $preguntas;
-    }
-
-    public function getPreguntasPorDesaprobados()
-    {
-        $query = "SELECT * FROM preguntas where estado='desaprobada'";
+        if ($estado) $query = "SELECT * FROM preguntas where estado = '$estado'";
+        else $query = "SELECT * FROM preguntas";
         $preguntas = $this->database->query($query);
 
         return $preguntas;
@@ -125,9 +97,9 @@ class EditorModel
         return $this->database->query($query);
     }
 
-    public function getCategoriaByIdPregunta($idPregunta) {
+    public function getCategoriaByIdPregunta($idPregunta)
+    {
         $query = "SELECT categoria FROM preguntas WHERE id = '$idPregunta' ";
         return $this->database->query($query);
     }
-
 }

@@ -11,11 +11,9 @@ class PreguntaModel
 
     public function crearPregunta($pregunta, $categoria)
     {
-        $sql = "INSERT INTO preguntas(pregunta, id_categoria, apariciones, correctas, estado, esta_eliminada) VALUES('$pregunta', '$categoria', 0, 0, 'sugerida', 0)";
+        $sql = "INSERT INTO preguntas(pregunta, id_categoria, apariciones, correctas, estado) VALUES('$pregunta', '$categoria', 0, 0, 'sugerida')";
         return $this->database->execute($sql);
     }
-
-
 
     public function validarQueNoHayaDosPreguntasIguales($pregunta)
     {

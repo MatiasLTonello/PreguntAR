@@ -97,7 +97,7 @@ class PartidaModel
 
     public function getPreguntaRandomSinRepetir($idUsuario)
     {
-        $query = "SELECT * FROM preguntas WHERE id NOT IN (SELECT id_pregunta FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario') ORDER BY RAND() LIMIT 1";
+        $query = "SELECT * FROM preguntas WHERE estado = 'activa' AND id NOT IN (SELECT id_pregunta FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario') ORDER BY RAND() LIMIT 1";
         $pregunta = $this->database->query($query);
         if(empty($pregunta)){
             return null;

@@ -19,6 +19,7 @@ class PreguntaController
         $data = [
             "categorias" => $categorias
         ];
+
         $this->renderer->show('crearPregunta', $data);
     }
 
@@ -26,6 +27,7 @@ class PreguntaController
     {
         $pregunta = $_POST['pregunta'];
         $categoria = $_POST['categoria'];
+
         $noExisteOtraPreguntaIgual = count($this->preguntaModel->validarQueNoHayaDosPreguntasIguales($pregunta)) === 0;
 
         if (!empty($pregunta) && $noExisteOtraPreguntaIgual) {
@@ -89,6 +91,5 @@ class PreguntaController
         }
 
     }
-
 
 }
