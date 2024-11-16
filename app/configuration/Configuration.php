@@ -13,11 +13,9 @@ include_once("controller/RegisterController.php");
 include_once("controller/ProfileController.php");
 include_once("controller/PartidaController.php");
 include_once("controller/RankingController.php");
+include_once("controller/ReportController.php");
 include_once("controller/EditorController.php");
 include_once("controller/PreguntaController.php");
-
-
-
 
 include_once("model/LoginModel.php");
 include_once("model/HomeModel.php");
@@ -27,8 +25,7 @@ include_once("model/PartidaModel.php");
 include_once("model/RankingModel.php");
 include_once("model/EditorModel.php");
 include_once("model/PreguntaModel.php");
-
-
+include_once("model/ReportModel.php");
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
@@ -54,7 +51,7 @@ class Configuration
 
     public function getEditorController()
     {
-        return new EditorController($this->getEditorModel(), $this->getPresenter());
+        return new EditorController($this->getEditorModel(), $this->getReportModel(), $this->getPresenter());
     }
 
     public function getPartidaController()
@@ -62,11 +59,11 @@ class Configuration
         return new PartidaController($this->getPresenter(), $this->getPartidaModel());
     }
 
-
     public function getLogoutController()
     {
         return new LogoutController();
     }
+
     public function getLoginController()
     {
         return new LoginController($this->getPresenter(), $this->getLoginModel());
@@ -80,6 +77,12 @@ class Configuration
     {
         return new RankingController($this->getRankingModel(), $this->getPresenter());
     }
+
+    public function getReportController()
+    {
+        return new ReportController($this->getReportModel(), $this->getPresenter());
+    }
+
     private function getRegisterModel()
     {
         return new RegisterModel($this->getDatabase(), $this->getEmailHelper());
@@ -98,6 +101,7 @@ class Configuration
     {
         return new RankingModel($this->getDatabase());
     }
+
     private function getHomeModel()
     {
         return new HomeModel($this->getDatabase());
@@ -116,6 +120,11 @@ class Configuration
     private function getPartidaModel()
     {
         return new PartidaModel($this->getDatabase());
+    }
+
+    private function getReportModel()
+    {
+        return new ReportModel($this->getDatabase());
     }
 
     private function getPresenter()

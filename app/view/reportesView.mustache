@@ -1,0 +1,92 @@
+<main class="container flex-fill">
+    <h1 class="text-center mt-4">Reportes</h1>
+    <aside class="my-5 d-flex gap-2 flex-row text-end justify-content-end">
+        <div>
+            <a href="/editor">
+                <button class="btn btn-secondary">Panel de editor</button>
+            </a>
+        </div>
+        <div>
+            <a href="/pregunta">
+                <button class="btn btn-primary">Nueva pregunta</button>
+            </a>
+        </div>
+        <div>
+            <a href="/editor/reportes">
+                <button class="btn btn-warning">Ver reportes</button>
+            </a>
+        </div>
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel"
+                 viewBox="0 0 16 16">
+                <title>Filtrar</title>
+                <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2z"/>
+            </svg>
+            <select class="ms-2" id="filtro" name="filtro" onchange="filtrar()">
+                <option value="" selected disabled>Filtrar por</option>
+                <option value="">Todas</option>
+                <option value="activa">Activas</option>
+                <option value="sugerida">Sugeridas</option>
+                <option value="eliminada">Eliminadas</option>
+            </select>
+        </div>
+    </aside>
+    <table class="table mt-4" id="editor-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>pregunta</th>
+            <th>Usuario</th>
+            <th>Motivo</th>
+            <th>Fecha</th>
+            <th>Revisado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#reportes}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{pregunta}}</td>
+                <td>{{id_usuario}}</td>
+                <td>{{motivo}}</td>
+                <td>{{fecha_reporte}}</td>
+                <td>
+                    {{#revisado}}Si{{/revisado}}
+                    {{^revisado}}No{{/revisado}}
+                </td>
+                <td>
+                    <div class="d-flex gap-2">
+                        <div>
+                            <a href="/editor/preguntaDetalle&idPregunta={{id_pregunta}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-pencil-square"
+                                     style="width: 25px; height: 25px; cursor: pointer;" viewBox="0 0 16 16">
+                                    <title>Editar pregunta</title>
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="/editor/marcarReporteComoLeido/?idReporte={{id}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="width: 25px; height: 25px; cursor: pointer;" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                                    <title>Marcar como leida</title>
+                                    <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {{/reportes}}
+        {{^reportes}}
+            <span class="mt-5 text-center d-block">No se encontraron reportes</span>
+        {{/reportes}}
+        </tbody>
+    </table>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../public/js/ajaxEditor.js"></script>

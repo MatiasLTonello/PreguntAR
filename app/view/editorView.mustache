@@ -1,21 +1,32 @@
-<link rel="stylesheet" href="../public/css/ranking.css">
-<body>
-<br>
-<h1 style="text-align: center">Administracion de Preguntas</h1>
-<main class="ranking-main">
-    <br>
-    <div class="ranking-filtro">
-        <label for="filtro" class="flechas">&#129045;&#129047;</label>
-        <select class="ranking-select" id="filtro" name="filtro" onchange="filtrar()">
-            <option selected disabled>Filtrar por...</option>
-            <option value="aprobada">Aprobadas</option>
-            <option value="sugerida">Sugeridas</option>
-            <option value="reportada">Reportadas</option>
-        </select>
-
-    </div>
-    <br>
-    <table class="ranking-table" id="editor-table">
+<main class="container flex-fill">
+    <h1 class="text-center mt-4">Administracion de Preguntas</h1>
+    <aside class="my-5 d-flex gap-2 flex-row text-end justify-content-end">
+        <div>
+            <a href="/pregunta">
+                <button class="btn btn-primary">Nueva pregunta</button>
+            </a>
+        </div>
+        <div>
+            <a href="/editor/reportes">
+                <button class="btn btn-warning">Ver reportes</button>
+            </a>
+        </div>
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel"
+                 viewBox="0 0 16 16">
+                <title>Filtrar</title>
+                <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2z"/>
+            </svg>
+            <select class="ms-2" id="filtro" name="filtro" onchange="filtrar()">
+                <option value="" selected disabled>Filtrar por</option>
+                <option value="">Todas</option>
+                <option value="activa">Activas</option>
+                <option value="sugerida">Sugeridas</option>
+                <option value="eliminada">Eliminadas</option>
+            </select>
+        </div>
+    </aside>
+    <table class="table mt-4" id="editor-table">
         <thead>
         <tr>
             <th>Pregunta</th>
@@ -26,19 +37,51 @@
         <tbody>
         {{#preguntas}}
             <tr>
-                <td><a href="/editor/preguntaDetalle&idPregunta={{id}}">{{pregunta}}</a></td>
+                <td>{{pregunta}}</td>
                 <td><p>{{estado}}</p></td>
                 <td>
-                    {{#mostrarAprobar}}
-                        <a href="/editor/aprobar&id_pregunta={{id}}">
-                        <button id="btn-aprobar" name="btn-aprobar" type="submit" class="btn-gral">Aprobar</button>
-                        </a>
-                    {{/mostrarAprobar}}
-                    <a href="/editor/eliminar&id_pregunta={{id}}">
-                    <button id="btn-eliminar" name="btn-eliminar" type="submit" class="btn-gral">Eliminar</button>
-                    </a>
+                    <div class="d-flex gap-2">
+                        {{#mostrarActivar}}
+                            <div>
+                                <a href="/editor/activar&id_pregunta={{id}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-check-square"
+                                     style="width: 25px; height: 25px; cursor: pointer;" viewBox="0 0 16 16">
+                                    <title>Activar</title>
+                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                    <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                                </svg>
+                                </a>
+                            </div>
+                        {{/mostrarActivar}}
+                        {{#mostrarEliminar}}
+                            <div>
+                                <a href="/editor/eliminar&id_pregunta={{id}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-x-square"
+                                     style="width: 25px; height: 25px; cursor: pointer;" viewBox="0 0 16 16">
+                                    <title>Eliminar</title>
+                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                </svg>
+                                </a>
+                            </div>
+                        {{/mostrarEliminar}}
+                        <div>
+                            <a href="/editor/preguntaDetalle&idPregunta={{id}}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-pencil-square"
+                                 style="width: 25px; height: 25px; cursor: pointer;" viewBox="0 0 16 16">
+                                <title>Editar</title>
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd"
+                                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                            </svg>
+                            </a>
+                        </div>
+                    </div>
                 </td>
             </tr>
+        {{/preguntas}}
+        {{^preguntas}}
+            <span class="mt-5 text-center d-block">No se encontraron preguntas</span>
         {{/preguntas}}
         </tbody>
     </table>
@@ -46,5 +89,3 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../public/js/ajaxEditor.js"></script>
-</body>
-</html>

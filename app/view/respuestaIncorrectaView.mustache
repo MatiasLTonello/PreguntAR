@@ -16,7 +16,39 @@
     <!-- Botones de acción -->
     <div class="d-flex justify-content-center gap-3 mt-4">
         <a href="/" class="btn btn-secondary btn-lg">Volver al Menú Principal</a>
-        <a href="/partida/reportar?idPregunta={{idPregunta}}" class="btn btn-warning btn-lg">Reportar Pregunta</a>
+        <button class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#reportarModal">Reportar Pregunta</button>
         <a href="/partida" class="btn btn-primary btn-lg">Iniciar Nueva Partida</a>
     </div>
+
+    <!-- Modal -->
+    <aside class="modal fade" id="reportarModal" tabindex="-1" aria-labelledby="reportarModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <form class="modal-content" action="/report/reportarPregunta" method="post">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="reportarModalLabel">Reportar pregunta</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="idPregunta" name="idPregunta" value="1" />
+            <input class="form-control" type="text" id="motivo" name="motivo" placeholder="Motivo del reporte" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </aside>
+
 </main>
+
+<script>
+    // Obtener el parámetro de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const idPregunta = urlParams.get('pregunta');
+
+    // Asignar el valor al input
+    if (idPregunta) {
+        document.getElementById('idPregunta').value = idPregunta;
+    }
+</script>
