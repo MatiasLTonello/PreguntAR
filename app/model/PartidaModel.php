@@ -39,14 +39,14 @@ class PartidaModel
         $ratio = $totalPreguntas > 0 ? ($preguntasCorrectas / $totalPreguntas) : 0;
 
         // Determinar el nivel basado en el ratio
-        if ($ratio >= 0.8) {
+        if ($ratio >= 0.7) {
             $nivel = 3; // Difícil
-        } elseif ($ratio >= 0.5) {
+        } elseif ($ratio >= 0.3) {
             $nivel = 2; // Medio
-        } else{
+        } else {
             $nivel = 1; // Fácil
         }
-
+        
         // Actualizar el nivel del usuario
         $query = "UPDATE usuarios SET nivel = '$nivel' WHERE id = '$id'";
 
@@ -99,7 +99,7 @@ class PartidaModel
     {
         $query = "SELECT * FROM preguntas WHERE estado = 'activa' AND id NOT IN (SELECT id_pregunta FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario') ORDER BY RAND() LIMIT 1";
         $pregunta = $this->database->query($query);
-        if(empty($pregunta)){
+        if (empty($pregunta)) {
             return null;
         }
         return $pregunta[0];
