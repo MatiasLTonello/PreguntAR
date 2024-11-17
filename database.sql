@@ -50,6 +50,7 @@ CREATE TABLE preguntas (
                             correctas INT DEFAULT 0,
                             estado ENUM ('aprobada', 'desaprobada', 'reportada', 'eliminada', 'sugerida') NOT NULL,
                             esta_eliminada BOOLEAN DEFAULT FALSE,
+                            fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                             FOREIGN KEY (id_categoria) REFERENCES categorias (id)
 );
 
@@ -66,6 +67,7 @@ CREATE TABLE historial_usuarios_preguntas (
                                               id_usuario INT,
                                               id_pregunta INT,
                                               contesto_correctamente BOOLEAN,
+                                                fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                               FOREIGN KEY (id_usuario) REFERENCES usuarios (id),
                                               FOREIGN KEY (id_pregunta) REFERENCES preguntas (id)
 );
@@ -91,9 +93,9 @@ INSERT INTO usuarios (
     nivel
 ) VALUES
       ('Juan Perez', '2000-1-01', 'test', 'test@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 2, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test
-      ('Sofia Morales', '1999-6-22', 'sofia', 'sofia@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test
-      ('Diego Rios', '2001-9-05', 'diego', 'diego@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test
-      ('Lucia Fernández', '2002-4-12', 'lucia', 'lucia@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '0', '1'), -- contraseña: test
+      ('Sofia Morales', '1955-6-22', 'sofia', 'sofia@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Uruguay', 1, 'test.png', 'femenino', current_timestamp(), '', '0', '1'), -- contraseña: test
+      ('Diego Rios', '2010-9-05', 'diego', 'diego@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Brasil', 1, 'test.png', 'otro', current_timestamp(), '', '0', '1'), -- contraseña: test
+      ('Lucia Fernández', '2002-4-12', 'lucia', 'lucia@test.com', '098f6bcd4621d373cade4e832627b4f6', 'Chile', 1, 'test.png', 'femenino', current_timestamp(), '', '0', '1'), -- contraseña: test
       ('Leo Arias', '2000-1-01', 'leo', 'correo@correo.com', '202cb962ac59075b964b07152d234b70' , 'Argentina', 1, 'test.png', 'masculino', current_timestamp(), '', '1', '1'); -- contraseña: 123
 
 INSERT INTO categorias (nombre, color) VALUES

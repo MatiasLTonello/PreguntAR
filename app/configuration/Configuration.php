@@ -15,6 +15,7 @@ include_once("controller/PartidaController.php");
 include_once("controller/RankingController.php");
 include_once("controller/EditorController.php");
 include_once("controller/PreguntaController.php");
+include_once("controller/AdminController.php");
 
 
 
@@ -27,6 +28,7 @@ include_once("model/PartidaModel.php");
 include_once("model/RankingModel.php");
 include_once("model/EditorModel.php");
 include_once("model/PreguntaModel.php");
+include_once("model/AdminModel.php");
 
 
 
@@ -70,6 +72,16 @@ class Configuration
     public function getLoginController()
     {
         return new LoginController($this->getPresenter(), $this->getLoginModel());
+    }
+
+    public function getAdminController()
+    {
+        return new AdminController($this->getPresenter(), $this->getAdminModel());
+    }
+
+    public function getAdminModel()
+    {
+        return new AdminModel($this->getDatabase());
     }
 
     public function getPreguntaController()

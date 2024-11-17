@@ -1,0 +1,256 @@
+<script defer>
+    document.title = `Panel de Administración`;
+</script>
+
+<main class="container-lg my-4">
+
+    <div class="d-flex justify-content-between mb-4">
+        <h2>Panel de Administración</h2>
+        <div>
+            <select class="form-select" aria-label="Filtrar por">
+                <option selected>Filtrar por</option>
+                <option value="1">Hoy</option>
+                <option value="2">Esta semana</option>
+                <option value="3">Este mes</option>
+                <option value="4">Este año</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Cartas -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Jugadores</h5>
+                    <h3 class="card-text">
+                        {{cantidadUsuarios}}
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Partidas Jugadas</h5>
+                    <h3 class="card-text">
+                        {{cantidadPartidas}}
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Preguntas</h5>
+                    <h3 class="card-text">
+                        {{cantidadPreguntas}}
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">Nuevos Usuarios (Hoy)</h5>
+                    <h3 class="card-text">
+                        {{cantidadNuevosUsuarios}}
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graficos -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Usuarios por País</h5>
+                    <canvas id="chartUsuariosPais"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body tex">
+                    <h5 class="card-title">Usuarios por Sexo</h5>
+                    <canvas id="chartUsuariosSexo"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Usuarios por Grupo de Edad</h5>
+                    <canvas id="chartGrupoEdad"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">% Preguntas Respondidas Correctamente</h5>
+                    <canvas id="chartPreguntasCorrectas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla -->
+    <h4 class="mb-3">Tabla de Datos</h4>
+    <table class="table table-striped" id="tablaDatos">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Nuevos Usuarios</th>
+                <th>Partidas Jugadas</th>
+                <th>Preguntas Creadas</th>
+                <th>% Respuestas Correctas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#datosPorDia}}
+            <tr>
+                <td>{{fecha}}</td>
+                <td>{{cantidad_nuevos_usuarios}}</td>
+                <td>{{cantidad_partidas_jugadas}}</td>
+                <td>{{cantidad_preguntas_creadas}}</td>
+                <td>{{porcentaje_respuestas_correctas}}%</td>
+            </tr>
+            {{/datosPorDia}}
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-end gap-2">
+        <!-- <button class="btn btn-primary">Compartir</button> -->
+        <button class="btn btn-primary" onclick="exportarTablaPDF()">Exportar Tabla</button>
+        <button class="btn btn-secondary" onclick="exportarGraficosPDF()">Exportar Graficos</button>
+    </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+<script>
+    // Configuración de gráficos de ejemplo con Chart.js
+    const ctxPais = document.getElementById('chartUsuariosPais').getContext('2d');
+    const ctxSexo = document.getElementById('chartUsuariosSexo').getContext('2d');
+    const ctxEdad = document.getElementById('chartGrupoEdad').getContext('2d');
+    const ctxPreguntas = document.getElementById('chartPreguntasCorrectas').getContext('2d');
+
+    ctxSexo.height = 100;
+
+    const paises = JSON.parse('{{{paises}}}');
+    const usuariosPorPais = JSON.parse('{{{usuariosPorPais}}}');
+
+    const sexos = JSON.parse('{{{sexos}}}');
+    const usuariosPorSexo = JSON.parse('{{{usuariosPorSexo}}}');
+
+    const usuariosPorEdad = JSON.parse('{{{usuariosPorEdad}}}');
+
+    const porcentajeRespondidasCorrectamentePorDia = JSON.parse('{{{porcentajeRespondidasCorrectamentePorDia}}}');
+
+    new Chart(ctxPais, {
+        type: 'bar',
+        data: {
+            labels: paises,
+            datasets: [{
+                data: usuariosPorPais,
+                backgroundColor: ['blue', 'red', 'yellow', 'green', 'orange'],
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    new Chart(ctxSexo, {
+        type: 'pie',
+        data: {
+            labels: sexos,
+            datasets: [{
+
+                data: usuariosPorSexo,
+                backgroundColor: ['blue', 'red', 'yellow'],
+
+            }]
+        },
+        options: {
+            aspectRatio: 2,
+            responsive: true
+        }
+    });
+
+    new Chart(ctxEdad, {
+        type: 'bar',
+        data: {
+            labels: ['Menores', 'Jubilados', 'Adultos'],
+            datasets: [{
+                data: usuariosPorEdad,
+                backgroundColor: ['blue', 'red', 'yellow'],
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    new Chart(ctxPreguntas, {
+        type: 'line',
+        data: {
+            labels: porcentajeRespondidasCorrectamentePorDia.map(d => d.fecha),
+            datasets: [{
+                label: '% Correctas',
+                data: porcentajeRespondidasCorrectamentePorDia.map(d => d.porcentaje_correctas),
+                borderColor: 'blue',
+                fill: false
+            }]
+        }
+    });
+
+    // Exportar tabla a PDF
+    function exportarTablaPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.autoTable({ html: '#tablaDatos' });
+        doc.save('tabla-datos.pdf');
+    }
+
+    // Exportar gráficos a PDF
+    function exportarGraficosPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const canvasPais = document.getElementById('chartUsuariosPais');
+        const canvasSexo = document.getElementById('chartUsuariosSexo');
+        const canvasEdad = document.getElementById('chartGrupoEdad');
+        const canvasPreguntas = document.getElementById('chartPreguntasCorrectas');
+
+        doc.text('Usuarios por País', 10, 10);
+        doc.addImage(canvasPais.toDataURL(), 'PNG', 10, 20, 100, 50);
+
+        doc.text('Usuarios por Sexo', 10, 80);
+        doc.addImage(canvasSexo.toDataURL(), 'PNG', 10, 90, 100, 50);
+
+        doc.text('Usuarios por Grupo de Edad', 10, 150);
+        doc.addImage(canvasEdad.toDataURL(), 'PNG', 10, 160, 100, 50);
+
+        doc.text('% Preguntas Respondidas Correctamente', 10, 220);
+        doc.addImage(canvasPreguntas.toDataURL(), 'PNG', 10, 230, 100, 50);
+
+        doc.save('graficos.pdf');
+    }
+</script>
