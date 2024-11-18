@@ -78,9 +78,22 @@ class AdminController
 
         $porcentajeRespondidasCorrectamentePorDia = $this->model->getPorcentajeRespondidasCorrectamentePorDia();
         $data['porcentajeRespondidasCorrectamentePorDia'] = json_encode($porcentajeRespondidasCorrectamentePorDia);
-        
+
         $data["datosPorDia"] = $this->model->getDatosPorDia();
-        
+
         $this->presenter->show('admin', $data);
+    }
+
+    public function filtrar()
+    {
+        if (!isset($_SESSION['user']) || !isset($_SESSION['actualUser'])) {
+            header('Location: /login');
+            exit();
+        }
+
+        $filtro = $_GET['filtro'] ?? '1'; // Obtener el filtro de la solicitud GET
+        $data = $this->model->getDatosPorFiltro($filtro);
+
+        echo json_encode($data);
     }
 }
