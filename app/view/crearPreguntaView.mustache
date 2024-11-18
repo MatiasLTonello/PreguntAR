@@ -1,27 +1,32 @@
-<link rel="stylesheet" href="../public/css/pregunta.css">
-<div class='w3-container w3-center flex-fill'
-     style='display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 10px 0'
-     id='band'>
-    <h3 class='w3-wide'>Formulario para crear una nueva pregunta</h3>
+<div class="w3-container w3-center flex-fill flex flex-col items-center py-5" id="band">
+    <h3 class="text-3xl font-bold mb-6">Formulario para crear una nueva pregunta</h3>
 
-    <form action="/pregunta/insertar" method="post" class="pregunta-form">
-        <div class="input-form">
-            <label for="pregunta" id="pregunta">Pregunta:</label>
-            <input required name="pregunta" id="pregunta"/>
+    <form action="/pregunta/insertar" method="post" class="w-full max-w-lg text-black">
+        <!-- Pregunta input -->
+        <div class="mb-5">
+            <label for="pregunta" class="block text-lg font-medium text-gray-700">Pregunta:</label>
+            <input required name="pregunta" id="pregunta" type="text" placeholder="Ingrese su pregunta" class="input input-bordered w-full mt-2" />
         </div>
-        <div class="input-form">
-            <label for="categoria" class="form-label">Seleccione categoría</label>
-            <select name="categoria" id="categoria" class="select-form">
+
+        <!-- Categoria select -->
+        <div class="mb-5">
+            <label for="categoria" class="block text-lg font-medium text-gray-700">Seleccione categoría</label>
+            <select name="categoria" id="categoria" class="select select-bordered w-full mt-2">
                 {{#categorias}}
                     <option value="{{id}}">{{nombre}}</option>
                 {{/categorias}}
             </select>
         </div>
-        <button type="submit" class="button-crear-pregunta">Crear Pregunta
-        </button>
+
+        <!-- Submit button -->
+        <div>
+            <button type="submit" class="btn btn-primary w-full py-3 text-lg">Crear Pregunta</button>
+        </div>
     </form>
-    {{mensaje}}
+
+    <div class="mt-4 text-lg font-semibold text-gray-700">
+        {{mensaje}}
+    </div>
 </div>
 
-<!-- End Page Content -->
-</div>
+

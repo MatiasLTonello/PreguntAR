@@ -1,22 +1,24 @@
 <script defer>
     document.title = `Partida perdida`;
 </script>
-<main class="container text-center my-5 flex-fill">
+<main class="flex flex-col items-center justify-center min-h-screen bg-base-200 p-6">
     <!-- Mensaje de respuesta incorrecta -->
-    <div class="alert alert-danger" role="alert">
-        <h1 class="display-4">¡Has perdido la partida!</h1>
-        <h2 class="display-4">Tiempo Agotado</h2>
+    <div class="alert alert-error shadow-lg">
+        <div class="flex flex-col items-center">
+            <h1 class="text-3xl font-bold">¡Has perdido la partida!</h1>
+            <h2 class="text-2xl mt-2">Tiempo Agotado</h2>
+        </div>
     </div>
 
     <!-- Mostrar puntaje final -->
-    <div class="alert alert-info mt-3" role="alert">
-        <h2 class="display-6">Puntaje Final: <strong>{{puntaje}}</strong></h2>
+    <div class="alert alert-info shadow-lg mt-4">
+        <h2 class="text-xl">Puntaje Final: <span class="font-bold">{{puntaje}}</span></h2>
     </div>
 
     <!-- Botones de acción -->
-    <div class="d-flex justify-content-center gap-3 mt-4">
-        <a href="/" class="btn btn-secondary btn-lg">Volver al Menú Principal</a>
-        <a href="/reportar" class="btn btn-warning btn-lg">Reportar Pregunta</a>
-        <a href="/partida" class="btn btn-primary btn-lg">Iniciar Nueva Partida</a>
+    <div class="flex justify-center gap-4 mt-6">
+        <a href="/" class="btn btn-outline btn-neutral">Volver al Menú Principal</a>
+        <a href="/reportar" class="btn btn-outline btn-warning">Reportar Pregunta</a>
+        <a href="/partida" class="btn btn-outline btn-primary">Iniciar Nueva Partida</a>
     </div>
 </main>

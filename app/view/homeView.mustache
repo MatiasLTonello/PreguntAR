@@ -2,43 +2,42 @@
     document.title = `Home`;
 </script>
 
-<main class="container text-center mt-5 py-5 main-content flex-fill">
+<main class="container mx-auto pt-4 rounded-lg shadow-lg text-center">
     {{#mensaje}}
         <div class="alert alert-success" role="alert">
             {{mensaje}}
         </div>
     {{/mensaje}}
-    <h1 class="display-4 fw-bold mb-4 text-primary">Bienvenido al Juego Preguntados, {{user}}!</h1>
-    <p class="lead mt-3 text-muted">Prepárate para poner a prueba tus conocimientos en las siguientes categorías:</p>
+    <h1 class="text-4xl font-bold mb-6 text-primary">Bienvenido al Juego Preguntados, {{user}}!</h1>
+    <p class="text-lg text-gray-600 mb-6">Prepárate para poner a prueba tus conocimientos en las siguientes categorías:</p>
 
-    <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
-        <a href="/partida" class="btn btn-primary btn-lg shadow-lg px-5 py-2">
-            <i class="bi bi-play-fill me-2"></i>Jugar Nueva Partida
+    <div class="flex flex-col items-center gap-4 mt-6">
+        <a href="/partida" class="btn btn-primary btn-wide shadow-lg">
+            <i class="bi bi-play-fill mr-2"></i>Jugar Nueva Partida
         </a>
-        <a href="/profile" class="btn btn-success btn-lg shadow-lg px-4 py-2">
-            <i class="bi bi-person-circle me-2"></i>Ver perfil
+        <a href="/profile" class="btn btn-success btn-wide shadow-lg">
+            <i class="bi bi-person-circle mr-2"></i>Ver perfil
         </a>
-        <a href="/ranking/ver" class="btn btn-warning btn-lg shadow-lg px-4 py-2">
-            <i class="bi bi-trophy me-2"></i>Ranking
+        <a href="/ranking/ver" class="btn btn-warning btn-wide shadow-lg">
+            <i class="bi bi-trophy mr-2"></i>Ranking
         </a>
-        <a href="/pregunta" class="btn btn-warning btn-lg shadow-lg px-4 py-2">
-            <i class="bi bi-trophy me-2"></i>Sugerir Pregunta
+        <a href="/pregunta" class="btn btn-warning btn-wide shadow-lg">
+            <i class="bi bi-trophy mr-2"></i>Sugerir Pregunta
         </a>
-        <a href="/logout/logout" class="btn btn-danger btn-lg shadow-lg px-5 py-2">
-            <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
+        <a href="/logout/logout" class="btn btn-error btn-wide shadow-lg">
+            <i class="bi bi-box-arrow-right mr-2"></i>Cerrar Sesión
         </a>
 
-            {{#isAdmin}}
-                <a href="/admin" class="btn btn-dark btn-lg shadow-lg px-5 py-2">
-                    <i class="bi bi-shield-lock me-2"></i>Ir al Panel de Administrador
-                </a>
-            {{/isAdmin}}
+        {{#isAdmin}}
+            <a href="/admin" class="btn btn-neutral btn-wide shadow-lg">
+                <i class="bi bi-shield-lock mr-2"></i>Ir al Panel de Administrador
+            </a>
+        {{/isAdmin}}
 
-            {{#isEditor}}
-                <a href="/editor" class="btn btn-info btn-lg shadow-lg px-5 py-2">
-                    <i class="bi bi-tools me-2"></i>Ir al Panel de Editor
-                </a>
-            {{/isEditor}}
-
+        {{#isEditor}}
+            <a href="/editor" class="btn btn-info btn-wide shadow-lg">
+                <i class="bi bi-tools mr-2"></i>Ir al Panel de Editor
+            </a>
+        {{/isEditor}}
     </div>
 </main>

@@ -1,145 +1,274 @@
 <script>
     document.title = `Perfil`;
 </script>
-<main class="container my-5">
-{{#miUser}}
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-lg">
-                <div class="card-header bg-primary text-white text-center">
-                    <h3 id="userName">Perfil de {{usuario}}</h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <!-- Foto de perfil y código QR -->
-                        <div class="col-md-4 text-center">
-                            <img src="/path/to/images/{{foto}}" alt="Foto de Perfil" class="img-fluid rounded-circle mb-3 shadow-sm" style="max-width: 150px;"
-                                 onerror="this.onerror=null;this.src='../public/img/default-profile.png';">
-                            <div>
-                                <img src="../public/qr.php?id={{id}}" alt="QR Code" class="img-fluid rounded shadow-sm mt-2" style="max-width: 100px;">
-                            </div>
-
-                            <div class="mt-4">
-                                {{#stats}}
-                                    <p>Total Partidas: {{total_partidas}}</p>
-                                    <p>Puntaje Máximo: {{puntaje_maximo}}</p>
-                                {{/stats}}
-                                {{^stats}}
-                                    <p>Juega para ver tu puntaje máximo y partidas totales.</p>
-                                {{/stats}}
-                            </div>
-                        </div>
-
-                        <!-- Información del usuario y mapa -->
-                        <div class="col-md-8">
-                            <div class="mapContainer mb-4 p-2 rounded shadow-sm" style="border: 1px solid #e0e0e0;">
-                                <iframe
-                                        width="100%"
-                                        height="300"
-                                        style="border:0; border-radius: 8px;"
-                                        loading="lazy"
-                                        allowfullscreen
-                                        referrerpolicy="no-referrer-when-downgrade"
-                                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxP6xiQEPFAMcksSmK-ZmzUdGZbo5rukI&q={{ubicacion}}">
-                                </iframe>
-                            </div>
-
-                            <!-- Información detallada del perfil -->
-                            <div class="user-info">
-                                <div class="row mb-2">
-                                    <div class="col-4 font-weight-bold">Rol:</div>
-                                    <div class="col-8">{{rol}}</div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col-4 font-weight-bold">Nombre Completo:</div>
-                                    <div class="col-8">{{nombre_completo}}</div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col-4 font-weight-bold">Fecha de Nacimiento:</div>
-                                    <div class="col-8">{{fecha_nacimiento}}</div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col-4 font-weight-bold">Email:</div>
-                                    <div class="col-8">{{email}}</div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col-4 font-weight-bold">Ubicación:</div>
-                                    <div class="col-8">{{ubicacion}}</div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col-4 font-weight-bold">Sexo:</div>
-                                    <div class="col-8">{{sexo}}</div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col-4 font-weight-bold">Fecha de Registro:</div>
-                                    <div class="col-8">{{fecha_registro}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="container mx-auto p-4 max-w-5xl">
+    {{#miUser}}
+        <!-- Card principal -->
+        <div class="card bg-gray-200 shadow-xl text-black">
+            <!-- Header con gradiente -->
+            <div class="card-body bg-gradient-to-r from-primary to-secondary text-primary-content rounded-t-2xl">
+                <h2 class="card-title text-3xl font-bold justify-center">Perfil de {{usuario}}</h2>
             </div>
-        </div>
-    </div>
-{{/miUser}}
-    {{#otroPerfil}}
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow-lg">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h3>Perfil de {{usuario}}</h3>
+
+            <div class="card-body">
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Columna izquierda: Foto y QR -->
+                    <div class="flex flex-col items-center lg:w-1/3 gap-4">
+                        <!-- Avatar con borde -->
+                        <div class="avatar online">
+                            <div class="w-40 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                <img src="/path/to/images/{{foto}}"
+                                     onerror="this.onerror=null;this.src='../public/img/default-profile.png';" />
+                            </div>
+                        </div>
+
+                        <!-- QR Code con marco decorativo -->
+                        <div class="card bg-base-200 shadow-md">
+                            <div class="card-body p-4">
+                                <img src="../public/qr.php?id={{id}}"
+                                alt="QR Code"
+                                class="w-32 h-32">
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <!-- Foto de perfil y código QR -->
-                            <div class="col-md-4 text-center">
-                                <img src="/path/to/images/{{foto}}" alt="Foto de Perfil" class="img-fluid rounded-circle mb-3 shadow-sm" style="max-width: 150px;"
-                                     onerror="this.onerror=null;this.src='../public/img/default-profile.png';">
-                                <div>
-                                    <img src="../public/qr.php?id={{id}}" alt="QR Code" class="img-fluid rounded shadow-sm mt-2" style="max-width: 100px;">
+
+                    <!-- Columna derecha: Información -->
+                    <div class="lg:w-2/3">
+
+                        <!-- Información Personal -->
+                        <div class="card bg-base-200">
+                            <div class="card-body">
+                                <h3 class="card-title text-xl mb-4">Información Personal</h3>
+
+                                <div class="grid gap-4">
+                                    <div class="stats shadow">
+                                        <div class="stat">
+                                            <div class="stat-title">Rol</div>
+                                            <div class="stat-value text-lg">{{rol}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="stats shadow">
+                                        <div class="stat">
+                                            <div class="stat-title">Nombre Completo</div>
+                                            <div class="stat-value text-lg">{{nombre_completo}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="stats shadow">
+                                            <div class="stat">
+                                                <div class="stat-title">Email</div>
+                                                <div class="stat-value text-lg">{{email}}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="stats shadow">
+                                            <div class="stat">
+                                                <div class="stat-title">Fecha de Nacimiento</div>
+                                                <div class="stat-value text-lg">{{fecha_nacimiento}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="stats shadow">
+                                            <div class="stat">
+                                                <div class="stat-title">Sexo</div>
+                                                <div class="stat-value text-lg">{{sexo}}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="stats shadow">
+                                            <div class="stat">
+                                                <div class="stat-title">Fecha de Registro</div>
+                                                <div class="stat-value text-lg">{{fecha_registro}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <!-- Información del usuario y mapa -->
-                            <div class="col-md-8">
-                                <div class="mapContainer mb-4 p-2 rounded shadow-sm" style="border: 1px solid #e0e0e0;">
-                                    <iframe
-                                            width="100%"
+                        <!-- Estadísticas -->
+                        {{#stats}}
+                            <div class="card bg-base-200 mt-4">
+                                <div class="card-body">
+                                    <h3 class="card-title text-xl mb-4">Estadísticas de Juego</h3>
+                                    <div class="stats stats-vertical lg:stats-horizontal shadow">
+                                        <div class="stat">
+                                            <div class="stat-title">Total Partidas</div>
+                                            <div class="stat-value">{{total_partidas}}</div>
+                                        </div>
+
+                                        <div class="stat">
+                                            <div class="stat-title">Puntaje Máximo</div>
+                                            <div class="stat-value text-primary">{{puntaje_maximo}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/stats}}
+                        {{^stats}}
+                            <div class="alert alert-info mt-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span>Juega para ver tu puntaje máximo y partidas totales.</span>
+                            </div>
+                        {{/stats}}
+
+                        <!-- Mapa -->
+                        <div class="card bg-base-200 mt-4">
+                            <div class="card-body">
+                                <h3 class="card-title text-xl mb-4">Ubicación</h3>
+                                <div class="stats shadow mb-4">
+                                    <div class="stat">
+                                        <div class="stat-title">Ubicación Actual</div>
+                                        <div class="stat-value text-lg">{{ubicacion}}</div>
+                                    </div>
+                                </div>
+                                <div class="w-full rounded-lg overflow-hidden">
+                                    <iframe width="100%"
                                             height="300"
-                                            style="border:0; border-radius: 8px;"
+                                            style="border:0;"
                                             loading="lazy"
                                             allowfullscreen
                                             referrerpolicy="no-referrer-when-downgrade"
                                             src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxP6xiQEPFAMcksSmK-ZmzUdGZbo5rukI&q={{ubicacion}}">
                                     </iframe>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/miUser}}
 
-                                <!-- Información detallada del perfil -->
-                                <div class="user-info">
-                                    <div class="row mb-2">
-                                        <div class="col-4 font-weight-bold">Nombre Completo:</div>
-                                        <div class="col-8">{{nombre_completo}}</div>
+    {{#otroPerfil}}
+        <div class="card bg-gray-200 shadow-xl text-black">
+            <!-- Header con gradiente -->
+            <div class="card-body bg-gradient-to-r from-primary to-secondary text-primary-content rounded-t-2xl">
+                <h2 class="card-title text-3xl font-bold justify-center">Perfil de {{usuario}}</h2>
+            </div>
+
+            <div class="card-body">
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Columna izquierda: Foto y QR -->
+                    <div class="flex flex-col items-center lg:w-1/3 gap-4">
+                        <!-- Avatar con borde -->
+                        <div class="avatar online">
+                            <div class="w-40 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                <img src="/path/to/images/{{foto}}"
+                                     onerror="this.onerror=null;this.src='../public/img/default-profile.png';" />
+                            </div>
+                        </div>
+
+                        <!-- QR Code con marco decorativo -->
+                        <div class="card bg-base-200 shadow-md">
+                            <div class="card-body p-4">
+                                <img src="../public/qr.php?id={{id}}"
+                                alt="QR Code"
+                                class="w-32 h-32">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna derecha: Información -->
+                    <div class="lg:w-2/3">
+
+                        <!-- Información Personal -->
+                        <div class="card bg-base-200">
+                            <div class="card-body">
+                                <h3 class="card-title text-xl mb-4">Información Personal</h3>
+
+                                <div class="grid gap-4">
+                                    <div class="stats shadow">
+                                        <div class="stat">
+                                            <div class="stat-title">Nombre Completo</div>
+                                            <div class="stat-value text-lg">{{nombre_completo}}</div>
+                                        </div>
                                     </div>
-                                    <div class="row mb-2">
-                                        <div class="col-4 font-weight-bold">Fecha de Nacimiento:</div>
-                                        <div class="col-8">{{fecha_nacimiento}}</div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="stats shadow">
+                                            <div class="stat">
+                                                <div class="stat-title">Email</div>
+                                                <div class="stat-value text-lg">{{email}}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="stats shadow">
+                                            <div class="stat">
+                                                <div class="stat-title">Fecha de Nacimiento</div>
+                                                <div class="stat-value text-lg">{{fecha_nacimiento}}</div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="row mb-2">
-                                        <div class="col-4 font-weight-bold">Email:</div>
-                                        <div class="col-8">{{email}}</div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="stats shadow">
+                                            <div class="stat">
+                                                <div class="stat-title">Sexo</div>
+                                                <div class="stat-value text-lg">{{sexo}}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="stats shadow">
+                                            <div class="stat">
+                                                <div class="stat-title">Fecha de Registro</div>
+                                                <div class="stat-value text-lg">{{fecha_registro}}</div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="row mb-2">
-                                        <div class="col-4 font-weight-bold">Ubicación:</div>
-                                        <div class="col-8">{{ubicacion}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Estadísticas -->
+                        {{#stats}}
+                            <div class="card bg-base-200 mt-4">
+                                <div class="card-body">
+                                    <h3 class="card-title text-xl mb-4">Estadísticas de Juego</h3>
+                                    <div class="stats stats-vertical lg:stats-horizontal shadow">
+                                        <div class="stat">
+                                            <div class="stat-title">Total Partidas</div>
+                                            <div class="stat-value">{{total_partidas}}</div>
+                                        </div>
+
+                                        <div class="stat">
+                                            <div class="stat-title">Puntaje Máximo</div>
+                                            <div class="stat-value text-primary">{{puntaje_maximo}}</div>
+                                        </div>
                                     </div>
-                                    <div class="row mb-2">
-                                        <div class="col-4 font-weight-bold">Sexo:</div>
-                                        <div class="col-8">{{sexo}}</div>
+                                </div>
+                            </div>
+                        {{/stats}}
+                        {{^stats}}
+                            <div class="alert alert-info mt-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span>Juega para ver tu puntaje máximo y partidas totales.</span>
+                            </div>
+                        {{/stats}}
+
+                        <!-- Mapa -->
+                        <div class="card bg-base-200 mt-4">
+                            <div class="card-body">
+                                <h3 class="card-title text-xl mb-4">Ubicación</h3>
+                                <div class="stats shadow mb-4">
+                                    <div class="stat">
+                                        <div class="stat-title">Ubicación Actual</div>
+                                        <div class="stat-value text-lg">{{ubicacion}}</div>
                                     </div>
-                                    <div class="row mb-2">
-                                        <div class="col-4 font-weight-bold">Fecha de Registro:</div>
-                                        <div class="col-8">{{fecha_registro}}</div>
-                                    </div>
+                                </div>
+                                <div class="w-full rounded-lg overflow-hidden">
+                                    <iframe width="100%"
+                                            height="300"
+                                            style="border:0;"
+                                            loading="lazy"
+                                            allowfullscreen
+                                            referrerpolicy="no-referrer-when-downgrade"
+                                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxP6xiQEPFAMcksSmK-ZmzUdGZbo5rukI&q={{ubicacion}}">
+                                    </iframe>
                                 </div>
                             </div>
                         </div>
@@ -147,5 +276,6 @@
                 </div>
             </div>
         </div>
+
     {{/otroPerfil}}
-</main>
+</div>

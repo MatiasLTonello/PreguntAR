@@ -6,41 +6,57 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Crear Respuestas</title>
-    <link rel="stylesheet" href="../public/css/respuesta.css">
 </head>
-<body>
-<form class="respuestas-form" action="/pregunta/insertarRespuestas" method="post">
-    <input type="hidden" value="{{idPregunta}}" name="idPregunta" id="idPregunta"/>
-    <div class="input-form">
-        <label for="respuesta_a" id="respuesta_a">Respuesta A:</label>
-        <input required name="respuesta_a" id="respuesta_a"/>
-    </div>
-    <div class="input-form">
-        <label for="respuesta_b" id="respuesta_b">Respuesta B:</label>
-        <input required name="respuesta_b" id="respuesta_b"/>
-    </div>
-    <div class="input-form">
-        <label for="respuesta_c" id="respuesta_c">Respuesta C:</label>
-        <input required name="respuesta_c" id="respuesta_c"/>
+<div class="w-full max-w-xl mx-auto mt-10 bg-gray-100 p-8 rounded-lg shadow-xl mb-8 text-black">
+    <h3 class="text-3xl font-semibold text-black text-center mb-6">Formulario para crear respuestas</h3>
 
-    </div>
-    <div class="input-form">
-        <label for="respuesta_d" id="respuesta_d">Respuesta D:</label>
-        <input required name="respuesta_d" id="respuesta_d"/>
+    <form class="respuestas-form space-y-6" action="/pregunta/insertarRespuestas" method="post">
+        <input type="hidden" value="{{idPregunta}}" name="idPregunta" id="idPregunta" />
 
-    </div>
-    <div class="input-form">
-        <label for="respuesta_correcta" id="respuesta_correcta">Respuesta Correcta:</label>
-        <select required name="respuesta_correcta" id="respuesta_correcta" class="select-form">
-            <option value="respuesta_a">Respuesta A</option>
-            <option value="respuesta_b">Respuesta B</option>
-            <option value="respuesta_c">Respuesta C</option>
-            <option value="respuesta_d">Respuesta D</option>
-        </select>
-    </div>
-    <input class="btn-sub" type="submit" value="ENVIAR">
+        <!-- Respuesta A -->
+        <div class="input-form">
+            <label for="respuesta_a" class="block text-lg font-medium text-black">Respuesta A:</label>
+            <input required name="respuesta_a" id="respuesta_a" class="input input-bordered w-full" />
+        </div>
 
-</form>
-{{mensaje}}
-</body>
+        <!-- Respuesta B -->
+        <div class="input-form">
+            <label for="respuesta_b" class="block text-lg font-medium text-black">Respuesta B:</label>
+            <input required name="respuesta_b" id="respuesta_b" class="input input-bordered w-full" />
+        </div>
+
+        <!-- Respuesta C -->
+        <div class="input-form">
+            <label for="respuesta_c" class="block text-lg font-medium text-black">Respuesta C:</label>
+            <input required name="respuesta_c" id="respuesta_c" class="input input-bordered w-full" />
+        </div>
+
+        <!-- Respuesta D -->
+        <div class="input-form">
+            <label for="respuesta_d" class="block text-lg font-medium text-black">Respuesta D:</label>
+            <input required name="respuesta_d" id="respuesta_d" class="input input-bordered w-full" />
+        </div>
+
+        <!-- Respuesta Correcta -->
+        <div class="input-form">
+            <label for="respuesta_correcta" class="block text-lg font-medium text-black">Respuesta Correcta:</label>
+            <select required name="respuesta_correcta" id="respuesta_correcta" class="select select-bordered w-full">
+                <option value="respuesta_a">Respuesta A</option>
+                <option value="respuesta_b">Respuesta B</option>
+                <option value="respuesta_c">Respuesta C</option>
+                <option value="respuesta_d">Respuesta D</option>
+            </select>
+        </div>
+
+        <!-- Botón de envío -->
+        <div class="text-center">
+            <input class="btn btn-primary w-full py-3 text-lg mt-4" type="submit" value="ENVIAR" />
+        </div>
+    </form>
+
+    <!-- Mensaje de respuesta -->
+    <div class="text-center mt-4">{{mensaje}}</div>
+</div>
+
+
 </html>

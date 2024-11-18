@@ -6,40 +6,57 @@
 
 <link rel="stylesheet" href="../public/css/ranking.css">
 
-<body>
-<h1 class="mt-4" style="text-align: center">RANKING</h1>
-<main class="ranking-main flex-fill">
-    <div class="ranking-filtro">
-        <label for="filtro" class="flechas">&#129045;&#129047;</label>
-        <select class="ranking-select" id="filtro" name="filtro" onchange="filtrar()">
-            <option selected disabled>Filtrar por...</option>
-            <option value="descPuntos">Puntos: Mayor a Menor</option>
-            <option value="ascPuntos">Puntos: Menor a Mayor</option>
-            <option value="descPartidas">Partidas: Mayor a Menor</option>
-            <option value="ascPartidas">Partidas: Menor a Mayor</option>
-        </select>
+<div class="min-h-screen bg-gray-900">
+<div class="container mx-auto px-4">
+    <h1 class="text-4xl font-bold mt-8 mb-6 text-center text-primary">RANKING</h1>
 
-    </div>
-    <br>
-    <table class="ranking-table" id="ranking-table">
-        <thead>
-        <tr>
-            <th>Posición</th>
-            <th>Nombre</th>
-            <th>Puntaje</th>
-            <th>Partidas Jugadas</th>
-        </tr>
-        </thead>
-        <tbody>
+    <main class="card shadow-xl">
+        <div class="card-body ranking-filtro">
+            <div class="flex justify-center mb-6">
+                <label for="filtro" class="flex items-center mr-2 text-lg">
+                    <span class="text-2xl">&#129045;&#129047;</span>
+                </label>
+                <select class="select select-primary w-full max-w-xs text-black ranking-select" id="filtro" name="filtro" onchange="filtrar()">
+                    <option selected disabled>Filtrar por...</option>
+                    <option value="descPuntos">Puntos: Mayor a Menor</option>
+                    <option value="ascPuntos">Puntos: Menor a Mayor</option>
+                    <option value="descPartidas">Partidas: Mayor a Menor</option>
+                    <option value="ascPartidas">Partidas: Menor a Mayor</option>
+                </select>
+            </div>
 
-        {{#users}}
-            <tr>
-                <td>{{posicion}}</td>
-                <td><a href="/profile&idUsuario={{id}}">{{nombre_completo}}</a></td>
-                <td>{{puntaje_total}}</td>
-                <td>{{partidas_jugadas}}</td>
-            </tr>
-        {{/users}}
-        </tbody>
-    </table>
-</main>
+            <div class="overflow-x-auto">
+                <table class="table w-full"  id="ranking-table">
+                    <thead>
+                    <tr class="bg-primary text-primary-content">
+                        <th class="font-bold">Posición</th>
+                        <th class="font-bold">Nombre</th>
+                        <th class="font-bold">Puntaje</th>
+                        <th class="font-bold">Partidas Jugadas</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#users}}
+                        <tr>
+                            <td class="font-medium">{{posicion}}</td>
+                            <td>
+                                <div class="flex items-center gap-3 ">
+                                    <div>
+                                        <a href="/profile&idUsuario={{id}}" >
+                                        {{nombre_completo}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="font-medium">{{puntaje_total}}</td>
+                            <td>{{partidas_jugadas}}</td>
+                        </tr>
+                    {{/users}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+</div>

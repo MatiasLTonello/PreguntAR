@@ -1,36 +1,32 @@
 <!-- The Band Section -->
-<link rel="stylesheet" href="../public/css/partida.css">
 
-<div class="container py-4">
-    <div class="text-center mb-4">
-        <h3 class="display-6">Pregunta</h3>
-    </div>
-    <form action="/editor/editar" method="post" class="bg-light p-4 rounded shadow-sm">
+<div class="container mx-auto py-6 text-black ">
+    <form action="/editor/editar" method="post" class="bg-gray-800 mx-20 p-6 rounded-lg shadow-lg">
         {{#pregunta}}
-            <div class="mb-3">
-                <label for="pregunta" class="form-label fw-bold">Pregunta</label>
-                <input id="pregunta" type="text" class="form-control" name="pregunta" value="{{pregunta}}">
+            <div class="mb-4">
+                <label for="pregunta" class="label font-bold">Pregunta</label>
+                <input id="pregunta" type="text" class="input input-bordered w-full" name="pregunta" value="{{pregunta}}">
                 <input type="hidden" value="{{id}}" name="idPregunta">
             </div>
-            <div class="mb-3">
-                <p class="form-text">Categoría actual: <span class="fw-bold">{{categoria}}</span></p>
+            <div class="mb-4">
+                <p class="text-sm text-gray-600">Categoría actual: <span class="font-semibold">{{categoria}}</span></p>
             </div>
-            <div class="mb-3">
-                <label for="categoria" class="form-label">Seleccione categoría</label>
-                <select name="categoria" id="categoria" class="form-select">
+            <div class="mb-4">
+                <label for="categoria" class="label">Seleccione categoría</label>
+                <select name="categoria" id="categoria" class="select select-bordered w-full">
                     {{#categorias}}
                         <option value="{{id}}" {{#is_selected}}selected{{/is_selected}}>{{nombre}}</option>
                     {{/categorias}}
                 </select>
             </div>
         {{/pregunta}}
-        <ul class="list-unstyled">
+        <ul class="list-none p-0">
             {{#respuestas}}
-                <li class="mb-3">
+                <li class="mb-4">
                     <input type="hidden" name="idRespuesta[]" value="{{id}}">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="respuesta[]" value="{{opcion}}">
-                        <select name="escorrecto[]" id="escorrecto" class="form-select">
+                    <div class="flex items-center">
+                        <input type="text" class="input input-bordered w-full mr-4" name="respuesta[]" value="{{opcion}}">
+                        <select name="escorrecto[]" id="escorrecto" class="select select-bordered">
                             <option value="0">falsa</option>
                             <option value="1" {{#es_correcta}}selected{{/es_correcta}}>correcta</option>
                         </select>
@@ -38,7 +34,7 @@
                 </li>
             {{/respuestas}}
         </ul>
-        <div class="text-center">
+        <div class="text-center mt-6">
             <button type="submit" class="btn btn-primary">Aceptar</button>
         </div>
     </form>

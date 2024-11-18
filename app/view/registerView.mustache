@@ -1,51 +1,86 @@
 <script defer>
     document.title = `Registro`;
 </script>
-<main class="d-flex justify-content-center align-items-center">
-    <div class="col-md-4 py-4">
+<main class="flex justify-center items-center min-h-screen text-white">
+    <div class="max-w-lg w-full p-6 bg-gray-700 rounded-lg shadow-lg">
         <form action="/register/userRegistration" method="post" enctype="multipart/form-data">
-            <h4 class="text-success text-center mb-4">{{ statusEmail }}</h4>
+            <h4 class="text-center text-success mb-4">{{ statusEmail }}</h4>
 
-            <div class="mb-3">
-                <label for="nombre-completo" class="form-label">Nombre Completo</label>
-                <input type="text" id="nombre-completo" name="nombre-completo" class="form-control">
-                {{#errores.nombre-completo}}<div style="color: red;">{{.}}</div>{{/errores.nombre-completo}}
+            <!-- Nombre Completo -->
+            <div class="form-control mb-4">
+                <label for="nombre-completo" class="label">
+                    <span class="label-text text-white">Nombre Completo</span>
+                </label>
+                <input type="text" id="nombre-completo" name="nombre-completo" class="input input-bordered w-full bg-gray-800 text-white placeholder-gray-400">
+                {{#errores.nombre-completo}}
+                    <div class="text-red-500 mt-1">{{.}}</div>
+                {{/errores.nombre-completo}}
             </div>
 
-            <div class="mb-3">
-                <label for="fecha-nacimiento" class="form-label">Fecha de Nacimiento</label>
-                <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" class="form-control">
-                {{#errores.fecha-nacimiento}}<div style="color: red;">{{.}}</div>{{/errores.fecha-nacimiento}}
+            <!-- Fecha de Nacimiento -->
+            <div class="form-control mb-4">
+                <label for="fecha-nacimiento" class="label">
+                    <span class="label-text text-white">Fecha de Nacimiento</span>
+                </label>
+                <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" class="input input-bordered w-full bg-gray-800 text-white">
+                {{#errores.fecha-nacimiento}}
+                    <div class="text-red-500 mt-1">{{.}}</div>
+                {{/errores.fecha-nacimiento}}
             </div>
 
-            <div class="mb-3">
-                <label for="username" class="form-label">Usuario</label>
-                <input type="text" id="username" name="username" class="form-control">
-                {{#errores.username}}<div style="color: red;">{{.}}</div>{{/errores.username}}
+            <!-- Usuario -->
+            <div class="form-control mb-4">
+                <label for="username" class="label">
+                    <span class="label-text text-white">Usuario</span>
+                </label>
+                <input type="text" id="username" name="username" class="input input-bordered w-full bg-gray-800 text-white">
+                {{#errores.username}}
+                    <div class="text-red-500 mt-1">{{.}}</div>
+                {{/errores.username}}
             </div>
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" name="email" class="form-control">
-                {{#errores.email}}<div style="color: red;">{{.}}</div>{{/errores.email}}
+            <!-- Email -->
+            <div class="form-control mb-4">
+                <label for="email" class="label">
+                    <span class="label-text text-white">Email</span>
+                </label>
+                <input type="email" id="email" name="email" class="input input-bordered w-full bg-gray-800 text-white">
+                {{#errores.email}}
+                    <div class="text-red-500 mt-1">{{.}}</div>
+                {{/errores.email}}
             </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" id="password" name="password" class="form-control">
-                {{#errores.password}}<div style="color: red;">{{.}}</div>{{/errores.password}}
+            <!-- Contraseña -->
+            <div class="form-control mb-4">
+                <label for="password" class="label">
+                    <span class="label-text text-white">Contraseña</span>
+                </label>
+                <input type="password" id="password" name="password" class="input input-bordered w-full bg-gray-800 text-white">
+                {{#errores.password}}
+                    <div class="text-red-500 mt-1">{{.}}</div>
+                {{/errores.password}}
             </div>
 
-            <div class="mb-3">
-                <label for="confirm-password" class="form-label">Repetir Contraseña</label>
-                <input type="password" id="confirm-password" name="confirm-password" class="form-control">
-                {{#errores.confirm-password}}<div style="color: red;">{{.}}</div>{{/errores.confirm-password}}
-                {{#error}}<div style="color: red;">{{.}}</div>{{/error}}
+            <!-- Confirmar Contraseña -->
+            <div class="form-control mb-4">
+                <label for="confirm-password" class="label">
+                    <span class="label-text text-white">Repetir Contraseña</span>
+                </label>
+                <input type="password" id="confirm-password" name="confirm-password" class="input input-bordered w-full bg-gray-800 text-white">
+                {{#errores.confirm-password}}
+                    <div class="text-red-500 mt-1">{{.}}</div>
+                {{/errores.confirm-password}}
+                {{#error}}
+                    <div class="text-red-500 mt-1">{{.}}</div>
+                {{/error}}
             </div>
 
-            <div class="mb-3">
-                <label for="ubicacion" class="form-label">Ubicación</label>
-                <select id="ubicacion" name="ubicacion" class="form-select">
+            <!-- Ubicación -->
+            <div class="form-control mb-4">
+                <label for="ubicacion" class="label">
+                    <span class="label-text text-white">Ubicación</span>
+                </label>
+                <select id="ubicacion" name="ubicacion" class="select select-bordered w-full bg-gray-800 text-white">
                     <option value="buenos aires">Buenos Aires</option>
                     <option value="catamarca">Catamarca</option>
                     <option value="chubut">Chubut</option>
@@ -71,22 +106,32 @@
                 </select>
             </div>
 
-            <div class="mb-3">
-                <label for="foto" class="form-label">Foto</label>
-                <input type="file" id="foto" name="foto" class="form-control" accept="image/*">
+            <!-- Foto -->
+            <div class="form-control mb-4">
+                <label for="foto" class="label">
+                    <span class="label-text text-white">Foto</span>
+                </label>
+                <input type="file" id="foto" name="foto" class="input input-bordered w-full bg-gray-800 text-white" accept="image/*">
             </div>
 
-            <div class="mb-3">
-                <label for="sexo" class="form-label">Sexo</label>
-                <select id="sexo" name="sexo" class="form-select">
+            <!-- Sexo -->
+            <div class="form-control mb-4">
+                <label for="sexo" class="label">
+                    <span class="label-text text-white">Sexo</span>
+                </label>
+                <select id="sexo" name="sexo" class="select select-bordered w-full bg-gray-800 text-white">
                     <option value="masculino">Masculino</option>
                     <option value="femenino">Femenino</option>
                     <option value="otro">Otro</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Registrarse</button>
-            <p class="text-center mt-3">¿Ya tenés una cuenta? <a href="/login">Inicia sesión</a></p>
-            {{#duplicado}}<p class="text-danger text-center">{{.}}</p>{{/duplicado}}
+
+            <!-- Botón Registrarse -->
+            <button type="submit" class="btn btn-primary w-full">Registrarse</button>
+            <p class="text-center mt-4">¿Ya tenés una cuenta? <a href="/login" class="text-blue-400 hover:underline">Inicia sesión</a></p>
+            {{#duplicado}}
+                <p class="text-danger text-center mt-2">{{.}}</p>
+            {{/duplicado}}
         </form>
     </div>
 </main>

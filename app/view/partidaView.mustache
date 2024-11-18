@@ -24,76 +24,80 @@
     }
 </style>
 
-    <main class="container-lg my-4">
+<main class="container-lg my-4">
 
-        <!-- Temporizador -->
-        <div class="d-flex justify-content-center">
-            <div class="d-flex gap-3">
-                <p class="fs-2">Tiempo restante: <span id="timer"></span></p>
-            </div>
+    <!-- Temporizador -->
+    <div class="d-flex justify-content-center mb-5">
+        <div class="d-flex gap-3">
+            <p class="text-2xl">Tiempo restante: <span id="timer"></span></p>
         </div>
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <!-- Tarjeta de pregunta -->
-                <div class="card shadow">
-                    <div class="card-header {{categoriaColor}}">
-                        <h4 class="text-center m-2">Categoría: {{categoria}}</h4>
-                    </div>
-
-                    <div class="card-body">
-                        <p class="fs-3">
-                            {{pregunta}}
-                        </p>
-
-                        <form id="form" method="POST" action="/partida?pregunta={{preguntaId}}">
-                            <div class="row">
-                                <!-- Opción 1 y 2 en la fila superior -->
-                                <div class="col-md-6 mb-3">
-                                    <input class="btn btn-primary rounded-3 w-100 fs-2" value="{{opciones.0.opcion}}"
-                                        data-id="{{opciones.0.id}}" type="submit">
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <input class="btn btn-primary rounded-3 w-100 fs-2" value="{{opciones.1.opcion}}"
-                                        data-id="{{opciones.1.id}}" type="submit">
-                                </div>
-
-                                <!-- Opción 3 y 4 en la fila inferior -->
-                                <div class="col-md-6 mb-3">
-                                    <input class="btn btn-primary rounded-3 w-100 fs-2" value="{{opciones.2.opcion}}"
-                                        data-id="{{opciones.2.id}}" type="submit">
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <input class="btn btn-primary rounded-3 w-100 fs-2" value="{{opciones.3.opcion}}"
-                                        data-id="{{opciones.3.id}}" type="submit">
-                                </div>
-                            </div>
-
-                            <!-- Campo oculto para enviar la opción seleccionada -->
-                            <input type="hidden" name="respuesta" id="respuestaInput" value="">
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Mensaje de respuesta -->
-                <p class="mt-5 fs-2 fw-bold text-center text-success">
-                    {{respuesta}}
-                </p>
-
-                <!-- Resultados de la partida -->
-                <div class="mt-5">
-                    <h4>Partida actual</h4>
-                    <ul class="list-group">
-                        <li class="list-group-item">Puntaje: <strong>{{puntaje}} puntos</strong></li>
-                        <!-- <li class="list-group-item">Preguntas correctas: <strong>3</strong></li>
-                        <li class="list-group-item">Preguntas incorrectas: <strong>1</strong></li> -->
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <audio id="timer-sound" src="../public/audio/clock.wav"></audio>
     </div>
+
+    <div class="flex justify-center">
+        <div class="w-full max-w-3xl">
+            <!-- Tarjeta de pregunta centrada -->
+            <div class="card shadow-xl bg-base-100">
+                <div class="card-header {{categoriaColor}}">
+                    <h4 class="text-3xl text-center m-2 text-white">{{categoria}}</h4>
+                </div>
+
+                <div class="card-body bg-gray-700">
+                    <p class="text-3xl text-center mb-4">
+                        {{pregunta}}
+                    </p>
+
+                    <form id="form" method="POST" action="/partida?pregunta={{preguntaId}}">
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Opción 1 y 2 en la fila superior -->
+                        <div class="col-span-1">
+                            <button class="btn btn-primary w-full text-2xl h-full" data-id="{{opciones.0.id}}" type="submit">
+                                {{opciones.0.opcion}}
+                            </button>
+                        </div>
+
+                        <div class="col-span-1">
+                            <button class="btn btn-primary w-full text-2xl h-full" data-id="{{opciones.1.id}}" type="submit">
+                                {{opciones.1.opcion}}
+                            </button>
+                        </div>
+
+                        <!-- Opción 3 y 4 en la fila inferior -->
+                        <div class="col-span-1">
+                            <button class="btn btn-primary w-full text-2xl h-full" data-id="{{opciones.2.id}}" type="submit">
+                                {{opciones.2.opcion}}
+                            </button>
+                        </div>
+
+                        <div class="col-span-1">
+                            <button class="btn btn-primary w-full text-2xl h-full" data-id="{{opciones.3.id}}" type="submit">
+                                {{opciones.3.opcion}}
+                            </button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="respuesta" id="respuestaInput" value="">
+                    </form>
+                </div>
+            </div>
+
+            <p class="mt-5 text-2xl font-bold text-center text-green-500">
+                {{respuesta}}
+            </p>
+
+            <!-- Resultados de la partida -->
+            <div class="mt-5">
+                <h4 class="text-xl">Partida actual</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">Puntaje: <strong>{{puntaje}} puntos</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <audio id="timer-sound" src="../public/audio/clock.wav"></audio>
+</main>
+
+
     <script>
         const opciones = document.querySelectorAll('.btn');
         const respuestaInput = document.getElementById('respuestaInput');
