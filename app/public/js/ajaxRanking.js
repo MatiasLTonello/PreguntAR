@@ -6,33 +6,34 @@ function filtrar() {
             method: "GET",
             data: {filtro: filtro},
             success: function (response) {
-                console.log(response);
 
                 // Limpia el cuerpo de la tabla antes de agregar nuevas filas
                 $("#ranking-table tbody").empty();
 
                 response.users.forEach(function (user) {
+                    
+                    const {
+                        posicion,
+                        id,
+                        nombre_completo,
+                        puntaje_total,
+                        partidas_jugadas
+                    } = user
+                    
                     let fila = `
-                          <tr>
-                            <td class="font-medium">{{posicion}}</td>
+                        <tr>
+                            <td class="font-medium">${posicion}</td>
                             <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="mask mask-squircle h-12 w-12">
-                                            <img src="/path/to/images/{{foto}}"
-                                                 onerror="this.onerror=null;this.src='../public/img/default-profile.png';" />
-                                        </div>
-                                    </div>
+                                <div class="flex items-center gap-3 ">
                                     <div>
-                                        <a href="/profile&idUsuario={{id}}" class="link link-primary">
-                                        {{nombre_completo}}
+                                        <a href="/profile&idUsuario=${id}" >
+                                        ${nombre_completo}
                                         </a>
                                     </div>
                                 </div>
                             </td>
-
-                            <td class="font-medium">{{puntaje_total}}</td>
-                            <td>{{partidas_jugadas}}</td>
+                            <td class="font-medium">${puntaje_total}</td>
+                            <td>${partidas_jugadas}</td>
                         </tr>`;
                     $("#ranking-table tbody").append(fila);
                 });
