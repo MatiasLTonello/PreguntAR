@@ -16,6 +16,7 @@ include_once("controller/RankingController.php");
 include_once("controller/ReportController.php");
 include_once("controller/EditorController.php");
 include_once("controller/PreguntaController.php");
+include_once("controller/AdminController.php");
 
 include_once("model/LoginModel.php");
 include_once("model/HomeModel.php");
@@ -26,6 +27,9 @@ include_once("model/RankingModel.php");
 include_once("model/EditorModel.php");
 include_once("model/PreguntaModel.php");
 include_once("model/ReportModel.php");
+include_once("model/AdminModel.php");
+
+
 
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 
@@ -67,6 +71,16 @@ class Configuration
     public function getLoginController()
     {
         return new LoginController($this->getPresenter(), $this->getLoginModel());
+    }
+
+    public function getAdminController()
+    {
+        return new AdminController($this->getPresenter(), $this->getAdminModel());
+    }
+
+    public function getAdminModel()
+    {
+        return new AdminModel($this->getDatabase());
     }
 
     public function getPreguntaController()
