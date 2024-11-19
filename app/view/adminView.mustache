@@ -2,11 +2,11 @@
     document.title = 'Panel de Administración';
 </script>
 
-<main class="container-lg my-4">
-    <div class="d-flex justify-content-between mb-4">
-        <h2>Panel de Administración</h2>
+<main class="container mx-auto my-8">
+    <div class="flex justify-between mb-8">
+        <h2 class="text-2xl font-bold">Panel de Administración</h2>
         <div>
-            <select class="form-select" aria-label="Filtrar por" id="filtro">
+            <select class="select select-bordered w-full max-w-xs" aria-label="Filtrar por" id="filtro">
                 <option selected>Filtrar por</option>
                 <option value="1">Hoy</option>
                 <option value="2">Esta semana</option>
@@ -17,104 +17,98 @@
     </div>
 
     <!-- Cartas -->
-    <div class="row g-3 mb-4">
-        <div class="col-md-3">
-            <div class="card bg-primary text-white">
-                <div class="card-body">
-                    <h5>Total de Jugadores</h5>
-                    <h3 id="totalJugadores">{{cantidadUsuarios}}</h3>
-                </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="card bg-primary text-primary-content">
+            <div class="card-body">
+                <h5 class="text-lg font-semibold">Total de Jugadores</h5>
+                <h3 class="text-3xl" id="totalJugadores">{{cantidadUsuarios}}</h3>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card bg-success text-white">
-                <div class="card-body">
-                    <h5>Partidas Jugadas</h5>
-                    <h3 id="partidasJugadas">{{cantidadPartidas}}</h3>
-                </div>
+        <div class="card bg-success text-success-content">
+            <div class="card-body">
+                <h5 class="text-lg font-semibold">Partidas Jugadas</h5>
+                <h3 class="text-3xl" id="partidasJugadas">{{cantidadPartidas}}</h3>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card bg-info text-white">
-                <div class="card-body">
-                    <h5>Total de Preguntas</h5>
-                    <h3 id="totalPreguntas">{{cantidadPreguntas}}</h3>
-                </div>
+        <div class="card bg-info text-info-content">
+            <div class="card-body">
+                <h5 class="text-lg font-semibold">Total de Preguntas</h5>
+                <h3 class="text-3xl" id="totalPreguntas">{{cantidadPreguntas}}</h3>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card bg-warning text-white">
-                <div class="card-body">
-                    <h5>Nuevos Usuarios (Hoy)</h5>
-                    <h3 id="nuevosUsuarios">{{cantidadNuevosUsuarios}}</h3>
-                </div>
+        <div class="card bg-warning text-warning-content">
+            <div class="card-body">
+                <h5 class="text-lg font-semibold">Nuevos Usuarios (Hoy)</h5>
+                <h3 class="text-3xl" id="nuevosUsuarios">{{cantidadNuevosUsuarios}}</h3>
             </div>
         </div>
     </div>
 
     <!-- Graficos -->
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5>Usuarios por País</h5><canvas id="chartUsuariosPais"></canvas>
-                </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="text-lg font-semibold">Usuarios por País</h5>
+                <canvas id="chartUsuariosPais"></canvas>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5>Usuarios por Sexo</h5><canvas id="chartUsuariosSexo"></canvas>
-                </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="text-lg font-semibold">Usuarios por Sexo</h5>
+                <canvas id="chartUsuariosSexo"></canvas>
             </div>
         </div>
     </div>
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5>Usuarios por Grupo de Edad</h5><canvas id="chartGrupoEdad"></canvas>
-                </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="text-lg font-semibold">Usuarios por Grupo de Edad</h5>
+                <canvas id="chartGrupoEdad"></canvas>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5>% Preguntas Correctas</h5><canvas id="chartPreguntasCorrectas"></canvas>
-                </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="text-lg font-semibold">% Preguntas Correctas</h5>
+                <canvas id="chartPreguntasCorrectas"></canvas>
             </div>
         </div>
     </div>
 
     <!-- Tabla -->
-    <h4 class="mb-3">Tabla de Datos</h4>
-    <table class="table table-striped" id="tablaDatos">
-        <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>Nuevos Usuarios</th>
-                <th>Partidas Jugadas</th>
-                <th>Preguntas Creadas</th>
-                <th>% Correctas</th>
-            </tr>
-        </thead>
-        <tbody>{{#datosPorDia}}<tr>
-                <td>{{fecha}}</td>
-                <td>{{cantidad_nuevos_usuarios}}</td>
-                <td>{{cantidad_partidas_jugadas}}</td>
-                <td>{{cantidad_preguntas_creadas}}</td>
-                <td>{{porcentaje_respuestas_correctas}}%</td>
-            </tr>{{/datosPorDia}}</tbody>
-    </table>
+    <h4 class="text-xl font-semibold mb-4">Tabla de Datos</h4>
+    <div class="overflow-x-auto">
+        <table class="table w-full">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Nuevos Usuarios</th>
+                    <th>Partidas Jugadas</th>
+                    <th>Preguntas Creadas</th>
+                    <th>% Correctas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#datosPorDia}}
+                <tr>
+                    <td>{{fecha}}</td>
+                    <td>{{cantidad_nuevos_usuarios}}</td>
+                    <td>{{cantidad_partidas_jugadas}}</td>
+                    <td>{{cantidad_preguntas_creadas}}</td>
+                    <td>{{porcentaje_respuestas_correctas}}%</td>
+                </tr>
+                {{/datosPorDia}}
+            </tbody>
+        </table>
+    </div>
 
     <!-- Botones -->
-    <div class="d-flex justify-content-end gap-2">
+    <div class="flex justify-end gap-4 mt-6">
         <button class="btn btn-primary" onclick="exportarTablaPDF()">Exportar Tabla</button>
         <button class="btn btn-info" onclick="exportarGraficosPDF()">Exportar Gráficos</button>
     </div>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
