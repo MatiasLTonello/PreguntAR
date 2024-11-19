@@ -15,8 +15,12 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['actualUser'])) {
     }
 }
 
-// Validación de rol para rutas de /editor
 if (strpos($page, 'editor') === 0 && (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != 2)) {
+    header('Location: /home');
+    exit();
+}
+
+if (strpos($page, 'admin') === 0 && (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != 1)) {
     header('Location: /home');
     exit();
 }

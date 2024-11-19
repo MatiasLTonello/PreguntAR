@@ -15,21 +15,8 @@ class AdminController
     public function list()
     {
 
-        if (!isset($_SESSION['user']) || !isset($_SESSION['actualUser'])) {
-            header('Location: /login');
-            exit();
-        }
-
         $data['user'] = $_SESSION['user'];
         $data['idUser'] = $_SESSION['actualUser'];
-        $usuarioActual = $this->model->getUserById($_SESSION['actualUser']);
-        $rol = $this->model->getRolById($usuarioActual[0]['id_rol']);
-        $data['isAdmin'] = $rol === 'admin';
-
-        if (!$data['isAdmin']) {
-            header('Location: /');
-            exit();
-        }
 
         $data['cantidadUsuarios'] = $this->model->getCantidaUsuarios();
         $data['cantidadPartidas'] = $this->model->getCantidadPartidas();
@@ -86,11 +73,6 @@ class AdminController
 
     public function filtrar()
     {
-        if (!isset($_SESSION['user']) || !isset($_SESSION['actualUser'])) {
-            header('Location: /login');
-            exit();
-        }
-
         $filtro = $_GET['filtro'] ?? '1'; // Obtener el filtro de la solicitud GET
         $data = $this->model->getDatosPorFiltro($filtro);
 
