@@ -95,13 +95,36 @@ class PartidaModel
         return $this->database->query($query);
     }
 
-    public function getPreguntaRandomSinRepetir($idUsuario)
+    public function getPreguntaRandomSinRepetir($idUsuario, $nivelUsuario)
     {
-        $query = "SELECT * FROM preguntas WHERE estado = 'activa' AND id NOT IN (SELECT id_pregunta FROM historial_usuarios_preguntas WHERE id_usuario = '$idUsuario') ORDER BY RAND() LIMIT 1";
+        $rango = [
+            1 => [0.7, 1],    // Fácil: ratio >= 0.7
+            2 => [0.3, 0.7],  // Medio: 0.3 <= ratio < 0.7
+            3 => [0, 0.3]     // Difícil: ratio < 0.3
+        ];
+    
+        $minRatio = $rango[$nivelUsuario][0];
+        $maxRatio = $rango[$nivelUsuario][1];
+
+        $query = "
+            SELECT *, 
+               (correctas / GREATEST(apariciones, 1)) AS ratio
+            FROM preguntas 
+            WHERE estado = 'activa'
+              AND id NOT IN (
+                  SELECT id_pregunta 
+                  FROM historial_usuarios_preguntas 
+                  WHERE id_usuario = '$idUsuario'
+              )
+              AND (correctas / GREATEST(apariciones, 1)) BETWEEN '$minRatio' AND '$maxRatio'
+            ORDER BY RAND()
+            LIMIT 1
+        ";
+        
         $pregunta = $this->database->query($query);
-        if (empty($pregunta)) {
-            return null;
-        }
+        
+        if (empty($pregunta)) return null;
+        
         return $pregunta[0];
     }
 
