@@ -16,6 +16,7 @@ class PartidaController
     {
         $data['user'] = $_SESSION['user'];
         $data['usuarioActual'] = $this->model->getUserById($_SESSION['actualUser']);
+
         date_default_timezone_set('America/Argentina/Buenos_Aires');
 
         if (isset($_POST['respuesta'])){
@@ -89,11 +90,11 @@ class PartidaController
         $partidaEnCurso = $this->model->getPartidaEnCurso($_SESSION['actualUser']);
         $data['puntaje'] = $partidaEnCurso[0]['puntaje'];
 
-        $pregunta = $this->model->getPreguntaRandomSinRepetir($_SESSION['actualUser']);
+        $pregunta = $this->model->getPreguntaRandomSinRepetir($_SESSION['actualUser'], $data['usuarioActual'][0]['nivel']);
 
         if ($pregunta == null) {
             $this->model->limpiarHistorialPreguntasUsuario($_SESSION['actualUser']);
-            $pregunta = $this->model->getPreguntaRandomSinRepetir($_SESSION['actualUser']);
+            $pregunta = $this->model->getPreguntaRandomSinRepetir($_SESSION['actualUser'], $data['usuarioActual'][0]['nivel']);
         }
         $this->model->setAparicionesPregunta($pregunta['id']);
         $timestampInicioPregunta = time();

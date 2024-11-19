@@ -2,11 +2,11 @@
     document.title = 'Panel de Administración';
 </script>
 
-<main class="container mx-auto my-4 p-4">
-    <div class="flex justify-between mb-4">
+<main class="container mx-auto my-8">
+    <div class="flex justify-between mb-8">
         <h2 class="text-2xl font-bold">Panel de Administración</h2>
         <div>
-            <select class="select select-bordered w-full max-w-xs text-black" aria-label="Filtrar por" id="filtro">
+            <select class="select select-bordered w-full max-w-xs" aria-label="Filtrar por" id="filtro">
                 <option selected>Filtrar por</option>
                 <option value="1">Hoy</option>
                 <option value="2">Esta semana</option>
@@ -17,97 +17,105 @@
     </div>
 
     <!-- Cartas -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-        <div class="card bg-primary text-primary-content shadow-lg">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="card bg-primary text-primary-content">
             <div class="card-body">
-                <h5 class="card-title">Total de Jugadores</h5>
-                <h3 id="totalJugadores" class="text-2xl font-bold">{{cantidadUsuarios}}</h3>
+                <h5 class="text-lg font-semibold">Total de Jugadores</h5>
+                <h3 class="text-3xl" id="totalJugadores">{{cantidadUsuarios}}</h3>
             </div>
         </div>
-        <div class="card bg-success text-success-content shadow-lg">
+        <div class="card bg-success text-success-content">
             <div class="card-body">
-                <h5 class="card-title">Partidas Jugadas</h5>
-                <h3 id="partidasJugadas" class="text-2xl font-bold">{{cantidadPartidas}}</h3>
+                <h5 class="text-lg font-semibold">Partidas Jugadas</h5>
+                <h3 class="text-3xl" id="partidasJugadas">{{cantidadPartidas}}</h3>
             </div>
         </div>
-        <div class="card bg-info text-info-content shadow-lg">
+        <div class="card bg-info text-info-content">
             <div class="card-body">
-                <h5 class="card-title">Total de Preguntas</h5>
-                <h3 id="totalPreguntas" class="text-2xl font-bold">{{cantidadPreguntas}}</h3>
+                <h5 class="text-lg font-semibold">Total de Preguntas</h5>
+                <h3 class="text-3xl" id="totalPreguntas">{{cantidadPreguntas}}</h3>
             </div>
         </div>
-        <div class="card bg-warning text-warning-content shadow-lg">
+        <div class="card bg-warning text-warning-content">
             <div class="card-body">
-                <h5 class="card-title">Nuevos Usuarios (Hoy)</h5>
-                <h3 id="nuevosUsuarios" class="text-2xl font-bold">{{cantidadNuevosUsuarios}}</h3>
-            </div>
-        </div>
-    </div>
-
-    <!-- Graficos -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div class="card bg-base-400 shadow-2xl border border-black">
-            <div class="card-body">
-                <h5 class="card-title">Usuarios por País</h5>
-                <canvas id="chartUsuariosPais"></canvas>
-            </div>
-        </div>
-        <div class="card bg-base-400 shadow-2xl border border-black">
-            <div class="card-body">
-                <h5 class="card-title">Usuarios por Sexo</h5>
-                <canvas id="chartUsuariosSexo"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div class="card bg-base-400 shadow-2xl border border-black">
-            <div class="card-body">
-                <h5 class="card-title">Usuarios por Grupo de Edad</h5>
-                <canvas id="chartGrupoEdad"></canvas>
-            </div>
-        </div>
-        <div class="card bg-base-400 shadow-2xl border border-black">
-            <div class="card-body">
-                <h5 class="card-title">% Preguntas Correctas</h5>
-                <canvas id="chartPreguntasCorrectas"></canvas>
+                <h5 class="text-lg font-semibold">Nuevos Usuarios (Hoy)</h5>
+                <h3 class="text-3xl" id="nuevosUsuarios">{{cantidadNuevosUsuarios}}</h3>
             </div>
         </div>
     </div>
 
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div class="card bg-primary text-primary-content">
+            <div class="card-body">
+                <h5 class="text-lg font-semibold">Usuarios por País</h5>
+                <div class="bg-white p-4 rounded-md">
+                    <canvas id="chartUsuariosPais"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-success text-success-content">
+            <div class="card-body">
+                <h5 class="text-lg font-semibold">Usuarios por Sexo</h5>
+                <div class="bg-white p-4 rounded-md">
+                    <canvas id="chartUsuariosSexo"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div class="card bg-info text-info-content">
+            <div class="card-body">
+                <h5 class="text-lg font-semibold">Usuarios por Grupo de Edad</h5>
+                <div class="bg-white p-4 rounded-md">
+                    <canvas id="chartGrupoEdad"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-warning text-warning-content">
+            <div class="card-body">
+                <h5 class="text-lg font-semibold">% Preguntas Correctas</h5>
+                <div class="bg-white p-4 rounded-md">
+                    <canvas id="chartPreguntasCorrectas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Tabla -->
-    <h4 class="text-lg font-semibold mb-3">Tabla de Datos</h4>
+    <h4 class="text-xl font-semibold mb-4">Tabla de Datos</h4>
     <div class="overflow-x-auto">
-        <table class="table w-full" id="tablaDatos">
+        <table class="table w-full bg-gray-700" id="tablaDatos">
             <thead>
-            <tr>
-                <th class="text-white">Fecha</th>
-                <th class="text-white">Nuevos Usuarios</th>
-                <th class="text-white">Partidas Jugadas</th>
-                <th class="text-white">Preguntas Creadas</th>
-                <th class="text-white">% Correctas</th>
-            </tr>
+                <tr>
+                    <th class="text-lg font-semibold text-white">Fecha</th>
+                    <th class="text-lg font-semibold text-white">Nuevos Usuarios</th>
+                    <th class="text-lg font-semibold text-white">Partidas Jugadas</th>
+                    <th class="text-lg font-semibold text-white">Preguntas Creadas</th>
+                    <th class="text-lg font-semibold text-white">% Correctas</th>
+                </tr>
             </thead>
             <tbody>
-            {{#datosPorDia}}
-                <tr>
+                {{#datosPorDia}}
+                <tr class="hover:bg-gray-900">
                     <td>{{fecha}}</td>
                     <td>{{cantidad_nuevos_usuarios}}</td>
                     <td>{{cantidad_partidas_jugadas}}</td>
                     <td>{{cantidad_preguntas_creadas}}</td>
                     <td>{{porcentaje_respuestas_correctas}}%</td>
                 </tr>
-            {{/datosPorDia}}
+                {{/datosPorDia}}
             </tbody>
         </table>
     </div>
 
     <!-- Botones -->
-    <div class="flex justify-end gap-2 mt-4">
+    <div class="flex justify-end gap-4 mt-6">
         <button class="btn btn-primary" onclick="exportarTablaPDF()">Exportar Tabla</button>
         <button class="btn btn-info" onclick="exportarGraficosPDF()">Exportar Gráficos</button>
     </div>
 </main>
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
@@ -138,7 +146,7 @@
     const ctxPreguntas = document.getElementById('chartPreguntasCorrectas').getContext('2d');
 
     const chartUsuariosPais = configChart(ctxPais, 'bar', paises, usuariosPorPais, ['blue', 'red', 'yellow', 'green', 'orange', 'purple', 'brown', 'pink', 'gray', 'cyan', 'magenta', 'lime', 'teal', 'indigo', 'violet', 'black', 'white']);
-    const chartUsuariosSexo = configChart(ctxSexo, 'pie', sexos, usuariosPorSexo, ['blue', 'red', 'yellow']);
+    const chartUsuariosSexo = configChart(ctxSexo, 'pie', sexos, usuariosPorSexo, ['blue', 'red', 'yellow'], 'Sexo');
     const chartGrupoEdad = configChart(ctxEdad, 'bar', ['Menores', 'Jubilados', 'Adultos'], usuariosPorEdad, ['blue', 'red', 'yellow']);
     const chartPreguntasCorrectas = configChart(ctxPreguntas, 'line', porcentajeRespondidasCorrectamente.map(d => d.fecha), porcentajeRespondidasCorrectamente.map(d => d.porcentaje_correctas), 'blue', '% Correctas');
 
