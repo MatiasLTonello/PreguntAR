@@ -85,19 +85,19 @@
     <!-- Tabla -->
     <h4 class="text-xl font-semibold mb-4">Tabla de Datos</h4>
     <div class="overflow-x-auto">
-        <table class="table w-full" id="tablaDatos">
+        <table class="table w-full bg-gray-700" id="tablaDatos">
             <thead>
                 <tr>
-                    <th>Fecha</th>
-                    <th>Nuevos Usuarios</th>
-                    <th>Partidas Jugadas</th>
-                    <th>Preguntas Creadas</th>
-                    <th>% Correctas</th>
+                    <th class="text-lg font-semibold text-white">Fecha</th>
+                    <th class="text-lg font-semibold text-white">Nuevos Usuarios</th>
+                    <th class="text-lg font-semibold text-white">Partidas Jugadas</th>
+                    <th class="text-lg font-semibold text-white">Preguntas Creadas</th>
+                    <th class="text-lg font-semibold text-white">% Correctas</th>
                 </tr>
             </thead>
             <tbody>
                 {{#datosPorDia}}
-                <tr>
+                <tr class="hover:bg-gray-900">
                     <td>{{fecha}}</td>
                     <td>{{cantidad_nuevos_usuarios}}</td>
                     <td>{{cantidad_partidas_jugadas}}</td>
