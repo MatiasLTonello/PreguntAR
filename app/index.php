@@ -15,12 +15,12 @@ if (!isset($_SESSION['user']) || !isset($_SESSION['actualUser'])) {
     }
 }
 
-if (strpos($page, 'editor') === 0 && (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != 2)) {
+if (strpos($page, 'editor') === 0 && (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != 2) || strpos($page, 'partida') === 0 && (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] == 2)) {
     header('Location: /home');
     exit();
 }
 
-if (strpos($page, 'admin') === 0 && (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != 1)) {
+if (strpos($page, 'admin') === 0 && (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] != 1) || strpos($page, 'partida') === 0 && (!isset($_SESSION['id_rol']) || $_SESSION['id_rol'] == 1)) {
     header('Location: /home');
     exit();
 }
