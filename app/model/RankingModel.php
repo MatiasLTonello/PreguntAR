@@ -13,12 +13,19 @@ class RankingModel
     public function getRankingByPuntajeDesc()
     {
         $query = "
-            SELECT usuarios.id, usuarios.nombre_completo, SUM(partidas.puntaje) AS puntaje_total, COUNT(partidas.id) AS partidas_jugadas
-            FROM usuarios
-            JOIN partidas ON usuarios.id = partidas.id_usuario
-            GROUP BY usuarios.id
-            ORDER BY puntaje_total DESC
-        ";
+        SELECT usuarios.id, usuarios.nombre_completo, 
+               (SELECT MAX(puntaje) 
+                FROM partidas 
+                WHERE partidas.id_usuario = usuarios.id) AS mayor_puntaje,
+               COUNT(partidas.id) AS partidas_jugadas
+        FROM usuarios
+        LEFT JOIN partidas ON usuarios.id = partidas.id_usuario
+        GROUP BY usuarios.id
+        HAVING partidas_jugadas > 0
+        ORDER BY mayor_puntaje DESC
+    ";
+
+
         $users = $this->database->query($query);
 
         $posicion = 1;
@@ -33,12 +40,17 @@ class RankingModel
     public function getRankingByPuntajeAsc()
     {
         $query = "
-            SELECT usuarios.id, usuarios.nombre_completo, SUM(partidas.puntaje) AS puntaje_total, COUNT(partidas.id) AS partidas_jugadas
-            FROM usuarios
-            JOIN partidas ON usuarios.id = partidas.id_usuario
-            GROUP BY usuarios.id
-            ORDER BY puntaje_total ASC
-        ";
+        SELECT usuarios.id, usuarios.nombre_completo, 
+               (SELECT MAX(puntaje) 
+                FROM partidas 
+                WHERE partidas.id_usuario = usuarios.id) AS mayor_puntaje,
+               COUNT(partidas.id) AS partidas_jugadas
+        FROM usuarios
+        LEFT JOIN partidas ON usuarios.id = partidas.id_usuario
+        GROUP BY usuarios.id
+        HAVING partidas_jugadas > 0
+        ORDER BY mayor_puntaje ASC
+    ";
         $users = $this->database->query($query);
 
         $posicion = 1;
@@ -54,10 +66,15 @@ class RankingModel
     public function getRankingByPartidasDesc()
     {
         $query = "
-            SELECT usuarios.id, usuarios.nombre_completo, COUNT(partidas.id) AS partidas_jugadas, SUM(partidas.puntaje) AS puntaje_total
+            SELECT usuarios.id, usuarios.nombre_completo, 
+                   (SELECT MAX(puntaje) 
+                    FROM partidas 
+                    WHERE partidas.id_usuario = usuarios.id) AS mayor_puntaje,
+                   COUNT(partidas.id) AS partidas_jugadas
             FROM usuarios
-            JOIN partidas ON usuarios.id = partidas.id_usuario
+            LEFT JOIN partidas ON usuarios.id = partidas.id_usuario
             GROUP BY usuarios.id
+            HAVING partidas_jugadas > 0
             ORDER BY partidas_jugadas DESC
         ";
         $users = $this->database->query($query);
@@ -75,10 +92,15 @@ class RankingModel
     public function getRankingByPartidasAsc()
     {
         $query = "
-            SELECT usuarios.id, usuarios.nombre_completo, COUNT(partidas.id) AS partidas_jugadas, SUM(partidas.puntaje) AS puntaje_total
+            SELECT usuarios.id, usuarios.nombre_completo, 
+                   (SELECT MAX(puntaje) 
+                    FROM partidas 
+                    WHERE partidas.id_usuario = usuarios.id) AS mayor_puntaje,
+                   COUNT(partidas.id) AS partidas_jugadas
             FROM usuarios
-            JOIN partidas ON usuarios.id = partidas.id_usuario
+            LEFT JOIN partidas ON usuarios.id = partidas.id_usuario
             GROUP BY usuarios.id
+            HAVING partidas_jugadas > 0
             ORDER BY partidas_jugadas ASC
         ";
         $users = $this->database->query($query);
