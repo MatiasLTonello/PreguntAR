@@ -65,7 +65,7 @@ class Configuration
 
     public function getLogoutController()
     {
-        return new LogoutController();
+        return new LogoutController($this->getPartidaModel());
     }
 
     public function getLoginController()
