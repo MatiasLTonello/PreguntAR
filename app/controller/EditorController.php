@@ -41,7 +41,6 @@ class EditorController
     {
         $idPregunta = $_GET["id_pregunta"];
 
-        $this->editorModel->eliminarRespuestasDePregunta($idPregunta);
         $this->editorModel->eliminarPreguntaById($idPregunta);
 
         header("Location: /editor");

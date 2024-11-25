@@ -5,7 +5,7 @@
         {{#pregunta}}
             <div class="mb-4">
                 <label for="pregunta" class="label font-bold text-gray-300">Pregunta</label>
-                <input id="pregunta" type="text" class="input input-bordered w-full text-white" name="pregunta" value="{{pregunta}}">
+                <input id="pregunta" type="text" class="input input-bordered w-full text-gray-800" name="pregunta" value="{{pregunta}}">
                 <input type="hidden" value="{{id}}" name="idPregunta">
             </div>
             <div class="mb-4">
@@ -13,14 +13,14 @@
             </div>
             <div class="mb-4">
                 <label for="categoria" class="label text-gray-300">Seleccione categoría</label>
-                <select name="categoria" id="categoria" class="select select-bordered w-full text-gray-300">
+                <select name="categoria" id="categoria" class="select select-bordered w-full text-gray-800">
                     {{#categorias}}
                         <option value="{{id}}" {{#is_selected}}selected{{/is_selected}}>{{nombre}}</option>
                     {{/categorias}}
                 </select>
             </div>
         {{/pregunta}}
-        <ul class="list-none p-0 text-white">
+        <ul class="list-none p-0 text-gray-800">
             {{#respuestas}}
                 <li class="mb-4">
                     <input type="hidden" name="idRespuesta[]" value="{{id}}">

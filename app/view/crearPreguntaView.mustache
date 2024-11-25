@@ -5,13 +5,13 @@
         <!-- Pregunta input -->
         <div class="mb-5">
             <label for="pregunta" class="block text-lg font-medium text-gray-400">Pregunta:</label>
-            <input required name="pregunta" id="pregunta" type="text" placeholder="Ingrese su pregunta" class="input input-bordered w-full mt-2 text-white" />
+            <input required name="pregunta" id="pregunta" type="text" placeholder="Ingrese su pregunta" class="input input-bordered w-full mt-2" />
         </div>
 
         <!-- Categoria select -->
         <div class="mb-5">
             <label for="categoria" class="block text-lg font-medium text-gray-400">Seleccione categoría</label>
-            <select name="categoria" id="categoria" class="select select-bordered w-full mt-2 text-black">
+            <select name="categoria" id="categoria" class="select select-bordered w-full mt-2">
                 {{#categorias}}
                     <option value="{{id}}">{{nombre}}</option>
                 {{/categorias}}
