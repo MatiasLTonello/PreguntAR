@@ -16,7 +16,7 @@ function filtrar() {
                         posicion,
                         id,
                         nombre_completo,
-                        puntaje_total,
+                        mayor_puntaje,
                         partidas_jugadas
                     } = user
                     
@@ -32,7 +32,7 @@ function filtrar() {
                                     </div>
                                 </div>
                             </td>
-                            <td class="font-medium">${puntaje_total}</td>
+                            <td class="font-medium">${mayor_puntaje}</td>
                             <td>${partidas_jugadas}</td>
                         </tr>`;
                     $("#ranking-table tbody").append(fila);
